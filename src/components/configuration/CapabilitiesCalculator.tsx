@@ -21,9 +21,9 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
   const competitiveAdvantage = Math.min(100, Math.round((selectedCapabilities.length / maxCapabilities) * 100));
   
   return (
-    <Card className="border-gray-700 bg-gray-800/60 overflow-hidden">
+    <Card className="border-gray-700 bg-gray-800/60 backdrop-blur-sm overflow-hidden shadow-lg">
       <CardHeader className="bg-gradient-to-r from-xelia-accent/20 to-transparent pb-4 border-b border-gray-700">
-        <CardTitle className="text-white flex items-center gap-2">
+        <CardTitle className="text-white flex items-center gap-2 font-display">
           <CircleDollarSign className="h-5 w-5" />
           Calculadora de valor
         </CardTitle>
@@ -32,16 +32,16 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
         {/* Costo Mensual */}
         <div className="space-y-3">
           <div className="flex justify-between items-center mb-1">
-            <h4 className="text-md font-medium text-white flex items-center">
+            <h4 className="text-md font-medium text-white flex items-center font-display">
               <CircleDollarSign className="h-4 w-4 mr-2 text-xelia-accent" />
               Costo mensual estimado
             </h4>
-            <span className="text-xl font-bold text-white">
+            <span className="text-xl font-bold text-white font-display">
               ${totalCost}
               <span className="text-sm text-gray-400 ml-1">/mes</span>
             </span>
           </div>
-          <div className="text-xs text-gray-400">
+          <div className="text-xs text-gray-400 font-body">
             Incluye: costo base (${baseCost}) + {selectedCapabilities.length} capacidades seleccionadas
           </div>
         </div>
@@ -49,11 +49,11 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
         {/* Ventaja Competitiva */}
         <div className="space-y-3">
           <div className="flex justify-between items-center mb-1">
-            <h4 className="text-md font-medium text-white flex items-center">
+            <h4 className="text-md font-medium text-white flex items-center font-display">
               <TrendingUp className="h-4 w-4 mr-2 text-green-500" />
               Ventaja competitiva
             </h4>
-            <span className="text-xl font-bold text-white">
+            <span className="text-xl font-bold text-white font-display">
               {competitiveAdvantage}%
             </span>
           </div>
@@ -63,7 +63,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
             disabled
             className="cursor-default"
           />
-          <div className={`text-xs ${competitiveAdvantage > 75 ? 'text-green-400' : competitiveAdvantage > 50 ? 'text-yellow-400' : 'text-gray-400'}`}>
+          <div className={`text-xs ${competitiveAdvantage > 75 ? 'text-green-400' : competitiveAdvantage > 50 ? 'text-yellow-400' : 'text-gray-400'} font-body`}>
             {competitiveAdvantage <= 25 && "Básico: Funcionalidad mínima para interactuar con clientes."}
             {competitiveAdvantage > 25 && competitiveAdvantage <= 50 && "Estándar: Buena base para empezar a destacar en tu industria."}
             {competitiveAdvantage > 50 && competitiveAdvantage <= 75 && "Avanzado: Superas a la mayoría de tu competencia directa."}
@@ -76,7 +76,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
           <div className="flex items-start">
             <Shield className="h-5 w-5 text-xelia-accent mr-3 mt-0.5" />
             <div>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-gray-300 font-body">
                 {selectedCapabilities.length === 0 
                   ? "Selecciona al menos una capacidad para tu agente Xelia."
                   : selectedCapabilities.length < 3

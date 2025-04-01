@@ -19,6 +19,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				display: ['Montserrat', 'sans-serif'],
+				body: ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -112,6 +116,9 @@ export default {
 				'button-pulse': {
 					'0%, 100%': { boxShadow: '0 0 0 0 rgba(85, 88, 255, 0.4)' },
 					'50%': { boxShadow: '0 0 0 10px rgba(85, 88, 255, 0)' }
+				},
+				'shimmer': {
+					'100%': { transform: 'translateX(100%)' }
 				}
 			},
 			animation: {
@@ -121,7 +128,8 @@ export default {
 				'float-gentle': 'float-gentle 6s ease-in-out infinite',
 				'circle-breathe': 'circle-breathe 4s ease-in-out infinite',
 				'fade-in': 'fade-in 0.8s ease-out',
-				'button-pulse': 'button-pulse 2s infinite'
+				'button-pulse': 'button-pulse 2s infinite',
+				'shimmer': 'shimmer 1.5s infinite'
 			}
 		}
 	},
