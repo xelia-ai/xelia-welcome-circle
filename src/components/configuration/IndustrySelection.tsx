@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils } from 'lucide-react';
+import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface IndustrySelectionProps {
@@ -71,6 +71,12 @@ const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustry,
       icon: <Building2 className="h-6 w-6" />,
       description: 'Automatiza procesos internos y mejora la comunicación con clientes corporativos.'
     },
+    {
+      id: 'custom',
+      name: 'Personalizado',
+      icon: <Settings className="h-6 w-6" />,
+      description: 'Crea una solución adaptada específicamente a tus necesidades con las opciones disponibles en nuestra plataforma.'
+    },
   ];
 
   const selectedIndustryData = industries.find(industry => industry.id === selectedIndustry);
@@ -109,11 +115,29 @@ const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustry,
           {selectedIndustryData ? (
             <>
               <h3 className="text-xl font-medium mb-3 text-white">
-                Con Xelia en la industria {selectedIndustryData.name}
+                {selectedIndustryData.id === 'custom' 
+                  ? 'Solución personalizada' 
+                  : `Con Xelia en la industria ${selectedIndustryData.name}`}
               </h3>
               <p className="text-gray-300">
                 {selectedIndustryData.description}
               </p>
+              {selectedIndustryData.id === 'custom' && (
+                <ul className="mt-3 space-y-1 text-gray-300 text-sm">
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 rounded-full bg-xelia-accent"></div>
+                    Configura el conocimiento específico de tu empresa
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 rounded-full bg-xelia-accent"></div>
+                    Adapta las respuestas al tono y estilo de tu marca
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 rounded-full bg-xelia-accent"></div>
+                    Personaliza los flujos de conversación según tus procesos
+                  </li>
+                </ul>
+              )}
             </>
           ) : (
             <p className="text-gray-400 italic">
