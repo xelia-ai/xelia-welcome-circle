@@ -2,8 +2,15 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import WelcomeCircle from '@/components/WelcomeCircle';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
+  const navigate = useNavigate();
+  
+  const handleConfigureClick = () => {
+    navigate('/configure');
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-xelia-dark to-xelia-light px-4 py-8">
       <div className="max-w-md w-full flex flex-col items-center">
@@ -23,7 +30,7 @@ const Index = () => {
           <div className="mt-8">
             <Button 
               className="cta-button text-white font-medium px-8 py-6 rounded-xl text-lg animate-button-pulse"
-              onClick={() => console.log('Configure agent clicked')}
+              onClick={handleConfigureClick}
             >
               Configura tu agente
             </Button>
