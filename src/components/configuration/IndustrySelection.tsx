@@ -82,67 +82,86 @@ const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustry,
   const selectedIndustryData = industries.find(industry => industry.id === selectedIndustry);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
         {industries.map((industry) => (
           <div
             key={industry.id}
             className={cn(
-              "border p-4 rounded-lg cursor-pointer transition-all hover:bg-xelia-accent/10 hover:border-xelia-accent",
+              "relative frosted-glass p-4 rounded-xl cursor-pointer transition-all hover:shadow-elegant-hover group",
               selectedIndustry === industry.id 
-                ? "border-xelia-accent bg-xelia-accent/10" 
-                : "border-gray-700 bg-gray-800/50"
+                ? "border-xelia-accent bg-xelia-accent/5" 
+                : "border-white/10 bg-xelia-light/30"
             )}
             onClick={() => onSelect(industry.id, industry.name)}
           >
             <div className="flex items-center gap-3 mb-2">
               <div className={cn(
-                "p-2 rounded-full", 
+                "p-2.5 rounded-lg transition-all duration-300", 
                 selectedIndustry === industry.id 
-                  ? "bg-xelia-accent text-white" 
-                  : "bg-gray-700 text-gray-300"
+                  ? "bg-xelia-accent text-white shadow-accent" 
+                  : "bg-xelia-light text-gray-300 group-hover:bg-xelia-accent/20 group-hover:text-white"
               )}>
                 {industry.icon}
               </div>
-              <h3 className="text-lg font-medium text-white">{industry.name}</h3>
+              <h3 className={cn(
+                "text-lg font-medium",
+                selectedIndustry === industry.id 
+                  ? "text-white" 
+                  : "text-gray-200"
+              )}>
+                {industry.name}
+              </h3>
             </div>
+            
+            {/* Selection indicator */}
+            {selectedIndustry === industry.id && (
+              <div className="absolute top-2 right-2">
+                <div className="w-2 h-2 rounded-full bg-xelia-accent"></div>
+              </div>
+            )}
           </div>
         ))}
       </div>
 
       <div className="relative">
-        <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-5 h-full">
+        <div className="frosted-glass rounded-xl p-5 h-full">
           {selectedIndustryData ? (
             <>
-              <h3 className="text-xl font-medium mb-3 text-white">
+              <h3 className="text-xl font-medium mb-3 text-gradient">
                 {selectedIndustryData.id === 'custom' 
                   ? 'Solución personalizada' 
                   : `Con Xelia en la industria ${selectedIndustryData.name}`}
               </h3>
-              <p className="text-gray-300">
+              <p className="text-gray-300 mb-5">
                 {selectedIndustryData.description}
               </p>
               {selectedIndustryData.id === 'custom' && (
-                <ul className="mt-3 space-y-1 text-gray-300 text-sm">
+                <ul className="mt-3 space-y-2 text-gray-300 text-sm">
                   <li className="flex items-center gap-2">
-                    <div className="w-1 h-1 rounded-full bg-xelia-accent"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent"></div>
                     Configura el conocimiento específico de tu empresa
                   </li>
                   <li className="flex items-center gap-2">
-                    <div className="w-1 h-1 rounded-full bg-xelia-accent"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent"></div>
                     Adapta las respuestas al tono y estilo de tu marca
                   </li>
                   <li className="flex items-center gap-2">
-                    <div className="w-1 h-1 rounded-full bg-xelia-accent"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent"></div>
                     Personaliza los flujos de conversación según tus procesos
                   </li>
                 </ul>
               )}
             </>
           ) : (
-            <p className="text-gray-400 italic">
-              Selecciona una industria para ver los beneficios específicos
-            </p>
+            <div className="h-full flex flex-col items-center justify-center text-center py-10">
+              <div className="text-xelia-accent/40 mb-4">
+                <Building className="w-12 h-12" />
+              </div>
+              <p className="text-gray-400 italic">
+                Selecciona una industria para ver los beneficios específicos
+              </p>
+            </div>
           )}
         </div>
       </div>

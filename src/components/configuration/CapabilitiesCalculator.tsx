@@ -1,8 +1,6 @@
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
-import { CircleDollarSign, TrendingUp, Shield } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { CreditCard, PlusCircle, ListChecks } from 'lucide-react';
 
 interface CapabilitiesCalculatorProps {
   selectedCapabilities: string[];
@@ -11,83 +9,113 @@ interface CapabilitiesCalculatorProps {
 const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({ 
   selectedCapabilities 
 }) => {
-  // Calcular costo base y por capacidad
-  const baseCost = 29; // Costo base mensual
-  const costPerCapability = 12; // Costo adicional por cada capacidad
-  const totalCost = baseCost + (selectedCapabilities.length * costPerCapability);
-  
-  // Calcular porcentaje de ventaja competitiva (0-100%)
-  const maxCapabilities = 6; // Total de capacidades disponibles
-  const competitiveAdvantage = Math.min(100, Math.round((selectedCapabilities.length / maxCapabilities) * 100));
-  
+  const [callsPerMonth, setCallsPerMonth] = useState<100 | 200 | 300 | 400>(100);
+  const [calculatedPrice, setCalculatedPrice] = useState({
+    basePrice: 70,
+    callsPrice: 22.78,
+    integrationsPrice: 0,
+    totalPrice: 92.78,
+    suggestedPrice: 132.55
+  });
+
+  // Calculate prices based on selected capabilities and calls per month
+  useEffect(() => {
+    // Map capability count to integrations count (simplification)
+    const integrationsCount = Math.min(Math.ceil(selectedCapabilities.length / 2), 4);
+    
+    let integrationsPrice = 0;
+    if (integrationsCount >= 2) integrationsPrice = 50;
+    if (integrationsCount >= 3) integrationsPrice = 149;
+    if (integrationsCount >= 4) integrationsPrice = 298;
+    
+    const callsPriceMap = {
+      100: 22.78,
+      200: 45.57,
+      300: 68.35,
+      400: 91.14
+    };
+    
+    const callsPrice = callsPriceMap[callsPerMonth];
+    const basePrice = 70; // Base platform fee
+    const totalPrice = basePrice + callsPrice + integrationsPrice;
+    const suggestedPrice = totalPrice * 1.43; // 30% margin
+    
+    setCalculatedPrice({
+      basePrice,
+      callsPrice,
+      integrationsPrice,
+      totalPrice,
+      suggestedPrice
+    });
+    
+  }, [selectedCapabilities, callsPerMonth]);
+
   return (
-    <Card className="border-gray-700 bg-gray-800/60 backdrop-blur-sm overflow-hidden shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-xelia-accent/20 to-transparent pb-4 border-b border-gray-700">
-        <CardTitle className="text-white flex items-center gap-2 font-display">
-          <CircleDollarSign className="h-5 w-5" />
-          Calculadora de valor
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="pt-6 space-y-6">
-        {/* Costo Mensual */}
-        <div className="space-y-3">
-          <div className="flex justify-between items-center mb-1">
-            <h4 className="text-md font-medium text-white flex items-center font-display">
-              <CircleDollarSign className="h-4 w-4 mr-2 text-xelia-accent" />
-              Costo mensual estimado
-            </h4>
-            <span className="text-xl font-bold text-white font-display">
-              ${totalCost}
-              <span className="text-sm text-gray-400 ml-1">/mes</span>
-            </span>
-          </div>
-          <div className="text-xs text-gray-400 font-body">
-            Incluye: costo base (${baseCost}) + {selectedCapabilities.length} capacidades seleccionadas
+    <div className="frosted-glass rounded-xl p-6">
+      <div className="flex items-center mb-6">
+        <div className="p-2 rounded-lg bg-xelia-accent/20 text-xelia-accent mr-3">
+          <CreditCard className="w-5 h-5" />
+        </div>
+        <h3 className="text-xl font-medium text-white">Calculadora de precio</h3>
+      </div>
+      
+      <div className="space-y-4">
+        <div>
+          <label className="text-sm font-medium text-gray-300 mb-2 block">
+            Conversaciones / mes
+          </label>
+          <div className="grid grid-cols-4 gap-2">
+            {[100, 200, 300, 400].map((value) => (
+              <button
+                key={value}
+                onClick={() => setCallsPerMonth(value as 100 | 200 | 300 | 400)}
+                className={`py-2 text-sm rounded-lg transition-all ${
+                  callsPerMonth === value
+                    ? 'bg-xelia-accent text-white'
+                    : 'bg-xelia-light/60 text-gray-300 hover:bg-xelia-light'
+                }`}
+              >
+                {value}
+              </button>
+            ))}
           </div>
         </div>
-
-        {/* Ventaja Competitiva */}
-        <div className="space-y-3">
-          <div className="flex justify-between items-center mb-1">
-            <h4 className="text-md font-medium text-white flex items-center font-display">
-              <TrendingUp className="h-4 w-4 mr-2 text-green-500" />
-              Ventaja competitiva
-            </h4>
-            <span className="text-xl font-bold text-white font-display">
-              {competitiveAdvantage}%
-            </span>
+        
+        <div className="bg-xelia-light/30 rounded-lg p-4 space-y-3">
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-400">Tarifa base</span>
+            <span className="text-white font-medium">${calculatedPrice.basePrice.toFixed(2)} USD</span>
           </div>
-          <Slider 
-            value={[competitiveAdvantage]} 
-            max={100}
-            disabled
-            className="cursor-default"
-          />
-          <div className={`text-xs ${competitiveAdvantage > 75 ? 'text-green-400' : competitiveAdvantage > 50 ? 'text-yellow-400' : 'text-gray-400'} font-body`}>
-            {competitiveAdvantage <= 25 && "Básico: Funcionalidad mínima para interactuar con clientes."}
-            {competitiveAdvantage > 25 && competitiveAdvantage <= 50 && "Estándar: Buena base para empezar a destacar en tu industria."}
-            {competitiveAdvantage > 50 && competitiveAdvantage <= 75 && "Avanzado: Superas a la mayoría de tu competencia directa."}
-            {competitiveAdvantage > 75 && "Premium: Máxima ventaja competitiva en tu mercado."}
+          
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-400">Conversaciones ({callsPerMonth}/mes)</span>
+            <span className="text-white font-medium">${calculatedPrice.callsPrice.toFixed(2)} USD</span>
+          </div>
+          
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-400">
+              Integraciones ({Math.min(Math.ceil(selectedCapabilities.length / 2), 4)})
+            </span>
+            <span className="text-white font-medium">${calculatedPrice.integrationsPrice.toFixed(2)} USD</span>
+          </div>
+          
+          <div className="pt-2 border-t border-white/10 flex justify-between items-center">
+            <span className="text-gray-300 font-medium">Costo total</span>
+            <span className="text-white font-semibold">${calculatedPrice.totalPrice.toFixed(2)} USD</span>
           </div>
         </div>
-
-        {/* Mensaje de Capacidades */}
-        <div className="bg-xelia-accent/10 border border-xelia-accent/20 rounded-lg p-4 mt-4">
-          <div className="flex items-start">
-            <Shield className="h-5 w-5 text-xelia-accent mr-3 mt-0.5" />
+        
+        <div className="bg-xelia-accent/10 rounded-lg p-4 border border-xelia-accent/30">
+          <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm text-gray-300 font-body">
-                {selectedCapabilities.length === 0 
-                  ? "Selecciona al menos una capacidad para tu agente Xelia."
-                  : selectedCapabilities.length < 3
-                    ? "Añade más capacidades para potenciar a Xelia y mejorar la experiencia de tus clientes."
-                    : "¡Excelente selección! Xelia está configurada para maximizar la satisfacción de tus clientes."}
-              </p>
+              <span className="text-xelia-accent text-sm font-medium block">Precio sugerido de reventa</span>
+              <span className="text-xs text-gray-400">(con margen de 30%)</span>
             </div>
+            <span className="text-xelia-accent font-bold text-xl">${calculatedPrice.suggestedPrice.toFixed(2)} USD</span>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

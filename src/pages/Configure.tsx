@@ -1,20 +1,56 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CircleCheck, Bot, Settings, Building2, Globe, Zap, Link } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import IndustrySelection from '@/components/configuration/IndustrySelection';
 import WebsiteInput from '@/components/configuration/WebsiteInput';
 import CapabilitiesSelection from '@/components/configuration/CapabilitiesSelection';
 import IntegrationsSelection from '@/components/configuration/IntegrationsSelection';
 import Summary from '@/components/configuration/Summary';
+import AgentTypeSelection from '@/components/configuration/AgentTypeSelection';
+import AgentPreview from '@/components/configuration/AgentPreview';
 
-type ConfigStep = 'industry' | 'website' | 'capabilities' | 'integrations' | 'summary';
+type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'integrations' | 'summary';
+
+const stepInfo = {
+  'agent-type': {
+    title: 'Elige el tipo de agente',
+    description: 'Selecciona el tipo de agente IA que mejor se adapte a tus necesidades.',
+    icon: <Bot className="w-5 h-5" />
+  },
+  'industry': {
+    title: 'Selecciona tu industria',
+    description: 'Personaliza tu agente según tu industria para obtener mejores resultados.',
+    icon: <Building2 className="w-5 h-5" />
+  },
+  'website': {
+    title: 'Ingresa tu sitio web',
+    description: 'Xelia analizará tu sitio web para ofrecer mejores respuestas.',
+    icon: <Globe className="w-5 h-5" />
+  },
+  'capabilities': {
+    title: 'Selecciona las capacidades',
+    description: 'Elige las funcionalidades que necesita tu agente de IA.',
+    icon: <Zap className="w-5 h-5" />
+  },
+  'integrations': {
+    title: 'Configura integraciones',
+    description: 'Conecta Xelia con tus herramientas y sistemas existentes.',
+    icon: <Link className="w-5 h-5" />
+  },
+  'summary': {
+    title: 'Resumen de configuración',
+    description: 'Revisa tu configuración antes de finalizar.',
+    icon: <Settings className="w-5 h-5" />
+  }
+};
 
 const Configure = () => {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<ConfigStep>('industry');
+  const [currentStep, setCurrentStep] = useState<ConfigStep>('agent-type');
   const [config, setConfig] = useState({
+    agentType: '',
     industry: '',
     industryName: '',
     website: '',
@@ -28,6 +64,9 @@ const Configure = () => {
 
   const goToNextStep = () => {
     switch (currentStep) {
+      case 'agent-type':
+        setCurrentStep('industry');
+        break;
       case 'industry':
         setCurrentStep('website');
         break;
@@ -49,6 +88,9 @@ const Configure = () => {
 
   const goToPreviousStep = () => {
     switch (currentStep) {
+      case 'industry':
+        setCurrentStep('agent-type');
+        break;
       case 'website':
         setCurrentStep('industry');
         break;
@@ -66,6 +108,8 @@ const Configure = () => {
 
   const canProceed = () => {
     switch (currentStep) {
+      case 'agent-type':
+        return !!config.agentType;
       case 'industry':
         return !!config.industry;
       case 'website':
@@ -83,14 +127,47 @@ const Configure = () => {
 
   const renderStepContent = () => {
     switch (currentStep) {
+      case 'agent-type':
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="md:col-span-2">
+              <AgentTypeSelection 
+                selectedType={config.agentType} 
+                onSelect={(type) => updateConfig('agentType', type)} 
+              />
+            </div>
+            <div className="h-full">
+              {config.agentType && (
+                <AgentPreview 
+                  agentType={config.agentType}
+                  industry={config.industry}
+                  capabilities={config.capabilities}
+                />
+              )}
+            </div>
+          </div>
+        );
       case 'industry':
-        return <IndustrySelection 
-          selectedIndustry={config.industry} 
-          onSelect={(id, name) => {
-            updateConfig('industry', id);
-            updateConfig('industryName', name);
-          }}
-        />;
+        return (
+          <div>
+            <IndustrySelection 
+              selectedIndustry={config.industry} 
+              onSelect={(id, name) => {
+                updateConfig('industry', id);
+                updateConfig('industryName', name);
+              }}
+            />
+            {config.industry && config.agentType && (
+              <div className="mt-6 md:hidden">
+                <AgentPreview 
+                  agentType={config.agentType}
+                  industry={config.industry}
+                  capabilities={config.capabilities}
+                />
+              </div>
+            )}
+          </div>
+        );
       case 'website':
         return <WebsiteInput 
           website={config.website} 
@@ -117,23 +194,33 @@ const Configure = () => {
   };
 
   const getStepNumber = () => {
-    switch (currentStep) {
-      case 'industry': return 1;
-      case 'website': return 2;
-      case 'capabilities': return 3;
-      case 'integrations': return 4;
-      case 'summary': return 5;
-      default: return 0;
-    }
+    const steps: ConfigStep[] = ['agent-type', 'industry', 'website', 'capabilities', 'integrations', 'summary'];
+    return steps.indexOf(currentStep) + 1;
   };
 
+  const totalSteps = 6;
+  const progress = ((getStepNumber() - 1) / (totalSteps - 1)) * 100;
+
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark to-xelia-light p-6">
-      <div className="max-w-4xl w-full mx-auto flex flex-col flex-grow">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light py-8 px-4 sm:px-6">
+      <div className="max-w-5xl w-full mx-auto flex flex-col flex-grow">
+        {/* Header with step info */}
+        <div className="mb-6">
+          <div className="flex items-center mb-2">
+            <div className="w-10 h-10 rounded-full bg-xelia-accent/20 flex items-center justify-center mr-3">
+              {stepInfo[currentStep].icon}
+            </div>
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold text-white">{stepInfo[currentStep].title}</h1>
+              <p className="text-gray-400 text-sm">{stepInfo[currentStep].description}</p>
+            </div>
+          </div>
+        </div>
+        
         {/* Progress bar */}
         <div className="mb-8">
           <div className="flex justify-between mb-2">
-            {['Industria', 'Sitio Web', 'Capacidades', 'Integraciones', 'Resumen'].map((label, index) => (
+            {['Tipo', 'Industria', 'Web', 'Capacidades', 'Integraciones', 'Resumen'].map((label, index) => (
               <div 
                 key={label} 
                 className={`text-xs font-medium ${getStepNumber() > index + 1 ? 'text-xelia-accent' : 
@@ -143,51 +230,53 @@ const Configure = () => {
               </div>
             ))}
           </div>
-          <div className="w-full bg-gray-700 h-2 rounded-full">
+          <div className="w-full bg-xelia-light h-2 rounded-full overflow-hidden">
             <div 
               className="bg-xelia-accent h-2 rounded-full transition-all duration-500"
-              style={{ width: `${(getStepNumber() - 1) * 25}%` }}
+              style={{ width: `${progress}%` }}
             ></div>
           </div>
         </div>
 
         {/* Main content area */}
-        <div className="bg-xelia-light rounded-xl p-6 shadow-lg flex-grow mb-6">
-          <h1 className="text-2xl font-bold text-white mb-6">
-            {currentStep === 'industry' && 'Selecciona tu industria'}
-            {currentStep === 'website' && 'Ingresa tu sitio web'}
-            {currentStep === 'capabilities' && 'Selecciona las capacidades'}
-            {currentStep === 'integrations' && 'Configura integraciones'}
-            {currentStep === 'summary' && 'Resumen de configuración'}
-          </h1>
-
-          <div className="flex flex-row gap-6">
-            <div className="flex-grow">
-              {renderStepContent()}
-            </div>
+        <div className="frosted-glass rounded-xl p-6 flex-grow mb-6">
+          <div className="h-full">
+            {renderStepContent()}
           </div>
         </div>
 
         {/* Navigation buttons */}
-        <div className="flex justify-between">
-          <Button 
-            variant="outline" 
-            onClick={goToPreviousStep}
-            disabled={currentStep === 'industry'}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft size={16} />
-            Anterior
-          </Button>
+        <div className="flex justify-between items-center">
+          <div>
+            <Button 
+              variant="outline" 
+              onClick={goToPreviousStep}
+              disabled={currentStep === 'agent-type'}
+              className="flex items-center gap-2 border-white/20 text-white hover:bg-white/10 hover:text-white"
+            >
+              <ArrowLeft size={16} />
+              Anterior
+            </Button>
+          </div>
           
-          <Button 
-            onClick={goToNextStep}
-            disabled={!canProceed()}
-            className="flex items-center gap-2 bg-xelia-accent hover:bg-xelia-accent/90"
-          >
-            {currentStep === 'summary' ? 'Finalizar' : 'Siguiente'}
-            {currentStep === 'summary' ? <Check size={16} /> : <ArrowRight size={16} />}
-          </Button>
+          <div className="text-center text-sm text-gray-400">
+            Paso {getStepNumber()} de {totalSteps}
+          </div>
+          
+          <div>
+            <Button 
+              onClick={goToNextStep}
+              disabled={!canProceed()}
+              className={`flex items-center gap-2 ${
+                canProceed() 
+                  ? 'bg-xelia-accent hover:bg-xelia-accent-dark shadow-accent' 
+                  : 'bg-xelia-accent/50 cursor-not-allowed'
+              }`}
+            >
+              {currentStep === 'summary' ? 'Finalizar' : 'Siguiente'}
+              {currentStep === 'summary' ? <Check size={16} /> : <ArrowRight size={16} />}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

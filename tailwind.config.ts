@@ -58,11 +58,14 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				xelia: {
-					dark: '#141618',
-					DEFAULT: '#1E2124',
-					light: '#232529',
-					accent: '#5558ff',
-					white: '#FFFFFF'
+					dark: '#0F1012',
+					DEFAULT: '#181A1F',
+					light: '#1E2026',
+					accent: '#5C6AFF',
+					'accent-light': '#7E89FF',
+					'accent-dark': '#4652E5',
+					white: '#FFFFFF',
+					muted: '#8A8D96'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -113,13 +116,25 @@ export default {
 					'0%': { opacity: '0', transform: 'translateY(10px)' },
 					'100%': { opacity: '1', transform: 'translateY(0)' }
 				},
+				'fade-in-right': {
+					'0%': { opacity: '0', transform: 'translateX(10px)' },
+					'100%': { opacity: '1', transform: 'translateX(0)' }
+				},
 				'button-pulse': {
-					'0%, 100%': { boxShadow: '0 0 0 0 rgba(85, 88, 255, 0.4)' },
-					'50%': { boxShadow: '0 0 0 10px rgba(85, 88, 255, 0)' }
+					'0%, 100%': { boxShadow: '0 0 0 0 rgba(92, 106, 255, 0.4)' },
+					'50%': { boxShadow: '0 0 0 10px rgba(92, 106, 255, 0)' }
 				},
 				'shimmer': {
 					'100%': { transform: 'translateX(100%)' }
-				}
+				},
+				'text-shimmer': {
+          '0%': {
+            backgroundPosition: '-200% 0',
+          },
+          '100%': {
+            backgroundPosition: '200% 0',
+          },
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -128,9 +143,17 @@ export default {
 				'float-gentle': 'float-gentle 6s ease-in-out infinite',
 				'circle-breathe': 'circle-breathe 4s ease-in-out infinite',
 				'fade-in': 'fade-in 0.8s ease-out',
+				'fade-in-right': 'fade-in-right 0.8s ease-out',
 				'button-pulse': 'button-pulse 2s infinite',
-				'shimmer': 'shimmer 1.5s infinite'
-			}
+				'shimmer': 'shimmer 1.5s infinite',
+				'text-shimmer': 'text-shimmer 5s infinite linear'
+			},
+			boxShadow: {
+        'elegant': '0px 10px 30px -5px rgba(0, 0, 0, 0.3)',
+        'elegant-sm': '0px 5px 15px -5px rgba(0, 0, 0, 0.2)',
+        'elegant-hover': '0px 15px 30px -5px rgba(0, 0, 0, 0.4)',
+        'accent': '0px 5px 15px -5px rgba(92, 106, 255, 0.35)',
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
