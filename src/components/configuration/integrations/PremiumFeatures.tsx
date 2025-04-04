@@ -58,7 +58,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {features.map((feature) => {
         const isActive = selectedFeatures.includes(feature.id);
         return (
@@ -81,8 +81,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
                 </span>
                 <CardTitle className="text-lg font-semibold text-white">{feature.name}</CardTitle>
               </div>
-              <div className="flex items-center gap-2 pt-1 shrink-0">
-                <span className="text-xs text-gray-400">{isActive ? 'Activado' : 'Desactivado'}</span>
+              <div className="flex items-center shrink-0">
                 <Switch 
                   checked={isActive} 
                   onCheckedChange={() => onToggle(feature.id)}

@@ -49,7 +49,7 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
       <Tabs defaultValue="basic" className="mb-8">
         <TabsList className="mb-6 w-full grid grid-cols-2 p-0 overflow-hidden rounded-xl h-14">
           <TabsTrigger value="basic" className="text-base py-3 rounded-l-xl">Integraciones Básicas</TabsTrigger>
-          <TabsTrigger value="premium" className="text-base py-3 rounded-r-xl">Potencia tu Xelia</TabsTrigger>
+          <TabsTrigger value="premium" className="text-base py-3 rounded-r-xl">Integraciones Avanzadas</TabsTrigger>
         </TabsList>
         
         <TabsContent value="basic">

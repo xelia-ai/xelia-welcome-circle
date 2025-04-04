@@ -34,7 +34,7 @@ const IntegrationsSummary: React.FC<IntegrationsSummaryProps> = ({
             
             {premiumFeatures.length > 0 && (
               <>
-                <li className="text-xelia-accent font-semibold pt-2">Integraciones Premium:</li>
+                <li className="text-xelia-accent font-semibold pt-2">Integraciones Avanzadas:</li>
                 {premiumFeatures.map((featureId) => {
                   return <li key={featureId} className="ml-4 text-xelia-accent/90">{getPremiumFeatureName(featureId)}</li>;
                 })}
