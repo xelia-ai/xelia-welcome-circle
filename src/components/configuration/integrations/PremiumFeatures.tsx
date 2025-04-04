@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Brain, BarChart2, Share2, FileText, Mic } from 'lucide-react';
+import { Brain, BarChart2, Share2, FileText, Mic, Database } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { cn } from '@/lib/utils';
@@ -48,6 +48,12 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
       name: 'Voice-to-Action API',
       description: 'Convierte comandos de voz en acciones directas dentro de tu CRM, calendario o integraciones.',
       icon: <Mic className="h-5 w-5" />
+    },
+    {
+      id: 'smart-analytics',
+      name: 'Smart Analytics',
+      description: 'Análisis de datos avanzado con insights de comportamiento y predicción de necesidades de clientes.',
+      icon: <Database className="h-5 w-5" />
     }
   ];
 
@@ -80,7 +86,10 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
                 <Switch 
                   checked={isActive} 
                   onCheckedChange={() => onToggle(feature.id)}
-                  className={isActive ? "bg-xelia-accent" : ""}
+                  className={cn(
+                    "data-[state=checked]:bg-xelia-accent",
+                    isActive ? "shadow-[0_0_8px_rgba(92,106,255,0.4)]" : ""
+                  )}
                 />
               </div>
             </CardHeader>
