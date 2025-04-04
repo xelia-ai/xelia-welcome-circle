@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PremiumFeatures from './integrations/PremiumFeatures';
 import ComingSoonFeatures from './integrations/ComingSoonFeatures';
-import IntegrationSearch from './integrations/IntegrationSearch';
 import BasicIntegrationsTab from './integrations/BasicIntegrationsTab';
 import { integrations } from './integrations/integrationsData';
 
