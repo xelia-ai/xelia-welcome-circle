@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   Building, CheckCircle2, Globe, Brain, Calendar, 
@@ -10,6 +11,8 @@ interface SummaryProps {
   config: {
     industry: string;
     industryName: string;
+    industries?: string[];
+    industryNames?: string[];
     website: string;
     capabilities: string[];
     integrations: string[];
@@ -27,6 +30,11 @@ interface IntegrationInfo {
   id: string;
   name: string;
   logo: string;
+}
+
+interface IndustryInfo {
+  id: string;
+  name: string;
 }
 
 const Summary: React.FC<SummaryProps> = ({ config, onEdit }) => {
@@ -47,6 +55,16 @@ const Summary: React.FC<SummaryProps> = ({ config, onEdit }) => {
     { id: 'slack', name: 'Slack', logo: '💬' },
     { id: 'salesforce', name: 'Salesforce', logo: '☁️' }
   ];
+
+  // Get industry names from either the new or old format
+  const getIndustryNames = (): string[] => {
+    if (config.industryNames && config.industryNames.length) {
+      return config.industryNames;
+    } else if (config.industryName) {
+      return [config.industryName];
+    }
+    return [];
+  };
 
   const getSelectedCapabilities = () => {
     return capabilities.filter(cap => config.capabilities.includes(cap.id));
@@ -71,18 +89,42 @@ const Summary: React.FC<SummaryProps> = ({ config, onEdit }) => {
     </div>
   );
 
+  const industryNames = getIndustryNames();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Industry Section */}
       <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-5">
         <SectionHeader title="Industria" onEditClick={() => onEdit('industry')} />
-        <div className="flex items-center">
-          <div className="p-2 rounded-full bg-xelia-accent/10 text-xelia-accent mr-3">
+        <div className="flex items-start">
+          <div className="p-2 rounded-full bg-xelia-accent/10 text-xelia-accent mr-3 mt-1">
             <Building className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-white font-medium">{config.industryName || 'No seleccionada'}</p>
-            <p className="text-sm text-gray-400">Configuración para tu industria específica</p>
+            {industryNames.length > 0 ? (
+              <>
+                {industryNames.length === 1 ? (
+                  <p className="text-white font-medium">{industryNames[0]}</p>
+                ) : (
+                  <>
+                    <p className="text-white font-medium mb-2">Múltiples industrias ({industryNames.length})</p>
+                    <div className="flex flex-wrap gap-2">
+                      {industryNames.map((name, index) => (
+                        <span 
+                          key={index} 
+                          className="inline-block bg-xelia-accent/10 text-gray-200 text-xs px-2 py-1 rounded-md"
+                        >
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>
+            ) : (
+              <p className="text-white font-medium">No seleccionada</p>
+            )}
+            <p className="text-sm text-gray-400 mt-1">Configuración para tu industria específica</p>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils, Settings, Info } from 'lucide-react';
+import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils, Settings, Info, X, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { 
   Tooltip,
@@ -15,10 +15,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface IndustrySelectionProps {
-  selectedIndustry: string;
-  onSelect: (id: string, name: string) => void;
+  selectedIndustries: string[];
+  onSelect: (selectedIndustries: string[], industryNames: string[]) => void;
 }
 
 interface Industry {
@@ -30,7 +31,7 @@ interface Industry {
   detailedDescription: string;
 }
 
-const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustry, onSelect }) => {
+const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustries, onSelect }) => {
   const industries: Industry[] = [
     {
       id: 'real-estate',
@@ -154,124 +155,197 @@ const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustry,
     },
   ];
 
-  const selectedIndustryData = industries.find(industry => industry.id === selectedIndustry);
+  const handleIndustryToggle = (industryId: string) => {
+    let updatedSelection: string[];
+    
+    if (selectedIndustries.includes(industryId)) {
+      // Remove the industry if it's already selected
+      updatedSelection = selectedIndustries.filter(id => id !== industryId);
+    } else {
+      // Add the industry if it's not selected
+      updatedSelection = [...selectedIndustries, industryId];
+    }
+    
+    // Get the industry names for the selected industries
+    const selectedIndustryNames = industries
+      .filter(industry => updatedSelection.includes(industry.id))
+      .map(industry => industry.name);
+    
+    onSelect(updatedSelection, selectedIndustryNames);
+  };
+
+  // Get details for the selected industry (for the preview panel)
+  // If multiple are selected, show the last selected one
+  const selectedIndustryData = selectedIndustries.length > 0
+    ? industries.find(industry => industry.id === selectedIndustries[selectedIndustries.length - 1])
+    : null;
 
   return (
     <TooltipProvider>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {industries.map((industry) => (
-            <div
-              key={industry.id}
-              className={cn(
-                "relative frosted-glass p-4 rounded-xl cursor-pointer transition-all hover:shadow-elegant-hover group",
-                selectedIndustry === industry.id 
-                  ? "border-xelia-accent bg-xelia-accent/5" 
-                  : "border-white/10 bg-xelia-light/30"
-              )}
-              onClick={() => onSelect(industry.id, industry.name)}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <div className={cn(
-                  "p-2.5 rounded-lg transition-all duration-300", 
-                  selectedIndustry === industry.id 
-                    ? "bg-xelia-accent text-white shadow-accent" 
-                    : "bg-xelia-light text-gray-300 group-hover:bg-xelia-accent/20 group-hover:text-white"
-                )}>
-                  {industry.icon}
-                </div>
-                <h3 className={cn(
-                  "text-lg font-medium",
-                  selectedIndustry === industry.id 
-                    ? "text-white" 
-                    : "text-gray-200"
-                )}>
-                  {industry.name}
-                </h3>
-                
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button className="ml-auto text-gray-400 hover:text-white transition-colors">
-                      <Info size={16} />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent className="bg-black/90 text-white border-gray-700 max-w-[300px]">
-                    <p>{industry.description}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-              
-              <div className="mt-3 space-y-2 text-gray-300 text-xs">
-                {industry.valuePoints.map((point, index) => (
-                  <div key={index} className="flex items-start gap-2">
-                    <div className="min-w-[4px] h-[4px] rounded-full bg-xelia-accent mt-1.5"></div>
-                    <p>{point}</p>
+          {industries.map((industry) => {
+            const isSelected = selectedIndustries.includes(industry.id);
+            
+            return (
+              <div
+                key={industry.id}
+                className={cn(
+                  "relative frosted-glass p-4 rounded-xl cursor-pointer transition-all hover:shadow-elegant-hover group",
+                  isSelected 
+                    ? "border-xelia-accent bg-xelia-accent/5" 
+                    : "border-white/10 bg-xelia-light/30"
+                )}
+                onClick={() => handleIndustryToggle(industry.id)}
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className={cn(
+                    "p-2.5 rounded-lg transition-all duration-300", 
+                    isSelected 
+                      ? "bg-xelia-accent text-white shadow-accent" 
+                      : "bg-xelia-light text-gray-300 group-hover:bg-xelia-accent/20 group-hover:text-white"
+                  )}>
+                    {industry.icon}
                   </div>
-                ))}
-              </div>
-              
-              <div className="mt-3 flex justify-end">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <button className="text-xelia-accent text-xs hover:text-xelia-accent-light transition-colors">
-                      Ver más
-                    </button>
-                  </DialogTrigger>
-                  <DialogContent className="bg-[#1A1F2C] text-white border-gray-700">
-                    <DialogHeader>
-                      <DialogTitle className="flex items-center gap-2 text-gradient">
-                        <span className="p-1.5 rounded-lg bg-xelia-accent/20">
-                          {industry.icon}
-                        </span>
-                        Xelia para {industry.name}
-                      </DialogTitle>
-                    </DialogHeader>
-                    <div className="my-2">
-                      <p className="mb-4 text-gray-300">{industry.detailedDescription}</p>
-                      <h4 className="font-medium text-white mb-2">Principales beneficios:</h4>
-                      <ul className="space-y-2">
-                        {industry.valuePoints.map((point, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <div className="min-w-[6px] h-[6px] rounded-full bg-xelia-accent mt-1.5"></div>
-                            <p className="text-gray-200">{point}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-              
-              {/* Selection indicator */}
-              {selectedIndustry === industry.id && (
-                <div className="absolute top-2 right-2">
-                  <div className="w-2 h-2 rounded-full bg-xelia-accent"></div>
+                  <h3 className={cn(
+                    "text-lg font-medium",
+                    isSelected 
+                      ? "text-white" 
+                      : "text-gray-200"
+                  )}>
+                    {industry.name}
+                  </h3>
+                  
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button className="ml-auto text-gray-400 hover:text-white transition-colors">
+                        <Info size={16} />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-black/90 text-white border-gray-700 max-w-[300px]">
+                      <p>{industry.description}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
-              )}
-            </div>
-          ))}
+                
+                <div className="mt-3 space-y-2 text-gray-300 text-xs">
+                  {industry.valuePoints.map((point, index) => (
+                    <div key={index} className="flex items-start gap-2">
+                      <div className="min-w-[4px] h-[4px] rounded-full bg-xelia-accent mt-1.5"></div>
+                      <p>{point}</p>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-3 flex justify-end">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="text-xelia-accent text-xs hover:text-xelia-accent-light transition-colors">
+                        Ver más
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-[#1A1F2C] text-white border-gray-700">
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2 text-gradient">
+                          <span className="p-1.5 rounded-lg bg-xelia-accent/20">
+                            {industry.icon}
+                          </span>
+                          Xelia para {industry.name}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="my-2">
+                        <p className="mb-4 text-gray-300">{industry.detailedDescription}</p>
+                        <h4 className="font-medium text-white mb-2">Principales beneficios:</h4>
+                        <ul className="space-y-2">
+                          {industry.valuePoints.map((point, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="min-w-[6px] h-[6px] rounded-full bg-xelia-accent mt-1.5"></div>
+                              <p className="text-gray-200">{point}</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+                
+                {/* Selection indicator - Checkbox style */}
+                <div className="absolute top-3 right-3">
+                  {isSelected ? (
+                    <div className="w-5 h-5 rounded-sm bg-xelia-accent flex items-center justify-center">
+                      <Check className="h-3 w-3 text-white" />
+                    </div>
+                  ) : (
+                    <div className="w-5 h-5 rounded-sm border border-gray-500"></div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <div className="relative">
           <div className="frosted-glass rounded-xl p-5 h-full">
-            {selectedIndustryData ? (
+            {selectedIndustries.length > 0 ? (
               <>
-                <h3 className="text-xl font-medium mb-3 text-gradient">
-                  {selectedIndustryData.id === 'custom' 
-                    ? 'Solución personalizada' 
-                    : `Con Xelia en la industria ${selectedIndustryData.name}`}
-                </h3>
-                <p className="text-gray-300 mb-5">
-                  {selectedIndustryData.description}
-                </p>
-                <div className="mt-3 space-y-2 text-gray-300 text-sm">
-                  {selectedIndustryData.valuePoints.map((point, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent"></div>
-                      {point}
-                    </li>
-                  ))}
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-medium text-gradient">
+                    {selectedIndustries.length === 1
+                      ? (selectedIndustryData?.id === 'custom' 
+                        ? 'Solución personalizada' 
+                        : `Con Xelia en la industria ${selectedIndustryData?.name}`)
+                      : `Xelia para múltiples industrias (${selectedIndustries.length})`}
+                  </h3>
                 </div>
+                
+                {selectedIndustries.length === 1 ? (
+                  // Single industry view
+                  <>
+                    <p className="text-gray-300 mb-5">
+                      {selectedIndustryData?.description}
+                    </p>
+                    <div className="mt-3 space-y-2 text-gray-300 text-sm">
+                      {selectedIndustryData?.valuePoints.map((point, index) => (
+                        <li key={index} className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent"></div>
+                          {point}
+                        </li>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  // Multiple industries view
+                  <>
+                    <p className="text-gray-300 mb-5">
+                      Has seleccionado múltiples industrias. Xelia se adaptará para ofrecer un servicio optimizado para cada una.
+                    </p>
+                    <div className="space-y-3">
+                      <h4 className="text-white font-medium">Industrias seleccionadas:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedIndustries.map(id => {
+                          const industry = industries.find(ind => ind.id === id);
+                          return industry ? (
+                            <div 
+                              key={id} 
+                              className="bg-xelia-accent/10 border border-xelia-accent/20 rounded-lg px-2 py-1 flex items-center gap-1"
+                            >
+                              <span className="text-gray-200 text-sm">{industry.name}</span>
+                              <button 
+                                className="text-gray-400 hover:text-white p-0.5"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleIndustryToggle(id);
+                                }}
+                              >
+                                <X size={12} />
+                              </button>
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )}
               </>
             ) : (
               <div className="h-full flex flex-col items-center justify-center text-center py-10">
@@ -279,7 +353,7 @@ const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustry,
                   <Building className="w-12 h-12" />
                 </div>
                 <p className="text-gray-400 italic">
-                  Selecciona una industria para ver los beneficios específicos
+                  Selecciona una o más industrias para ver los beneficios específicos
                 </p>
               </div>
             )}

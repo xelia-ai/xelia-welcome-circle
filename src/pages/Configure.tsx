@@ -19,8 +19,8 @@ const Configure = () => {
   const [currentStep, setCurrentStep] = useState<ConfigStep>('agent-type');
   const [config, setConfig] = useState({
     agentType: '',
-    industry: '',
-    industryName: '',
+    industries: [] as string[],
+    industryNames: [] as string[],
     website: '',
     capabilities: [] as string[],
     integrations: [] as string[]
@@ -81,7 +81,7 @@ const Configure = () => {
       case 'agent-type':
         return !!config.agentType;
       case 'industry':
-        return !!config.industry;
+        return config.industries.length > 0;
       case 'website':
         return !!config.website;
       case 'capabilities':
@@ -145,10 +145,10 @@ const Configure = () => {
                 return (
                   <div>
                     <IndustrySelection 
-                      selectedIndustry={config.industry} 
-                      onSelect={(id, name) => {
-                        updateConfig('industry', id);
-                        updateConfig('industryName', name);
+                      selectedIndustries={config.industries} 
+                      onSelect={(industries, industryNames) => {
+                        updateConfig('industries', industries);
+                        updateConfig('industryNames', industryNames);
                       }}
                     />
                   </div>
@@ -173,14 +173,19 @@ const Configure = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="md:col-span-2">
                       <Summary 
-                        config={config} 
+                        config={{
+                          ...config,
+                          // For backward compatibility with existing Summary component
+                          industry: config.industries[0] || '',
+                          industryName: config.industryNames[0] || ''
+                        }}
                         onEdit={(step: ConfigStep) => setCurrentStep(step)} 
                       />
                     </div>
                     <div className="h-full">
                       <AgentPreview 
                         agentType={config.agentType}
-                        industry={config.industry}
+                        industry={config.industries[0] || ''}
                         capabilities={config.capabilities}
                       />
                     </div>
