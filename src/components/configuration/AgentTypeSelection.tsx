@@ -60,12 +60,7 @@ const AgentTypeSelection: React.FC<AgentTypeSelectionProps> = ({ selectedType, o
               {type.icon}
             </div>
             
-            {/* Selection indicator */}
-            {selectedType === type.id && (
-              <div className="bg-xelia-accent text-xs font-medium text-white px-2 py-1 rounded-full">
-                Seleccionado
-              </div>
-            )}
+            {/* Removed the duplicate "Seleccionado" indicator that was here */}
           </div>
           
           <h3 className={cn(
