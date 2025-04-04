@@ -46,17 +46,17 @@ const WelcomeCircle: React.FC<WelcomeCircleProps> = ({ className }) => {
 
   return (
     <div className={cn('circle-container', className)}>
-      <div className="circle-backdrop animate-pulse"></div>
+      <div className="circle-backdrop"></div>
       <div 
         ref={circleRef}
-        className="xelia-circle animate-circle-breathe circle-glow transition-transform duration-200 ease-out"
+        className="xelia-circle circle-glow transition-transform duration-200 ease-out"
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          {/* Pulsating ring */}
-          <div className="absolute w-[170px] h-[170px] rounded-full border border-xelia-accent/20 animate-pulse"></div>
+          {/* Static ring instead of pulsating */}
+          <div className="absolute w-[170px] h-[170px] rounded-full border border-xelia-accent/20"></div>
           
-          {/* Xelia avatar */}
-          <div className="w-[120px] h-[120px] rounded-full bg-white/90 flex items-center justify-center overflow-hidden">
+          {/* White background container for avatar */}
+          <div className="w-[120px] h-[120px] rounded-full bg-white flex items-center justify-center overflow-hidden">
             <img 
               src="/lovable-uploads/9f5bc4b9-a87a-4af7-88b1-e1249e0a7301.png" 
               alt="Xelia Avatar" 

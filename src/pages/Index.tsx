@@ -55,16 +55,16 @@ const Index = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light relative overflow-hidden">
       {/* Background aesthetic elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[10%] left-[15%] w-[300px] h-[300px] rounded-full bg-xelia-accent/5 filter blur-[80px] animate-pulse" style={{animationDelay: '0.5s'}}></div>
-        <div className="absolute bottom-[20%] right-[10%] w-[250px] h-[250px] rounded-full bg-xelia-accent/5 filter blur-[60px] animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-[10%] left-[15%] w-[300px] h-[300px] rounded-full bg-xelia-accent/5 filter blur-[80px]"></div>
+        <div className="absolute bottom-[20%] right-[10%] w-[250px] h-[250px] rounded-full bg-xelia-accent/5 filter blur-[60px]"></div>
       </div>
       
       <div className="max-w-xl w-full flex flex-col items-center px-6 py-12 z-10">
-        <div className="w-full mb-8 animate-float-gentle">
+        <div className="w-full mb-8">
           <WelcomeCircle />
         </div>
         
-        <div className="text-center space-y-6 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <div className="text-center space-y-6">
           <h1 ref={textRef} className="text-4xl font-bold tracking-tight text-white sm:text-5xl min-h-[60px]">
             Hola, soy Xelia. ¡Empecemos!
           </h1>
@@ -75,7 +75,7 @@ const Index = () => {
           
           <div className="mt-8">
             <Button 
-              className="cta-button text-white font-medium px-8 py-6 rounded-xl text-lg animate-button-pulse"
+              className="cta-button text-white font-medium px-8 py-6 rounded-xl text-lg"
               onClick={handleConfigureClick}
             >
               Configura tu agente <ArrowRight className="ml-2" />
@@ -84,7 +84,7 @@ const Index = () => {
         </div>
         
         {/* Features */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-lg mt-12 animate-fade-in" style={{ animationDelay: '1s' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-lg mt-12">
           {features.map((feature, index) => (
             <div key={index} className="frosted-glass p-4 rounded-xl text-center">
               <div className="flex justify-center mb-3">
