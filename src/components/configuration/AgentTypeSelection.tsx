@@ -79,7 +79,7 @@ const AgentTypeSelection: React.FC<AgentTypeSelectionProps> = ({ selectedType, o
               className={cn(
                 "w-full py-2 rounded-lg transition-all text-sm font-medium",
                 selectedType === type.id
-                  ? "bg-xelia-accent text-white"
+                  ? "bg-xelia-accent text-white shadow-[0_0_10px_rgba(92,106,255,0.25)]"
                   : "bg-white/10 text-white hover:bg-white/20"
               )}
             >

@@ -110,6 +110,14 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
         </TabsList>
         
         <TabsContent value="basic">
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+              <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔍</span>
+              Buscador de Integraciones
+            </h2>
+            <IntegrationSearch />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             {integrations.map((integration) => {
               const status = getIntegrationStatus(integration.id);
@@ -223,7 +231,8 @@ const getPremiumFeatureName = (featureId: string): string => {
     'dashboard-pro': 'Dashboard Pro',
     'omnichannel-layer': 'Omnichannel Layer',
     'notion-sync': 'Notion Sync',
-    'voice-to-action': 'Voice-to-Action API'
+    'voice-to-action': 'Voice-to-Action API',
+    'smart-analytics': 'Smart Analytics'
   };
   return nameMap[featureId] || featureId;
 };
