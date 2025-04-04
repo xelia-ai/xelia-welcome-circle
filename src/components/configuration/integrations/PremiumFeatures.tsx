@@ -65,13 +65,13 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
           <Card 
             key={feature.id} 
             className={cn(
-              "bg-gray-800/60 border transition-all duration-300 hover:shadow-lg", 
+              "bg-gray-800/60 border transition-all duration-300 flex flex-col h-full", 
               isActive 
                 ? "border-xelia-accent shadow-[0_0_15px_rgba(92,106,255,0.3)]" 
-                : "border-gray-700"
+                : "border-gray-700 hover:border-gray-500"
             )}
           >
-            <CardHeader className="pb-2 flex flex-row items-start justify-between">
+            <CardHeader className="pb-2 flex flex-row items-start justify-between gap-2">
               <div className="flex gap-2 items-center">
                 <span className={cn(
                   "p-2 rounded-md", 
@@ -81,7 +81,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
                 </span>
                 <CardTitle className="text-lg font-semibold text-white">{feature.name}</CardTitle>
               </div>
-              <div className="flex items-center gap-2 pt-1">
+              <div className="flex items-center gap-2 pt-1 shrink-0">
                 <span className="text-xs text-gray-400">{isActive ? 'Activado' : 'Desactivado'}</span>
                 <Switch 
                   checked={isActive} 
@@ -93,7 +93,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
                 />
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1">
               <CardDescription className="text-gray-300">{feature.description}</CardDescription>
             </CardContent>
           </Card>

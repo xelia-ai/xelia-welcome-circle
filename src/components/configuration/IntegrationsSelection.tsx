@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PremiumFeatures from './integrations/PremiumFeatures';
@@ -46,9 +47,9 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
   return (
     <div className="max-w-4xl mx-auto">
       <Tabs defaultValue="basic" className="mb-8">
-        <TabsList className="mb-6 w-full grid grid-cols-2">
-          <TabsTrigger value="basic" className="text-base py-3">Integraciones Básicas</TabsTrigger>
-          <TabsTrigger value="premium" className="text-base py-3">Potencia tu Xelia</TabsTrigger>
+        <TabsList className="mb-6 w-full grid grid-cols-2 p-0 overflow-hidden rounded-xl h-14">
+          <TabsTrigger value="basic" className="text-base py-3 rounded-l-xl">Integraciones Básicas</TabsTrigger>
+          <TabsTrigger value="premium" className="text-base py-3 rounded-r-xl">Potencia tu Xelia</TabsTrigger>
         </TabsList>
         
         <TabsContent value="basic">
@@ -63,7 +64,7 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
         
         <TabsContent value="premium" className="space-y-10">
           <div>
-            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+            <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
               <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔹</span>
               Integraciones Avanzadas
             </h2>
@@ -74,7 +75,7 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
           </div>
           
           <div>
-            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+            <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
               <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔹</span>
               Próximamente
             </h2>
@@ -82,7 +83,7 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
           </div>
           
           <div>
-            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+            <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
               <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔹</span>
               Personaliza tus Integraciones
             </h2>
