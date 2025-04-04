@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { CheckCircle2, Loader2 } from 'lucide-react';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
 
 interface IntegrationsSelectionProps {
@@ -11,7 +12,7 @@ interface IntegrationsSelectionProps {
 interface Integration {
   id: string;
   name: string;
-  logo: string;
+  logo: React.ReactNode;
   description: string;
 }
 
@@ -25,37 +26,37 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
     {
       id: 'whatsapp',
       name: 'WhatsApp',
-      logo: '🟢',
+      logo: <IconBrandWhatsapp size={24} className="text-green-500" />,
       description: 'Integra Xelia con WhatsApp para comunicación directa con tus clientes.'
     },
     {
       id: 'google-calendar',
       name: 'Google Calendar',
-      logo: '📅',
+      logo: <span className="text-2xl">📅</span>,
       description: 'Conecta con Google Calendar para gestionar citas y eventos.'
     },
     {
       id: 'hubspot',
       name: 'HubSpot CRM',
-      logo: '🔶',
+      logo: <span className="text-2xl">🔶</span>,
       description: 'Integra con HubSpot para gestionar contactos y seguimientos.'
     },
     {
       id: 'zapier',
       name: 'Zapier',
-      logo: '⚡',
+      logo: <span className="text-2xl">⚡</span>,
       description: 'Conecta con miles de aplicaciones a través de Zapier.'
     },
     {
       id: 'slack',
       name: 'Slack',
-      logo: '💬',
+      logo: <span className="text-2xl">💬</span>,
       description: 'Integra con Slack para notificaciones y comunicación interna.'
     },
     {
       id: 'salesforce',
       name: 'Salesforce',
-      logo: '☁️',
+      logo: <span className="text-2xl">☁️</span>,
       description: 'Conecta con Salesforce para gestión de clientes y ventas.'
     },
   ];
@@ -97,7 +98,7 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center">
-                  <span className="text-2xl mr-3">{integration.logo}</span>
+                  <div className="mr-3">{integration.logo}</div>
                   <h3 className="text-lg font-medium text-white">{integration.name}</h3>
                 </div>
                 {status === 'connected' && (

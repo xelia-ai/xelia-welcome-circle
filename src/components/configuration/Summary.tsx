@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { 
   Building, CheckCircle2, Globe, Brain, Calendar, 
-  Database, MessagesSquare, Clock, Edit 
+  Database, Clock, Edit 
 } from 'lucide-react';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
 
 interface SummaryProps {
@@ -35,7 +35,7 @@ const Summary: React.FC<SummaryProps> = ({ config, onEdit }) => {
     { id: 'conversation-memory', name: 'Memoria de conversaciones', icon: <Brain className="w-4 h-4" /> },
     { id: 'appointment-scheduling', name: 'Programación de citas', icon: <Calendar className="w-4 h-4" /> },
     { id: 'real-time-data', name: 'Datos en tiempo real', icon: <Database className="w-4 h-4" /> },
-    { id: 'whatsapp-integration', name: 'Integración con WhatsApp', icon: <MessagesSquare className="w-4 h-4" /> },
+    { id: 'whatsapp-integration', name: 'Integración con WhatsApp', icon: <IconBrandWhatsapp size={16} /> },
     { id: 'follow-ups', name: 'Seguimiento automático', icon: <Clock className="w-4 h-4" /> }
   ];
 

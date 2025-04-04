@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { CheckCircle2, Clock, Globe, Brain, Calendar, Database, MessagesSquare } from 'lucide-react';
+import { CheckCircle2, Clock, Globe, Brain, Calendar, Database } from 'lucide-react';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
@@ -50,7 +51,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
       id: 'whatsapp-integration',
       name: 'Integración con WhatsApp',
       description: 'Interactúa con tus clientes a través de WhatsApp',
-      icon: <MessagesSquare className="w-5 h-5" />
+      icon: <IconBrandWhatsapp size={20} />
     },
     {
       id: 'follow-ups',

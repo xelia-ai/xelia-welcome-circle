@@ -18,7 +18,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
   // Calculate prices based on selected capabilities
   useEffect(() => {
     // Each capability adds some price to the base
-    const capabilityPrice = 83.33; // Each capability costs approximately $83.33 to reach $999 max with 6 capabilities
+    const capabilityPrice = 83; // Each capability costs approximately $83 to reach $999 max with 6 capabilities
     const maxCapabilitiesPrice = 500; // Maximum additional cost for all capabilities
     
     const capabilitiesCount = selectedCapabilities.length;
@@ -48,19 +48,19 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
         <div className="bg-xelia-light/30 rounded-lg p-4 space-y-3">
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400">Tarifa base</span>
-            <span className="text-white font-medium">${calculatedPrice.basePrice.toFixed(2)} USD</span>
+            <span className="text-white font-medium">${calculatedPrice.basePrice} USD</span>
           </div>
           
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400">
               Capacidades adicionales ({selectedCapabilities.length})
             </span>
-            <span className="text-white font-medium">${calculatedPrice.capabilitiesPrice.toFixed(2)} USD</span>
+            <span className="text-white font-medium">${calculatedPrice.capabilitiesPrice} USD</span>
           </div>
           
           <div className="pt-2 border-t border-white/10 flex justify-between items-center">
             <span className="text-gray-300 font-medium">Precio mensual</span>
-            <span className="text-white font-semibold">${calculatedPrice.totalPrice.toFixed(2)} USD</span>
+            <span className="text-white font-semibold">${calculatedPrice.totalPrice} USD</span>
           </div>
         </div>
       </div>
