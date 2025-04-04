@@ -28,21 +28,15 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
 
   return (
     <div className="flex justify-between items-center">
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: currentStep === 'agent-type' ? 0 : 1, x: currentStep === 'agent-type' ? -10 : 0 }}
-        transition={{ duration: 0.2 }}
+      <Button 
+        variant="outline" 
+        onClick={onPrevious}
+        disabled={currentStep === 'agent-type'}
+        className="flex items-center gap-2 bg-[#444] border-[#444] text-white hover:bg-[#555] hover:text-white transition-all duration-200"
       >
-        <Button 
-          variant="outline" 
-          onClick={onPrevious}
-          disabled={currentStep === 'agent-type'}
-          className="flex items-center gap-2 border-white/20 text-white hover:bg-white/10 hover:text-white transition-all duration-200"
-        >
-          <ArrowLeft size={16} />
-          Anterior
-        </Button>
-      </motion.div>
+        <ArrowLeft size={16} />
+        Anterior
+      </Button>
       
       <div className="text-center text-sm text-gray-400">
         Paso {getStepNumber()} de {totalSteps}
