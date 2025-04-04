@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { CreditCard, PlusCircle, ListChecks } from 'lucide-react';
+import { CreditCard } from 'lucide-react';
 
 interface CapabilitiesCalculatorProps {
   selectedCapabilities: string[];
@@ -24,12 +24,14 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     const capabilitiesCount = selectedCapabilities.length;
     const calculatedCapabilitiesPrice = Math.min(capabilityPrice * capabilitiesCount, maxCapabilitiesPrice);
     
+    // Round prices to whole numbers
+    const capabilitiesPriceRounded = Math.round(calculatedCapabilitiesPrice);
     const basePrice = 499; // Base platform fee
-    const totalPrice = Math.min(basePrice + calculatedCapabilitiesPrice, 999); // Cap at $999
+    const totalPrice = Math.min(basePrice + capabilitiesPriceRounded, 999); // Cap at $999
     
     setCalculatedPrice({
       basePrice,
-      capabilitiesPrice: calculatedCapabilitiesPrice,
+      capabilitiesPrice: capabilitiesPriceRounded,
       totalPrice
     });
     

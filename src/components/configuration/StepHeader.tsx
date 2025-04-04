@@ -1,0 +1,31 @@
+
+import React from 'react';
+import { Bot, Building2, Globe, Zap, Link, Settings } from 'lucide-react';
+
+interface StepInfo {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+interface StepHeaderProps {
+  stepInfo: StepInfo;
+}
+
+const StepHeader: React.FC<StepHeaderProps> = ({ stepInfo }) => {
+  return (
+    <div className="mb-6">
+      <div className="flex items-center mb-2">
+        <div className="w-10 h-10 rounded-full bg-xelia-accent/20 flex items-center justify-center mr-3">
+          {stepInfo.icon}
+        </div>
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">{stepInfo.title}</h1>
+          <p className="text-gray-400 text-sm">{stepInfo.description}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StepHeader;
