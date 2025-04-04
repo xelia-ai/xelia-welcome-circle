@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check, CircleCheck, Bot, Settings, Building2, Globe, Zap, Link } from 'lucide-react';
@@ -80,7 +79,6 @@ const Configure = () => {
         setCurrentStep('summary');
         break;
       case 'summary':
-        // Finish configuration and go to demo
         navigate('/demo');
         break;
     }
@@ -117,7 +115,7 @@ const Configure = () => {
       case 'capabilities':
         return config.capabilities.length > 0;
       case 'integrations':
-        return true; // Integrations are optional
+        return true;
       case 'summary':
         return true;
       default:
@@ -129,22 +127,11 @@ const Configure = () => {
     switch (currentStep) {
       case 'agent-type':
         return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-2">
-              <AgentTypeSelection 
-                selectedType={config.agentType} 
-                onSelect={(type) => updateConfig('agentType', type)} 
-              />
-            </div>
-            <div className="h-full">
-              {config.agentType && (
-                <AgentPreview 
-                  agentType={config.agentType}
-                  industry={config.industry}
-                  capabilities={config.capabilities}
-                />
-              )}
-            </div>
+          <div className="md:col-span-2">
+            <AgentTypeSelection 
+              selectedType={config.agentType} 
+              onSelect={(type) => updateConfig('agentType', type)} 
+            />
           </div>
         );
       case 'industry':
@@ -157,15 +144,6 @@ const Configure = () => {
                 updateConfig('industryName', name);
               }}
             />
-            {config.industry && config.agentType && (
-              <div className="mt-6 md:hidden">
-                <AgentPreview 
-                  agentType={config.agentType}
-                  industry={config.industry}
-                  capabilities={config.capabilities}
-                />
-              </div>
-            )}
           </div>
         );
       case 'website':
@@ -184,10 +162,23 @@ const Configure = () => {
           onChange={(integrations) => updateConfig('integrations', integrations)} 
         />;
       case 'summary':
-        return <Summary 
-          config={config} 
-          onEdit={(step: ConfigStep) => setCurrentStep(step)} 
-        />;
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="md:col-span-2">
+              <Summary 
+                config={config} 
+                onEdit={(step: ConfigStep) => setCurrentStep(step)} 
+              />
+            </div>
+            <div className="h-full">
+              <AgentPreview 
+                agentType={config.agentType}
+                industry={config.industry}
+                capabilities={config.capabilities}
+              />
+            </div>
+          </div>
+        );
       default:
         return null;
     }
@@ -204,7 +195,6 @@ const Configure = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light py-8 px-4 sm:px-6">
       <div className="max-w-5xl w-full mx-auto flex flex-col flex-grow">
-        {/* Header with step info */}
         <div className="mb-6">
           <div className="flex items-center mb-2">
             <div className="w-10 h-10 rounded-full bg-xelia-accent/20 flex items-center justify-center mr-3">
@@ -217,7 +207,6 @@ const Configure = () => {
           </div>
         </div>
         
-        {/* Progress bar */}
         <div className="mb-8">
           <div className="flex justify-between mb-2">
             {['Tipo', 'Industria', 'Web', 'Capacidades', 'Integraciones', 'Resumen'].map((label, index) => (
@@ -238,14 +227,12 @@ const Configure = () => {
           </div>
         </div>
 
-        {/* Main content area */}
         <div className="frosted-glass rounded-xl p-6 flex-grow mb-6">
           <div className="h-full">
             {renderStepContent()}
           </div>
         </div>
 
-        {/* Navigation buttons */}
         <div className="flex justify-between items-center">
           <div>
             <Button 
