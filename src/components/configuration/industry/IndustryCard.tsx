@@ -3,12 +3,6 @@ import React from 'react';
 import { Check, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Industry } from '@/types/industry';
-import { 
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger 
-} from '@/components/ui/tooltip';
 import {
   Dialog,
   DialogContent,
@@ -53,18 +47,16 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ industry, isSelected, onTog
           {industry.name}
         </h3>
         
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button className="ml-auto text-gray-400 hover:text-white transition-colors">
-                <Info size={16} />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent className="bg-black/90 text-white border-gray-700 max-w-[300px]">
-              <p>{industry.description}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        {/* Selection indicator - Checkbox style - Now positioned on the right */}
+        <div className="ml-auto">
+          {isSelected ? (
+            <div className="w-5 h-5 rounded-sm bg-xelia-accent flex items-center justify-center">
+              <Check className="h-3 w-3 text-white" />
+            </div>
+          ) : (
+            <div className="w-5 h-5 rounded-sm border border-gray-500"></div>
+          )}
+        </div>
       </div>
       
       <div className="mt-3 space-y-2 text-gray-300 text-xs">
@@ -108,16 +100,7 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ industry, isSelected, onTog
         </Dialog>
       </div>
       
-      {/* Selection indicator - Checkbox style */}
-      <div className="absolute top-3 right-3">
-        {isSelected ? (
-          <div className="w-5 h-5 rounded-sm bg-xelia-accent flex items-center justify-center">
-            <Check className="h-3 w-3 text-white" />
-          </div>
-        ) : (
-          <div className="w-5 h-5 rounded-sm border border-gray-500"></div>
-        )}
-      </div>
+      {/* Removed the absolute positioned checkbox from the bottom of the card */}
     </div>
   );
 };
