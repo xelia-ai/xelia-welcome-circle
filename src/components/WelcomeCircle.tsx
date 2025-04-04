@@ -55,12 +55,14 @@ const WelcomeCircle: React.FC<WelcomeCircleProps> = ({ className }) => {
           {/* Pulsating ring */}
           <div className="absolute w-[170px] h-[170px] rounded-full border border-xelia-accent/20 animate-pulse"></div>
           
-          {/* Placeholder for Xelia avatar or logo */}
-          <img 
-            src="/lovable-uploads/9f5bc4b9-a87a-4af7-88b1-e1249e0a7301.png" 
-            alt="Xelia Avatar" 
-            className="w-[120px] h-[120px] object-cover"
-          />
+          {/* Xelia avatar */}
+          <div className="w-[120px] h-[120px] rounded-full bg-white/90 flex items-center justify-center overflow-hidden">
+            <img 
+              src="/lovable-uploads/9f5bc4b9-a87a-4af7-88b1-e1249e0a7301.png" 
+              alt="Xelia Avatar" 
+              className="w-[100px] h-[100px] object-contain"
+            />
+          </div>
         </div>
       </div>
     </div>
