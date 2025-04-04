@@ -110,14 +110,6 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
         </TabsList>
         
         <TabsContent value="basic">
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
-              <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔍</span>
-              Buscador de Integraciones
-            </h2>
-            <IntegrationSearch />
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             {integrations.map((integration) => {
               const status = getIntegrationStatus(integration.id);
@@ -156,6 +148,48 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
               );
             })}
           </div>
+
+          <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-6 mb-8">
+            <h3 className="text-xl font-medium mb-4 text-white flex items-center">
+              <CheckCircle2 className="w-5 h-5 mr-2 text-xelia-accent" />
+              Resumen de integraciones
+            </h3>
+            
+            {selectedIntegrations.length > 0 || premiumFeatures.length > 0 ? (
+              <div>
+                <p className="text-gray-300 mb-3">
+                  Has conectado las siguientes integraciones:
+                </p>
+                <ul className="list-disc list-inside text-white space-y-1">
+                  {selectedIntegrations.map((integrationId) => {
+                    const integration = integrations.find(i => i.id === integrationId);
+                    return <li key={integrationId}>{integration?.name}</li>;
+                  })}
+                  
+                  {premiumFeatures.length > 0 && (
+                    <>
+                      <li className="text-xelia-accent font-semibold pt-2">Integraciones Premium:</li>
+                      {premiumFeatures.map((featureId) => {
+                        return <li key={featureId} className="ml-4 text-xelia-accent/90">{getPremiumFeatureName(featureId)}</li>;
+                      })}
+                    </>
+                  )}
+                </ul>
+              </div>
+            ) : (
+              <p className="text-gray-400 italic">
+                No tienes ninguna integración conectada. Las integraciones son opcionales y puedes configurarlas más tarde.
+              </p>
+            )}
+          </div>
+
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+              <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔍</span>
+              Buscador de Integraciones
+            </h2>
+            <IntegrationSearch />
+          </div>
         </TabsContent>
         
         <TabsContent value="premium" className="space-y-10">
@@ -187,40 +221,6 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
           </div>
         </TabsContent>
       </Tabs>
-
-      <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-6">
-        <h3 className="text-xl font-medium mb-4 text-white flex items-center">
-          <CheckCircle2 className="w-5 h-5 mr-2 text-xelia-accent" />
-          Resumen de integraciones
-        </h3>
-        
-        {selectedIntegrations.length > 0 || premiumFeatures.length > 0 ? (
-          <div>
-            <p className="text-gray-300 mb-3">
-              Has conectado las siguientes integraciones:
-            </p>
-            <ul className="list-disc list-inside text-white space-y-1">
-              {selectedIntegrations.map((integrationId) => {
-                const integration = integrations.find(i => i.id === integrationId);
-                return <li key={integrationId}>{integration?.name}</li>;
-              })}
-              
-              {premiumFeatures.length > 0 && (
-                <>
-                  <li className="text-xelia-accent font-semibold pt-2">Integraciones Premium:</li>
-                  {premiumFeatures.map((featureId) => {
-                    return <li key={featureId} className="ml-4 text-xelia-accent/90">{getPremiumFeatureName(featureId)}</li>;
-                  })}
-                </>
-              )}
-            </ul>
-          </div>
-        ) : (
-          <p className="text-gray-400 italic">
-            No tienes ninguna integración conectada. Las integraciones son opcionales y puedes configurarlas más tarde.
-          </p>
-        )}
-      </div>
     </div>
   );
 };
