@@ -115,6 +115,7 @@
 }
 
 @layer components {
+  /* Basic Components */
   .circle-glow {
     filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6));
   }
@@ -147,6 +148,7 @@
     z-index: 5;
   }
   
+  /* Button styles */
   .cta-button {
     background: linear-gradient(90deg, rgba(92, 106, 255, 0.95) 0%, rgba(126, 137, 255, 0.95) 100%);
     position: relative;
@@ -175,6 +177,7 @@
     animation: shimmer 1.5s infinite;
   }
 
+  /* UI Elements */
   .glass-card {
     @apply bg-xelia-light/50 backdrop-blur-md border border-white/10 rounded-xl shadow-elegant transition-all duration-300;
   }
@@ -205,5 +208,66 @@
   
   .frosted-glass {
     @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-elegant;
+  }
+  
+  /* Card hover effects */
+  .hover-card {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-card:hover {
+    @apply transform -translate-y-1 shadow-elegant-hover;
+  }
+
+  /* Animations */
+  .shadow-accent {
+    box-shadow: 0 0 20px rgba(92, 106, 255, 0.3);
+  }
+  
+  .shadow-elegant {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .shadow-elegant-hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Animation Keyframes */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Tailwind Animation Utilities */
+@layer utilities {
+  .animate-text-shimmer {
+    animation: text-shimmer 2s linear infinite;
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
   }
 }

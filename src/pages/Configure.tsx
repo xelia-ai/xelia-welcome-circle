@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IndustrySelection from '@/components/configuration/IndustrySelection';
 import WebsiteInput from '@/components/configuration/WebsiteInput';
@@ -12,6 +12,7 @@ import ConfigurationProgress from '@/components/configuration/ConfigurationProgr
 import StepHeader from '@/components/configuration/StepHeader';
 import ConfigurationNavigation from '@/components/configuration/ConfigurationNavigation';
 import { ConfigStep, stepInfo } from '@/utils/configStepInfo';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Configure = () => {
   const navigate = useNavigate();
@@ -24,12 +25,14 @@ const Configure = () => {
     capabilities: [] as string[],
     integrations: [] as string[]
   });
+  const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
 
   const updateConfig = (key: keyof typeof config, value: any) => {
     setConfig(prev => ({ ...prev, [key]: value }));
   };
 
   const goToNextStep = () => {
+    setDirection('forward');
     switch (currentStep) {
       case 'agent-type':
         setCurrentStep('industry');
@@ -53,6 +56,7 @@ const Configure = () => {
   };
 
   const goToPreviousStep = () => {
+    setDirection('backward');
     switch (currentStep) {
       case 'industry':
         setCurrentStep('agent-type');
@@ -91,65 +95,104 @@ const Configure = () => {
     }
   };
 
+  // Animation variants
+  const pageVariants = {
+    enter: (direction: 'forward' | 'backward') => ({
+      x: direction === 'forward' ? 50 : -50,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: 'forward' | 'backward') => ({
+      x: direction === 'forward' ? -50 : 50,
+      opacity: 0
+    })
+  };
+
+  const pageTransition = {
+    type: 'tween',
+    ease: 'easeInOut',
+    duration: 0.3
+  };
+
   const renderStepContent = () => {
-    switch (currentStep) {
-      case 'agent-type':
-        return (
-          <div className="md:col-span-2">
-            <AgentTypeSelection 
-              selectedType={config.agentType} 
-              onSelect={(type) => updateConfig('agentType', type)} 
-            />
-          </div>
-        );
-      case 'industry':
-        return (
-          <div>
-            <IndustrySelection 
-              selectedIndustry={config.industry} 
-              onSelect={(id, name) => {
-                updateConfig('industry', id);
-                updateConfig('industryName', name);
-              }}
-            />
-          </div>
-        );
-      case 'website':
-        return <WebsiteInput 
-          website={config.website} 
-          onChange={(value) => updateConfig('website', value)} 
-        />;
-      case 'capabilities':
-        return <CapabilitiesSelection 
-          selectedCapabilities={config.capabilities} 
-          onChange={(capabilities) => updateConfig('capabilities', capabilities)} 
-        />;
-      case 'integrations':
-        return <IntegrationsSelection 
-          selectedIntegrations={config.integrations} 
-          onChange={(integrations) => updateConfig('integrations', integrations)} 
-        />;
-      case 'summary':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-2">
-              <Summary 
-                config={config} 
-                onEdit={(step: ConfigStep) => setCurrentStep(step)} 
-              />
-            </div>
-            <div className="h-full">
-              <AgentPreview 
-                agentType={config.agentType}
-                industry={config.industry}
-                capabilities={config.capabilities}
-              />
-            </div>
-          </div>
-        );
-      default:
-        return null;
-    }
+    return (
+      <AnimatePresence initial={false} mode="wait" custom={direction}>
+        <motion.div
+          key={currentStep}
+          custom={direction}
+          variants={pageVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={pageTransition}
+          className="h-full"
+        >
+          {(() => {
+            switch (currentStep) {
+              case 'agent-type':
+                return (
+                  <div className="md:col-span-2">
+                    <AgentTypeSelection 
+                      selectedType={config.agentType} 
+                      onSelect={(type) => updateConfig('agentType', type)} 
+                    />
+                  </div>
+                );
+              case 'industry':
+                return (
+                  <div>
+                    <IndustrySelection 
+                      selectedIndustry={config.industry} 
+                      onSelect={(id, name) => {
+                        updateConfig('industry', id);
+                        updateConfig('industryName', name);
+                      }}
+                    />
+                  </div>
+                );
+              case 'website':
+                return <WebsiteInput 
+                  website={config.website} 
+                  onChange={(value) => updateConfig('website', value)} 
+                />;
+              case 'capabilities':
+                return <CapabilitiesSelection 
+                  selectedCapabilities={config.capabilities} 
+                  onChange={(capabilities) => updateConfig('capabilities', capabilities)} 
+                />;
+              case 'integrations':
+                return <IntegrationsSelection 
+                  selectedIntegrations={config.integrations} 
+                  onChange={(integrations) => updateConfig('integrations', integrations)} 
+                />;
+              case 'summary':
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="md:col-span-2">
+                      <Summary 
+                        config={config} 
+                        onEdit={(step: ConfigStep) => setCurrentStep(step)} 
+                      />
+                    </div>
+                    <div className="h-full">
+                      <AgentPreview 
+                        agentType={config.agentType}
+                        industry={config.industry}
+                        capabilities={config.capabilities}
+                      />
+                    </div>
+                  </div>
+                );
+              default:
+                return null;
+            }
+          })()}
+        </motion.div>
+      </AnimatePresence>
+    );
   };
 
   const totalSteps = 6;
