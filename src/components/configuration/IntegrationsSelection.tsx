@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PremiumFeatures from './integrations/PremiumFeatures';
 import ComingSoonFeatures from './integrations/ComingSoonFeatures';
 import BasicIntegrationsTab from './integrations/BasicIntegrationsTab';
 import { integrations } from './integrations/integrationsData';
+import IntegrationSearch from './integrations/IntegrationSearch';
 
 interface IntegrationsSelectionProps {
   selectedIntegrations: string[];
