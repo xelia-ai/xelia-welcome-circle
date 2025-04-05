@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Database } from 'lucide-react';
 import { integrations, premiumFeatures } from './integrationsData';
 
 // Import our new components
@@ -18,7 +18,7 @@ interface PersonalizationSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   selectedIntegrations: string[];
-  selectedPremiumFeatures: string[];
+  premiumFeatures: string[];
   onIntegrationToggle: (id: string) => void;
   onPremiumToggle: (id: string) => void;
 }
@@ -27,7 +27,7 @@ const PersonalizationSheet: React.FC<PersonalizationSheetProps> = ({
   open,
   onOpenChange,
   selectedIntegrations,
-  selectedPremiumFeatures,
+  premiumFeatures: selectedPremiumFeatures,
   onIntegrationToggle,
   onPremiumToggle
 }) => {
