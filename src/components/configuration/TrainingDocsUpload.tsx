@@ -29,7 +29,19 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
   
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles(prev => [...prev, ...selectedFiles]);
-    onFilesSelected(selectedFiles);
+    onFilesSelected([...files, ...selectedFiles]);
+  };
+
+  const handleRemoveFile = (indexToRemove: number) => {
+    const updatedFiles = files.filter((_, index) => index !== indexToRemove);
+    setFiles(updatedFiles);
+    onFilesSelected(updatedFiles);
+    
+    toast({
+      title: "Archivo eliminado",
+      description: "El archivo ha sido eliminado correctamente.",
+      variant: "default",
+    });
   };
 
   const handleWebsiteUrlChange = (url: string) => {
@@ -78,7 +90,7 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
           
           <TabsContent value="docs">
             <DocumentUploader onFilesSelected={handleFilesSelected} />
-            <FileList files={files} />
+            <FileList files={files} onRemoveFile={handleRemoveFile} />
           </TabsContent>
           
           <TabsContent value="website">
