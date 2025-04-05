@@ -20,7 +20,7 @@ const ConfigurationProgress: React.FC<ConfigurationProgressProps> = ({
   };
 
   const progress = ((getStepNumber() - 1) / (totalSteps - 1)) * 100;
-  const steps = ['Tipo', 'Industria', 'Web', 'Capacidades', 'Integraciones', 'Resumen'];
+  const steps = ['Tipo', 'Industria', 'Entrenar', 'Capacidades', 'Integraciones', 'Resumen'];
   const currentStepNumber = getStepNumber();
 
   return (
@@ -37,28 +37,26 @@ const ConfigurationProgress: React.FC<ConfigurationProgressProps> = ({
               className="flex flex-col items-center"
             >
               <div className="relative">
-                <div 
-                  className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 transition-all duration-300 ${
-                    isCompleted ? 'bg-xelia-accent text-white' : 
-                    isActive ? 'bg-white text-xelia-accent border border-xelia-accent' : 
-                    'bg-gray-700 text-gray-400'
-                  }`}
-                >
-                  {isCompleted ? (
-                    <CheckCircle className="w-4 h-4" />
-                  ) : (
-                    <span className="text-xs font-medium">{stepNumber}</span>
-                  )}
-                </div>
-                
-                {/* Dot indicator for active step */}
-                {isActive && (
+                {isActive ? (
                   <motion.div 
-                    className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-xelia-accent rounded-full"
-                    initial={{ scale: 0.5, opacity: 0.5 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-                  />
+                    className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 transition-all duration-300 bg-white text-xelia-accent border border-xelia-accent`}
+                    animate={{ opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <span className="text-xs font-medium">{stepNumber}</span>
+                  </motion.div>
+                ) : (
+                  <div 
+                    className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 transition-all duration-300 ${
+                      isCompleted ? 'bg-xelia-accent text-white' : 'bg-gray-700 text-gray-400'
+                    }`}
+                  >
+                    {isCompleted ? (
+                      <CheckCircle className="w-4 h-4" />
+                    ) : (
+                      <span className="text-xs font-medium">{stepNumber}</span>
+                    )}
+                  </div>
                 )}
               </div>
               
