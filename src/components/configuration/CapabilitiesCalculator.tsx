@@ -17,17 +17,22 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
 
   // Calculate prices based on selected capabilities
   useEffect(() => {
-    // Each capability adds some price to the base
-    const capabilityPrice = 83; // Each capability costs approximately $83 to reach $999 max with 6 capabilities
-    const maxCapabilitiesPrice = 500; // Maximum additional cost for all capabilities
+    const basePrice = 499; // Base platform fee
+    const maxTotalPrice = 999; // Maximum price cap
+    
+    // Calculate the capabilities price based on number of selected capabilities
+    // to reach exactly $999 when all capabilities are selected
+    const totalCapabilities = 8; // Updated with 2 more capabilities
+    const maxCapabilitiesPrice = maxTotalPrice - basePrice; // $500
     
     const capabilitiesCount = selectedCapabilities.length;
-    const calculatedCapabilitiesPrice = Math.min(capabilityPrice * capabilitiesCount, maxCapabilitiesPrice);
+    const pricePerCapability = maxCapabilitiesPrice / totalCapabilities;
+    
+    const calculatedCapabilitiesPrice = Math.min(pricePerCapability * capabilitiesCount, maxCapabilitiesPrice);
     
     // Round prices to whole numbers
     const capabilitiesPriceRounded = Math.round(calculatedCapabilitiesPrice);
-    const basePrice = 499; // Base platform fee
-    const totalPrice = Math.min(basePrice + capabilitiesPriceRounded, 999); // Cap at $999
+    const totalPrice = Math.min(basePrice + capabilitiesPriceRounded, maxTotalPrice);
     
     setCalculatedPrice({
       basePrice,

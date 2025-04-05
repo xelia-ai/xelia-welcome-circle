@@ -17,35 +17,38 @@ interface ROIMetric {
 const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) => {
   // Calculamos el ROI basado en la cantidad de capacidades seleccionadas
   const capabilitiesCount = selectedCapabilities.length;
-  const efficiencyIncrease = Math.min(15 + (capabilitiesCount * 5), 40); // 15% base + 5% por capacidad, máximo 40%
-  const satisfactionIncrease = Math.min(10 + (capabilitiesCount * 4), 35); // 10% base + 4% por capacidad, máximo 35%
-  const conversionIncrease = Math.min(5 + (capabilitiesCount * 3), 25); // 5% base + 3% por capacidad, máximo 25%
-  const timeReduction = Math.min(20 + (capabilitiesCount * 5), 50); // 20% base + 5% por capacidad, máximo 50%
+  const totalCapabilities = 8; // Updated to match the total number of capabilities
+  
+  // Adjust the calculations to scale with the new total number of capabilities
+  const efficiencyIncrease = Math.min(15 + (capabilitiesCount * (25 / totalCapabilities)), 40); 
+  const satisfactionIncrease = Math.min(10 + (capabilitiesCount * (25 / totalCapabilities)), 35); 
+  const conversionIncrease = Math.min(5 + (capabilitiesCount * (20 / totalCapabilities)), 25); 
+  const timeReduction = Math.min(20 + (capabilitiesCount * (30 / totalCapabilities)), 50); 
   
   const roiMetrics: ROIMetric[] = [
     {
       title: "Eficiencia operativa",
       baseValue: "100%",
       improvedValue: `${100 + efficiencyIncrease}%`,
-      improvement: `+${efficiencyIncrease}%`
+      improvement: `+${Math.round(efficiencyIncrease)}%`
     },
     {
       title: "Satisfacción del cliente",
       baseValue: "100%",
       improvedValue: `${100 + satisfactionIncrease}%`,
-      improvement: `+${satisfactionIncrease}%`
+      improvement: `+${Math.round(satisfactionIncrease)}%`
     },
     {
       title: "Tasa de conversión",
       baseValue: "100%",
       improvedValue: `${100 + conversionIncrease}%`,
-      improvement: `+${conversionIncrease}%`
+      improvement: `+${Math.round(conversionIncrease)}%`
     },
     {
       title: "Tiempo de respuesta",
       baseValue: "100%",
       improvedValue: `${100 - timeReduction}%`,
-      improvement: `-${timeReduction}%`
+      improvement: `-${Math.round(timeReduction)}%`
     }
   ];
 
@@ -53,17 +56,19 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) =
   const getCompetitiveMessage = () => {
     if (capabilitiesCount === 0) {
       return "Activa capacidades para ver tu ventaja competitiva";
-    } else if (capabilitiesCount <= 2) {
+    } else if (capabilitiesCount <= totalCapabilities * 0.25) {
       return "Ventaja básica sobre la competencia";
-    } else if (capabilitiesCount <= 4) {
+    } else if (capabilitiesCount <= totalCapabilities * 0.5) {
       return "Ventaja significativa sobre la competencia";
+    } else if (capabilitiesCount <= totalCapabilities * 0.75) {
+      return "Ventaja notable sobre la competencia";
     } else {
       return "Ventaja máxima sobre la competencia";
     }
   };
 
   const competitiveMessage = getCompetitiveMessage();
-  const competitiveAdvantage = capabilitiesCount === 0 ? 0 : (capabilitiesCount * 15);
+  const competitiveAdvantage = capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100);
 
   return (
     <Card className="bg-gray-800/60 border border-gray-700">
@@ -78,7 +83,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) =
         <div className="bg-xelia-accent/10 rounded-lg p-4">
           <div className="flex justify-between items-center mb-2">
             <h4 className="text-white font-medium">Ventaja competitiva</h4>
-            <span className="text-xelia-accent font-bold">{competitiveAdvantage}%</span>
+            <span className="text-xelia-accent font-bold">{Math.round(competitiveAdvantage)}%</span>
           </div>
           <p className="text-sm text-gray-300">{competitiveMessage}</p>
           
@@ -86,7 +91,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) =
           <div className="w-full bg-gray-700 rounded-full h-2.5 mt-3">
             <div 
               className="bg-xelia-accent h-2.5 rounded-full" 
-              style={{ width: `${(competitiveAdvantage / 100) * 100}%` }}
+              style={{ width: `${competitiveAdvantage}%` }}
             ></div>
           </div>
         </div>

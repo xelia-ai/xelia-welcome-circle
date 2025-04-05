@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CheckCircle2, Clock, Globe, Brain, Calendar, Database } from 'lucide-react';
+import { CheckCircle2, Clock, Globe, Brain, Calendar, Database, RefreshCw, FileSearch } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -59,6 +59,18 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
       name: 'Seguimiento automático',
       description: 'Envía recordatorios y seguimientos automáticos a tus clientes',
       icon: <Clock className="w-5 h-5" />
+    },
+    {
+      id: 'rescheduling',
+      name: 'Reprogramación inteligente',
+      description: 'Permite a los usuarios reprogramar citas, añadir notas o cancelar fácilmente',
+      icon: <RefreshCw className="w-5 h-5" />
+    },
+    {
+      id: 'database-search',
+      name: 'Búsqueda en base de datos',
+      description: 'Genera passkeys para que tus clientes accedan y editen su información',
+      icon: <FileSearch className="w-5 h-5" />
     }
   ];
 
@@ -82,35 +94,37 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
         {/* Columna de opciones */}
         <div className="space-y-4">
           <h3 className="text-xl font-medium text-white mb-4">Selecciona las capacidades</h3>
-          {capabilities.map((capability) => (
-            <div 
-              key={capability.id}
-              className="bg-gray-800/60 border border-gray-700 rounded-lg p-4 flex items-start hover:border-gray-500 transition-colors"
-            >
-              <div className="mr-4 mt-0.5">
-                <div className="p-2 rounded-full bg-gray-700 text-gray-300">
-                  {capability.icon}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {capabilities.map((capability) => (
+              <div 
+                key={capability.id}
+                className="bg-gray-800/60 border border-gray-700 rounded-lg p-4 flex items-start hover:border-gray-500 transition-colors"
+              >
+                <div className="mr-4 mt-0.5">
+                  <div className="p-2 rounded-full bg-gray-700 text-gray-300">
+                    {capability.icon}
+                  </div>
+                </div>
+                <div className="flex-grow">
+                  <div className="flex items-center justify-between mb-2">
+                    <Label 
+                      htmlFor={`capability-${capability.id}`}
+                      className="text-white font-medium cursor-pointer"
+                    >
+                      {capability.name}
+                    </Label>
+                    <Switch
+                      id={`capability-${capability.id}`}
+                      checked={selectedCapabilities.includes(capability.id)}
+                      onCheckedChange={() => toggleCapability(capability.id)}
+                      className="data-[state=checked]:bg-xelia-accent"
+                    />
+                  </div>
+                  <p className="text-sm text-gray-400">{capability.description}</p>
                 </div>
               </div>
-              <div className="flex-grow">
-                <div className="flex items-center justify-between mb-2">
-                  <Label 
-                    htmlFor={`capability-${capability.id}`}
-                    className="text-white font-medium cursor-pointer"
-                  >
-                    {capability.name}
-                  </Label>
-                  <Switch
-                    id={`capability-${capability.id}`}
-                    checked={selectedCapabilities.includes(capability.id)}
-                    onCheckedChange={() => toggleCapability(capability.id)}
-                    className="data-[state=checked]:bg-xelia-accent"
-                  />
-                </div>
-                <p className="text-sm text-gray-400">{capability.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Columna de calculadora */}
