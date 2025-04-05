@@ -25,7 +25,7 @@ const PersonalizationSheet: React.FC<PersonalizationSheetProps> = ({
   open,
   onOpenChange,
   selectedIntegrations,
-  premiumFeatures,
+  premiumFeatures: selectedPremiumFeatures,
   onIntegrationToggle,
   onPremiumToggle
 }) => {
@@ -41,7 +41,7 @@ const PersonalizationSheet: React.FC<PersonalizationSheetProps> = ({
 
   // Filter out already selected premium features
   const unselectedPremiumFeatures = premiumFeatures.filter(
-    feature => !premiumFeatures.includes(feature.id)
+    feature => !selectedPremiumFeatures.includes(feature.id)
   );
 
   // Get suggested integrations based on industry and selected features
@@ -76,7 +76,7 @@ const PersonalizationSheet: React.FC<PersonalizationSheetProps> = ({
     let price = 149; // Base price
     
     // Add price for premium features
-    price += premiumFeatures.length * 30;
+    price += selectedPremiumFeatures.length * 30;
     
     // Add price for volume
     if (selectedVolumeOption === '1000') price += 30;
@@ -261,8 +261,8 @@ const PersonalizationSheet: React.FC<PersonalizationSheetProps> = ({
               <span className="font-medium">$149/mes</span>
             </div>
             <div className="flex justify-between mb-2">
-              <span className="text-gray-600">Funciones premium ({premiumFeatures.length})</span>
-              <span className="font-medium">+${premiumFeatures.length * 30}/mes</span>
+              <span className="text-gray-600">Funciones premium ({selectedPremiumFeatures.length})</span>
+              <span className="font-medium">+${selectedPremiumFeatures.length * 30}/mes</span>
             </div>
             {selectedVolumeOption && selectedVolumeOption !== '500' && (
               <div className="flex justify-between mb-2">

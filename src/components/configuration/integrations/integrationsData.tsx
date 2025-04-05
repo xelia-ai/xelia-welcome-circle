@@ -1,12 +1,20 @@
 
 import React from 'react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { Brain, BarChart2, Share2, FileText, Mic, Database } from 'lucide-react';
 
 export interface Integration {
   id: string;
   name: string;
   logo: React.ReactNode;
   description: string;
+}
+
+export interface PremiumFeature {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
 }
 
 export const integrations: Integration[] = [
@@ -46,6 +54,45 @@ export const integrations: Integration[] = [
     logo: <span className="text-2xl">☁️</span>,
     description: 'Conecta con Salesforce para gestión de clientes y ventas.'
   },
+];
+
+export const premiumFeatures: PremiumFeature[] = [
+  {
+    id: 'elite-memory',
+    name: 'Elite Memory',
+    description: 'Memoria inteligente que guarda todo el historial conversacional y recuerda contexto automáticamente.',
+    icon: <Brain className="h-5 w-5" />
+  },
+  {
+    id: 'dashboard-pro',
+    name: 'Dashboard Pro',
+    description: 'Visualización avanzada de KPIs, comparativas por canal y análisis predictivo.',
+    icon: <BarChart2 className="h-5 w-5" />
+  },
+  {
+    id: 'omnichannel-layer',
+    name: 'Omnichannel Layer',
+    description: 'Integra Instagram DM, Messenger, Telegram, Email y SMS.',
+    icon: <Share2 className="h-5 w-5" />
+  },
+  {
+    id: 'notion-sync',
+    name: 'Notion Sync',
+    description: 'Sincronización bidireccional de tu base de datos en Notion con el agente.',
+    icon: <FileText className="h-5 w-5" />
+  },
+  {
+    id: 'voice-to-action',
+    name: 'Voice-to-Action API',
+    description: 'Convierte comandos de voz en acciones directas dentro de tu CRM, calendario o integraciones.',
+    icon: <Mic className="h-5 w-5" />
+  },
+  {
+    id: 'smart-analytics',
+    name: 'Smart Analytics',
+    description: 'Análisis de datos avanzado con insights de comportamiento y predicción de necesidades de clientes.',
+    icon: <Database className="h-5 w-5" />
+  }
 ];
 
 export const getPremiumFeatureName = (featureId: string): string => {
