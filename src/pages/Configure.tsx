@@ -110,7 +110,7 @@ const Configure = () => {
     center: {
       x: 0,
       opacity: 1
-    }),
+    },
     exit: (direction: 'forward' | 'backward') => ({
       x: direction === 'forward' ? -50 : 50,
       opacity: 0
