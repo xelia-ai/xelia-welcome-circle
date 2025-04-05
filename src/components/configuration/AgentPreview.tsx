@@ -7,12 +7,14 @@ interface AgentPreviewProps {
   agentType: string;
   industry: string;
   capabilities: string[];
+  website?: string; // Adding website as an optional property
 }
 
 const AgentPreview: React.FC<AgentPreviewProps> = ({ 
   agentType, 
   industry,
-  capabilities 
+  capabilities,
+  website 
 }) => {
   const [input, setInput] = useState('');
   const [conversation, setConversation] = useState<Array<{text: string, isBot: boolean}>>([
