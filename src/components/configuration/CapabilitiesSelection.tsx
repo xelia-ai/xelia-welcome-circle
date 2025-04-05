@@ -10,6 +10,7 @@ import ROICalculator from './ROICalculator';
 interface CapabilitiesSelectionProps {
   selectedCapabilities: string[];
   onChange: (capabilities: string[]) => void;
+  website?: string;
 }
 
 interface Capability {
@@ -21,7 +22,8 @@ interface Capability {
 
 const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({ 
   selectedCapabilities, 
-  onChange 
+  onChange,
+  website = ''
 }) => {
   const capabilities: Capability[] = [
     {
@@ -155,7 +157,10 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
             )}
           </div>
           
-          <ROICalculator selectedCapabilities={selectedCapabilities} />
+          <ROICalculator 
+            selectedCapabilities={selectedCapabilities} 
+            website={website}
+          />
         </div>
       </div>
     </div>

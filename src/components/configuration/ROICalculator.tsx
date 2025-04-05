@@ -1,20 +1,76 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TrendingUp, LineChart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface ROICalculatorProps {
   selectedCapabilities: string[];
+  website?: string;
 }
 
 interface ROIMetric {
   title: string;
   baseValue: string;
+  baseNumeric: number;
   improvedValue: string;
   improvement: string;
 }
 
-const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) => {
+const ROICalculator: React.FC<ROICalculatorProps> = ({ 
+  selectedCapabilities, 
+  website = ''
+}) => {
+  const [baseMetrics, setBaseMetrics] = useState({
+    efficiency: 100,
+    satisfaction: 100,
+    conversion: 100,
+    responseTime: 100
+  });
+
+  // Estimar métricas base según el sitio web
+  useEffect(() => {
+    if (website) {
+      const websiteMetrics = estimateBaseMetrics(website);
+      setBaseMetrics(websiteMetrics);
+    }
+  }, [website]);
+
+  // Función para estimar métricas base según el dominio
+  const estimateBaseMetrics = (url: string) => {
+    // Normalizar URL y extraer dominio
+    const normalizedUrl = url.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+    
+    // Valores por defecto
+    let efficiency = Math.floor(Math.random() * 15) + 70; // Entre 70-85%
+    let satisfaction = Math.floor(Math.random() * 20) + 65; // Entre 65-85%
+    let conversion = Math.floor(Math.random() * 10) + 30; // Entre 30-40%
+    let responseTime = Math.floor(Math.random() * 25) + 75; // Entre 75-100%
+    
+    // Ajustes basados en características del dominio
+    if (normalizedUrl.includes('shop') || normalizedUrl.includes('tienda') || normalizedUrl.includes('store')) {
+      conversion += 10; // Tiendas suelen tener mejor conversión
+    }
+    
+    if (normalizedUrl.endsWith('.com')) {
+      efficiency += 5; // Dominios .com suelen ser más establecidos
+    }
+    
+    if (normalizedUrl.length < 10) {
+      satisfaction += 5; // Dominios cortos suelen ser más reconocidos
+    }
+    
+    if (normalizedUrl.includes('blog') || normalizedUrl.includes('info')) {
+      responseTime -= 10; // Sitios con mucho contenido suelen ser más lentos
+    }
+
+    return {
+      efficiency,
+      satisfaction,
+      conversion,
+      responseTime
+    };
+  };
+  
   // Calculamos el ROI basado en la cantidad de capacidades seleccionadas
   const capabilitiesCount = selectedCapabilities.length;
   const totalCapabilities = 8; // Total number of capabilities
@@ -28,26 +84,30 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) =
   const roiMetrics: ROIMetric[] = [
     {
       title: "Eficiencia operativa",
-      baseValue: "100%",
-      improvedValue: `${100 + efficiencyIncrease}%`,
+      baseValue: `${baseMetrics.efficiency}%`,
+      baseNumeric: baseMetrics.efficiency,
+      improvedValue: `${Math.round(baseMetrics.efficiency * (1 + efficiencyIncrease/100))}%`,
       improvement: `+${Math.round(efficiencyIncrease)}%`
     },
     {
       title: "Satisfacción del cliente",
-      baseValue: "100%",
-      improvedValue: `${100 + satisfactionIncrease}%`,
+      baseValue: `${baseMetrics.satisfaction}%`,
+      baseNumeric: baseMetrics.satisfaction,
+      improvedValue: `${Math.round(baseMetrics.satisfaction * (1 + satisfactionIncrease/100))}%`,
       improvement: `+${Math.round(satisfactionIncrease)}%`
     },
     {
       title: "Tasa de conversión",
-      baseValue: "100%",
-      improvedValue: `${100 + conversionIncrease}%`,
+      baseValue: `${baseMetrics.conversion}%`,
+      baseNumeric: baseMetrics.conversion,
+      improvedValue: `${Math.round(baseMetrics.conversion * (1 + conversionIncrease/100))}%`,
       improvement: `+${Math.round(conversionIncrease)}%`
     },
     {
       title: "Tiempo de respuesta",
-      baseValue: "100%",
-      improvedValue: `${100 - timeReduction}%`,
+      baseValue: `${baseMetrics.responseTime}%`,
+      baseNumeric: baseMetrics.responseTime,
+      improvedValue: `${Math.round(baseMetrics.responseTime * (1 - timeReduction/100))}%`,
       improvement: `-${Math.round(timeReduction)}%`
     }
   ];

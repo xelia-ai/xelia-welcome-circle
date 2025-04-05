@@ -15,6 +15,7 @@ interface CapabilitiesSectionProps {
   capabilities: string[];
   tempCapabilities: string[];
   editingSection: string | null;
+  website?: string;
   setTempCapabilities: (capabilities: string[]) => void;
   startEditing: (section: string) => void;
   cancelEditing: () => void;
@@ -25,6 +26,7 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
   capabilities,
   tempCapabilities,
   editingSection,
+  website = '',
   setTempCapabilities,
   startEditing,
   cancelEditing,
@@ -62,6 +64,7 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
           <CapabilitiesSelection 
             selectedCapabilities={tempCapabilities}
             onChange={setTempCapabilities}
+            website={website}
           />
         </div>
       ) : (

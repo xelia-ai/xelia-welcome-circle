@@ -35,6 +35,7 @@ const SummaryStep: React.FC<SummaryStepProps> = ({ config, onEdit }) => {
           agentType={config.agentType}
           industry={config.industries[0] || ''}
           capabilities={config.capabilities}
+          website={config.website}
         />
       </div>
     </div>
