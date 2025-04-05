@@ -6,7 +6,7 @@ import FileList from './training/FileList';
 import WebsiteInput from './training/WebsiteInput';
 import TrainingSummary from './training/TrainingSummary';
 import { useToast } from '@/hooks/use-toast';
-import { InfoCircle } from 'lucide-react';
+import { Info } from 'lucide-react';
 
 interface TrainingDocsUploadProps {
   website?: string;
@@ -98,7 +98,7 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
 
       <div className="mt-4 p-4 bg-yellow-900/30 border border-yellow-800/50 rounded-md">
         <div className="flex items-start">
-          <InfoCircle className="w-5 h-5 text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
+          <Info className="w-5 h-5 text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
           <div>
             <p className="text-yellow-300 text-sm">
               <span className="font-medium">¿Prefieres configurar esto más tarde?</span> No hay problema. 

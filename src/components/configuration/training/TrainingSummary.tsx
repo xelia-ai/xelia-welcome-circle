@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CheckCircle2, InfoCircle } from 'lucide-react';
+import { CheckCircle2, Info } from 'lucide-react';
 
 interface TrainingSummaryProps {
   activeTab: string;
@@ -21,7 +21,7 @@ const TrainingSummary: React.FC<TrainingSummaryProps> = ({
         {hasContent ? (
           <CheckCircle2 className="w-5 h-5 mr-2 text-xelia-accent" />
         ) : (
-          <InfoCircle className="w-5 h-5 mr-2 text-gray-400" />
+          <Info className="w-5 h-5 mr-2 text-gray-400" />
         )}
         Resumen
       </h3>
