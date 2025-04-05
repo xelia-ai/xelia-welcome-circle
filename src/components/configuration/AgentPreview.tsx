@@ -60,15 +60,28 @@ const AgentPreview: React.FC<AgentPreviewProps> = ({
     
     // Simulate bot thinking and responding
     setTimeout(() => {
-      const responses = [
-        "¡Claro! Puedo ayudarte con eso. ¿Qué más necesitas saber?",
-        "Entiendo lo que necesitas. Basado en mi análisis, te recomendaría...",
-        "Gracias por tu consulta. Déjame verificar esa información para ti.",
-        "Esa es una excelente pregunta. La respuesta es...",
-      ];
+      let response = "";
       
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      setConversation(prev => [...prev, { text: randomResponse, isBot: true }]);
+      // Respuesta contextualizada a la entrada del usuario y basada en capabilities
+      if (input.toLowerCase().includes("precio") || input.toLowerCase().includes("costo")) {
+        response = "Nuestros precios son muy competitivos. ¿Te gustaría recibir una cotización personalizada?";
+      } else if (input.toLowerCase().includes("hora") || input.toLowerCase().includes("abierto")) {
+        response = "Nuestro horario de atención es de lunes a viernes de 9:00 a 18:00 y sábados de 10:00 a 14:00.";
+      } else if (input.toLowerCase().includes("ubicación") || input.toLowerCase().includes("dirección")) {
+        response = "Estamos ubicados en Av. Principal #123, Colonia Centro. ¿Necesitas indicaciones para llegar?";
+      } else if (input.toLowerCase().includes("gracias")) {
+        response = "¡De nada! Estoy aquí para ayudarte cuando lo necesites.";
+      } else {
+        const responses = [
+          "¡Claro! Puedo ayudarte con eso. ¿Qué más necesitas saber?",
+          "Entiendo lo que necesitas. Basado en mi análisis, te recomendaría...",
+          "Gracias por tu consulta. Déjame verificar esa información para ti.",
+          "Esa es una excelente pregunta. La respuesta es...",
+        ];
+        response = responses[Math.floor(Math.random() * responses.length)];
+      }
+      
+      setConversation(prev => [...prev, { text: response, isBot: true }]);
       setIsTyping(false);
     }, 1500);
   };

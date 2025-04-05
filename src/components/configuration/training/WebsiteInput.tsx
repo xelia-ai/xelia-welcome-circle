@@ -7,9 +7,10 @@ import { useToast } from '@/hooks/use-toast';
 interface WebsiteInputProps {
   websiteUrl: string;
   onChange: (url: string) => void;
+  onValidated?: (url: string, isValid: boolean) => void;
 }
 
-const WebsiteInput: React.FC<WebsiteInputProps> = ({ websiteUrl, onChange }) => {
+const WebsiteInput: React.FC<WebsiteInputProps> = ({ websiteUrl, onChange, onValidated }) => {
   const [isChecking, setIsChecking] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,10 +57,22 @@ const WebsiteInput: React.FC<WebsiteInputProps> = ({ websiteUrl, onChange }) => 
       }
       
       setIsValid(true);
+      
+      // Notificar al componente padre que la URL es válida
+      if (onValidated) {
+        onValidated(normalizedUrl, true);
+      }
+      
       return true;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'No fue posible verificar el sitio';
       setError(errorMessage);
+      
+      // Notificar al componente padre que la URL no es válida
+      if (onValidated) {
+        onValidated('', false);
+      }
+      
       toast({
         title: "Error de validación",
         description: errorMessage,

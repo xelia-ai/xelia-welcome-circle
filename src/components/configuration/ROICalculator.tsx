@@ -21,10 +21,10 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
   website = ''
 }) => {
   const [baseMetrics, setBaseMetrics] = useState({
-    efficiency: 100,
-    satisfaction: 100,
-    conversion: 100,
-    responseTime: 100
+    efficiency: 75,
+    satisfaction: 70,
+    conversion: 35,
+    responseTime: 85
   });
 
   // Estimar métricas base según el sitio web
@@ -40,11 +40,11 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
     // Normalizar URL y extraer dominio
     const normalizedUrl = url.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
     
-    // Valores por defecto
-    let efficiency = Math.floor(Math.random() * 15) + 70; // Entre 70-85%
-    let satisfaction = Math.floor(Math.random() * 20) + 65; // Entre 65-85%
-    let conversion = Math.floor(Math.random() * 10) + 30; // Entre 30-40%
-    let responseTime = Math.floor(Math.random() * 25) + 75; // Entre 75-100%
+    // Valores base realistas, no al 100%
+    let efficiency = Math.floor(Math.random() * 15) + 60; // Entre 60-75%
+    let satisfaction = Math.floor(Math.random() * 20) + 55; // Entre 55-75%
+    let conversion = Math.floor(Math.random() * 10) + 25; // Entre 25-35%
+    let responseTime = Math.floor(Math.random() * 25) + 65; // Entre 65-90%
     
     // Ajustes basados en características del dominio
     if (normalizedUrl.includes('shop') || normalizedUrl.includes('tienda') || normalizedUrl.includes('store')) {
@@ -131,7 +131,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
   const competitiveAdvantage = capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100);
 
   return (
-    <Card className="bg-gray-800/80 border border-gray-700">
+    <Card className="bg-gray-800/80 border border-gray-700 h-full">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-medium text-white flex items-center">
           <TrendingUp className="w-5 h-5 mr-2 text-xelia-accent" />

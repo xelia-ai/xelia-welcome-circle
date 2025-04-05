@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DocumentUploader from './training/DocumentUploader';
@@ -72,8 +73,8 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
   };
   
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-6 mb-6">
+    <div className="max-w-2xl mx-auto flex flex-col space-y-6">
+      <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-6">
         <h3 className="text-xl font-medium mb-4 text-white">
           Entrena a Xelia con tu información
         </h3>
@@ -96,6 +97,7 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
             <WebsiteInput 
               websiteUrl={websiteUrl} 
               onChange={handleWebsiteUrlChange} 
+              onValidated={handleWebsiteValidated}
             />
           </TabsContent>
         </Tabs>
@@ -107,7 +109,7 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
         websiteUrl={websiteUrl}
       />
 
-      <div className="mt-4 p-4 bg-yellow-900/30 border border-yellow-800/50 rounded-md">
+      <div className="p-4 bg-yellow-900/30 border border-yellow-800/50 rounded-md">
         <div className="flex items-start">
           <Info className="w-5 h-5 text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
           <p className="text-yellow-300 text-sm">
