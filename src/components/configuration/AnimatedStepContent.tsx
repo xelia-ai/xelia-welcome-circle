@@ -13,18 +13,18 @@ const AnimatedStepContent: React.FC<AnimatedStepContentProps> = ({
   direction,
   children
 }) => {
-  // Animation variants
+  // Animation variants - modified to slide from top/bottom instead of left/right
   const pageVariants = {
     enter: (direction: 'forward' | 'backward') => ({
-      x: direction === 'forward' ? 50 : -50,
+      y: direction === 'forward' ? -30 : 30,
       opacity: 0
     }),
     center: {
-      x: 0,
+      y: 0,
       opacity: 1
     },
     exit: (direction: 'forward' | 'backward') => ({
-      x: direction === 'forward' ? -50 : 50,
+      y: direction === 'forward' ? 30 : -30,
       opacity: 0
     })
   };
