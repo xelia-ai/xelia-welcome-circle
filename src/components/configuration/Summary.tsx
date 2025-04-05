@@ -6,7 +6,7 @@ import {
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import IndustrySelection from './IndustrySelection';
+import IndustrySelectionWrapper from './IndustrySelectionWrapper';
 import CapabilitiesSelection from './CapabilitiesSelection';
 import IntegrationsSelection from './IntegrationsSelection';
 
@@ -318,22 +318,3 @@ const Summary: React.FC<SummaryProps> = ({ config, onEdit }) => {
 };
 
 export default Summary;
-
-import React from 'react';
-import IndustrySelection from './IndustrySelection';
-
-const IndustrySelectionWrapper = ({ 
-  selectedIndustries, 
-  onSelect,
-  ...rest 
-}) => {
-  return (
-    <IndustrySelection
-      selectedIndustries={selectedIndustries}
-      onSelect={onSelect}
-      {...rest}
-    />
-  );
-};
-
-export { IndustrySelectionWrapper };
