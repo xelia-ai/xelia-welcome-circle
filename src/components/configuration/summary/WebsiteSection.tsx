@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Globe } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import SectionHeader from './SectionHeader';
 
@@ -26,7 +26,7 @@ const WebsiteSection: React.FC<WebsiteSectionProps> = ({
   return (
     <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-5">
       <SectionHeader 
-        title="Sitio Web" 
+        title="Entrenamiento" 
         section="website" 
         editingSection={editingSection}
         onEditClick={() => startEditing('website')} 
@@ -36,22 +36,22 @@ const WebsiteSection: React.FC<WebsiteSectionProps> = ({
       
       {editingSection === 'website' ? (
         <div className="p-3 bg-gray-700/40 rounded-lg">
-          <p className="text-sm text-gray-300 mb-2">Ingresa la URL de tu sitio web:</p>
+          <p className="text-sm text-gray-300 mb-2">Ingresa la URL de documentos adicionales:</p>
           <Input 
             value={tempWebsite} 
             onChange={(e) => setTempWebsite(e.target.value)}
-            placeholder="https://tuempresa.com"
+            placeholder="https://drive.google.com/tu-carpeta"
             className="bg-gray-800 border-gray-600 text-white"
           />
         </div>
       ) : (
         <div className="flex items-center">
           <div className="p-2 rounded-full bg-xelia-accent/10 text-xelia-accent mr-3">
-            <Globe className="h-5 w-5" />
+            <FileText className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-white font-medium">{website || 'No ingresado'}</p>
-            <p className="text-sm text-gray-400">Xelia analizará tu sitio web</p>
+            <p className="text-white font-medium">{website ? website : 'Documentos cargados'}</p>
+            <p className="text-sm text-gray-400">Xelia aprendió de tus documentos</p>
           </div>
         </div>
       )}

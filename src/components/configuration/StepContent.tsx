@@ -2,7 +2,7 @@
 import React from 'react';
 import { ConfigStep } from '@/utils/configStepInfo';
 import { AgentTypeStep, IndustryStep, SummaryStep } from './steps';
-import WebsiteInput from './WebsiteInput';
+import TrainingDocsUpload from './TrainingDocsUpload';
 import CapabilitiesSelection from './CapabilitiesSelection';
 import IntegrationsSelection from './IntegrationsSelection';
 
@@ -46,9 +46,12 @@ const StepContent: React.FC<StepContentProps> = ({
       );
     case 'website':
       return (
-        <WebsiteInput
-          website={config.website}
-          onChange={(value) => updateConfig('website', value)}
+        <TrainingDocsUpload
+          onFilesSelected={(files) => {
+            // En un caso real, aquí se procesarían los archivos
+            // Por ahora, sólo guardamos que se han cargado documentos
+            updateConfig('website', `${files.length} documento(s) cargado(s)`);
+          }}
         />
       );
     case 'capabilities':

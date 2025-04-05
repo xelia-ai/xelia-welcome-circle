@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bot, Building2, Globe, Zap, Link, Settings } from 'lucide-react';
+import { Bot, Building2, FileText, Zap, Link, Settings } from 'lucide-react';
 
 export type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'integrations' | 'summary';
 
@@ -22,9 +22,9 @@ export const stepInfo: Record<ConfigStep, StepInfo> = {
     icon: React.createElement(Building2, { className: "w-5 h-5" })
   },
   'website': {
-    title: 'Ingresa tu sitio web',
-    description: 'Xelia analizará tu sitio web para ofrecer mejores respuestas.',
-    icon: React.createElement(Globe, { className: "w-5 h-5" })
+    title: 'Entrena a Xelia',
+    description: 'Sube documentos para que Xelia aprenda de tu información específica.',
+    icon: React.createElement(FileText, { className: "w-5 h-5" })
   },
   'capabilities': {
     title: 'Selecciona las capacidades',

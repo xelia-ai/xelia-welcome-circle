@@ -10,7 +10,7 @@ const CompletionMessage: React.FC = () => {
         <div>
           <h3 className="text-lg font-medium text-white mb-2">¡Tu configuración está completa!</h3>
           <p className="text-gray-300">
-            Xelia ha sido configurada según tus preferencias. Haz clic en "Finalizar" para continuar a la demo y ver a Xelia en acción.
+            Xelia ha sido entrenada con tus documentos y configurada según tus preferencias. Haz clic en "Finalizar" para continuar a la demo y ver a Xelia en acción.
           </p>
         </div>
       </div>
