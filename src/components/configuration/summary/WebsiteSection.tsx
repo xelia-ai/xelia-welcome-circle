@@ -35,7 +35,7 @@ const WebsiteSection: React.FC<WebsiteSectionProps> = ({
       />
       
       {editingSection === 'website' ? (
-        <div className="p-3 bg-gray-700/40 rounded-lg">
+        <div className="p-3 bg-gray-700/40 rounded-lg mt-4 animate-in slide-in-from-top duration-300">
           <TrainingTabs 
             tempWebsite={tempWebsite}
             setTempWebsite={setTempWebsite}

@@ -20,12 +20,12 @@ const TrainingTabs: React.FC<TrainingTabsProps> = ({
         <TabsTrigger value="website">Sitio Web</TabsTrigger>
       </TabsList>
       
-      <TabsContent value="docs" className="space-y-4">
+      <TabsContent value="docs" className="space-y-4 transition-all duration-300">
         <p className="text-sm text-gray-300 mb-2">Sube documentos para entrenar a Xelia:</p>
         <FileUploadArea />
       </TabsContent>
       
-      <TabsContent value="website">
+      <TabsContent value="website" className="transition-all duration-300">
         <WebsiteInput 
           websiteUrl={tempWebsite} 
           onChange={setTempWebsite}
