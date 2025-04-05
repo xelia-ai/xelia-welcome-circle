@@ -4,7 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PremiumFeatures from './integrations/PremiumFeatures';
 import ComingSoonFeatures from './integrations/ComingSoonFeatures';
 import BasicIntegrationsTab from './integrations/BasicIntegrationsTab';
-import { integrations } from './integrations/integrationsData';
+import IntegrationsSummary from './integrations/IntegrationsSummary';
+import { integrations, getIntegrationNameMap, getPremiumFeatureName } from './integrations/integrationsData';
 import IntegrationSearch from './integrations/IntegrationSearch';
 
 interface IntegrationsSelectionProps {
@@ -44,6 +45,8 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
     });
   };
 
+  const integrationNames = getIntegrationNameMap();
+
   return (
     <div className="max-w-4xl mx-auto">
       <Tabs defaultValue="basic" className="mb-8">
@@ -63,16 +66,17 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
         </TabsContent>
         
         <TabsContent value="premium" className="space-y-10">
-          <div>
-            <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
-              <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔹</span>
-              Integraciones Avanzadas
-            </h2>
-            <PremiumFeatures 
-              selectedFeatures={premiumFeatures} 
-              onToggle={handlePremiumToggle} 
-            />
-          </div>
+          <PremiumFeatures 
+            selectedFeatures={premiumFeatures} 
+            onToggle={handlePremiumToggle} 
+          />
+          
+          <IntegrationsSummary
+            selectedIntegrations={selectedIntegrations}
+            integrationNames={integrationNames}
+            premiumFeatures={premiumFeatures}
+            getPremiumFeatureName={getPremiumFeatureName}
+          />
           
           <div>
             <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
