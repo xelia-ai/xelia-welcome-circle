@@ -22,28 +22,28 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     
     // Calculate the capabilities price based on number of selected capabilities
     // to reach exactly $999 when all capabilities are selected
-    const totalCapabilities = 8; // Updated with 2 more capabilities
+    const totalCapabilities = 8; // Total number of capabilities
     const maxCapabilitiesPrice = maxTotalPrice - basePrice; // $500
     
-    const capabilitiesCount = selectedCapabilities.length;
-    const pricePerCapability = maxCapabilitiesPrice / totalCapabilities;
+    let capabilitiesPrice = 0;
+    if (selectedCapabilities.length > 0) {
+      const pricePerCapability = maxCapabilitiesPrice / totalCapabilities;
+      capabilitiesPrice = Math.round(pricePerCapability * selectedCapabilities.length);
+    }
     
-    const calculatedCapabilitiesPrice = Math.min(pricePerCapability * capabilitiesCount, maxCapabilitiesPrice);
-    
-    // Round prices to whole numbers
-    const capabilitiesPriceRounded = Math.round(calculatedCapabilitiesPrice);
-    const totalPrice = Math.min(basePrice + capabilitiesPriceRounded, maxTotalPrice);
+    // Ensure the total price doesn't exceed the max
+    const totalPrice = Math.min(basePrice + capabilitiesPrice, maxTotalPrice);
     
     setCalculatedPrice({
       basePrice,
-      capabilitiesPrice: capabilitiesPriceRounded,
+      capabilitiesPrice,
       totalPrice
     });
     
   }, [selectedCapabilities]);
 
   return (
-    <div className="frosted-glass rounded-xl p-6">
+    <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-6">
       <div className="flex items-center mb-4">
         <div className="p-2 rounded-lg bg-xelia-accent/20 text-xelia-accent mr-3">
           <CreditCard className="w-5 h-5" />
@@ -52,7 +52,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
       </div>
       
       <div className="space-y-4">
-        <div className="bg-xelia-light/30 rounded-lg p-4 space-y-3">
+        <div className="bg-gray-700/50 rounded-lg p-4 space-y-3">
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400">Tarifa base</span>
             <span className="text-white font-medium">${calculatedPrice.basePrice} USD</span>

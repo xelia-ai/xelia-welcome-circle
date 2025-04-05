@@ -17,7 +17,7 @@ interface ROIMetric {
 const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) => {
   // Calculamos el ROI basado en la cantidad de capacidades seleccionadas
   const capabilitiesCount = selectedCapabilities.length;
-  const totalCapabilities = 8; // Updated to match the total number of capabilities
+  const totalCapabilities = 8; // Total number of capabilities
   
   // Adjust the calculations to scale with the new total number of capabilities
   const efficiencyIncrease = Math.min(15 + (capabilitiesCount * (25 / totalCapabilities)), 40); 
@@ -71,7 +71,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) =
   const competitiveAdvantage = capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100);
 
   return (
-    <Card className="bg-gray-800/60 border border-gray-700">
+    <Card className="bg-gray-800/80 border border-gray-700">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-medium text-white flex items-center">
           <TrendingUp className="w-5 h-5 mr-2 text-xelia-accent" />
@@ -80,7 +80,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({ selectedCapabilities }) =
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Ventaja competitiva */}
-        <div className="bg-xelia-accent/10 rounded-lg p-4">
+        <div className="bg-gray-700/50 rounded-lg p-4">
           <div className="flex justify-between items-center mb-2">
             <h4 className="text-white font-medium">Ventaja competitiva</h4>
             <span className="text-xelia-accent font-bold">{Math.round(competitiveAdvantage)}%</span>

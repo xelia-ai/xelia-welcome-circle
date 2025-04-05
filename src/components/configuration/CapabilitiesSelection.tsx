@@ -89,16 +89,16 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         {/* Columna de opciones */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-medium text-white mb-4">Selecciona las capacidades</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="md:col-span-7 space-y-6">
+          <h3 className="text-2xl font-medium text-white mb-4">Selecciona las capacidades</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {capabilities.map((capability) => (
               <div 
                 key={capability.id}
-                className="bg-gray-800/60 border border-gray-700 rounded-lg p-4 flex items-start hover:border-gray-500 transition-colors"
+                className="bg-gray-800/80 border border-gray-700 rounded-lg p-4 flex items-start hover:border-gray-500 transition-colors"
               >
                 <div className="mr-4 mt-0.5">
                   <div className="p-2 rounded-full bg-gray-700 text-gray-300">
@@ -127,11 +127,11 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           </div>
         </div>
 
-        {/* Columna de calculadora */}
-        <div className="space-y-4">
+        {/* Columna de calculadora y resumen */}
+        <div className="md:col-span-5 space-y-6">
           <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
           
-          <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-6">
+          <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-6">
             <h3 className="text-xl font-medium mb-4 text-white flex items-center">
               <CheckCircle2 className="w-5 h-5 mr-2 text-xelia-accent" />
               Resumen de capacidades
@@ -142,7 +142,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
                 <p className="text-gray-300 mb-3">
                   Has activado las siguientes capacidades:
                 </p>
-                <ul className="list-disc list-inside text-white space-y-1">
+                <ul className="list-disc list-inside text-white space-y-1.5">
                   {getCapabilityNames().map((name, index) => (
                     <li key={index}>{name}</li>
                   ))}
