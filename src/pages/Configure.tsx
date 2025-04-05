@@ -76,6 +76,12 @@ const Configure = () => {
     }
   };
 
+  const handleEditInSummary = (step: ConfigStep) => {
+    // No cambiamos de paso, solo actualizamos la configuración
+    // La edición ahora ocurre in-situ en el componente Summary
+    // Pero mantenemos esta función por compatibilidad con la interfaz
+  };
+
   const canProceed = () => {
     switch (currentStep) {
       case 'agent-type':
@@ -104,7 +110,7 @@ const Configure = () => {
     center: {
       x: 0,
       opacity: 1
-    },
+    }),
     exit: (direction: 'forward' | 'backward') => ({
       x: direction === 'forward' ? -50 : 50,
       opacity: 0
@@ -179,7 +185,7 @@ const Configure = () => {
                           industry: config.industries[0] || '',
                           industryName: config.industryNames[0] || ''
                         }}
-                        onEdit={(step: ConfigStep) => setCurrentStep(step)} 
+                        onEdit={handleEditInSummary} 
                       />
                     </div>
                     <div className="h-full">
