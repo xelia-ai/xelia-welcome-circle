@@ -2,7 +2,6 @@
 import React from 'react';
 import IntegrationCard from './IntegrationCard';
 import IntegrationsSummary from './IntegrationsSummary';
-import IntegrationSearch from './IntegrationSearch';
 import { Integration, getPremiumFeatureName, getIntegrationNameMap } from './integrationsData';
 
 interface BasicIntegrationsTabProps {
@@ -57,14 +56,6 @@ const BasicIntegrationsTab: React.FC<BasicIntegrationsTabProps> = ({
         premiumFeatures={premiumFeatures}
         getPremiumFeatureName={getPremiumFeatureName}
       />
-
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
-          <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔍</span>
-          Buscador de Integraciones
-        </h2>
-        <IntegrationSearch />
-      </div>
     </>
   );
 };

@@ -7,6 +7,9 @@ import BasicIntegrationsTab from './integrations/BasicIntegrationsTab';
 import IntegrationsSummary from './integrations/IntegrationsSummary';
 import { integrations, getIntegrationNameMap, getPremiumFeatureName } from './integrations/integrationsData';
 import IntegrationSearch from './integrations/IntegrationSearch';
+import PersonalizationSheet from './integrations/PersonalizationSheet';
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
 
 interface IntegrationsSelectionProps {
   selectedIntegrations: string[];
@@ -19,6 +22,7 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
 }) => {
   const [connectingIntegration, setConnectingIntegration] = useState<string | null>(null);
   const [premiumFeatures, setPremiumFeatures] = useState<string[]>([]);
+  const [isPersonalizationOpen, setIsPersonalizationOpen] = useState(false);
 
   const simulateConnection = (integrationId: string) => {
     if (selectedIntegrations.includes(integrationId)) {
@@ -93,8 +97,27 @@ const IntegrationsSelection: React.FC<IntegrationsSelectionProps> = ({
             </h2>
             <IntegrationSearch />
           </div>
+
+          <div className="mt-8 text-center">
+            <Button 
+              onClick={() => setIsPersonalizationOpen(true)}
+              className="bg-xelia-accent hover:bg-xelia-accent/90 text-black font-medium text-base px-6 py-5 h-auto"
+            >
+              <Sparkles className="mr-2 h-5 w-5" />
+              ¿Quieres personalizar más tu Xelia?
+            </Button>
+          </div>
         </TabsContent>
       </Tabs>
+
+      <PersonalizationSheet 
+        open={isPersonalizationOpen} 
+        onOpenChange={setIsPersonalizationOpen}
+        selectedIntegrations={selectedIntegrations}
+        premiumFeatures={premiumFeatures}
+        onIntegrationToggle={simulateConnection}
+        onPremiumToggle={handlePremiumToggle}
+      />
     </div>
   );
 };
