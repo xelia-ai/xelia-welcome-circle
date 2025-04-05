@@ -5,6 +5,7 @@ import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
+import ROICalculator from './ROICalculator';
 
 interface CapabilitiesSelectionProps {
   selectedCapabilities: string[];
@@ -77,7 +78,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Columna de opciones */}
         <div className="space-y-4">
           <h3 className="text-xl font-medium text-white mb-4">Selecciona las capacidades</h3>
@@ -113,7 +114,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
         </div>
 
         {/* Columna de calculadora */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
           
           <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-6">
@@ -139,6 +140,8 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               </p>
             )}
           </div>
+          
+          <ROICalculator selectedCapabilities={selectedCapabilities} />
         </div>
       </div>
     </div>

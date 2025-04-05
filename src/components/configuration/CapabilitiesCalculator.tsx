@@ -39,7 +39,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
 
   return (
     <div className="frosted-glass rounded-xl p-6">
-      <div className="flex items-center mb-6">
+      <div className="flex items-center mb-4">
         <div className="p-2 rounded-lg bg-xelia-accent/20 text-xelia-accent mr-3">
           <CreditCard className="w-5 h-5" />
         </div>
