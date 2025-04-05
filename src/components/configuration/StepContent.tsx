@@ -13,8 +13,10 @@ interface StepContentProps {
     industries: string[];
     industryNames: string[];
     website: string;
+    websiteValidated: boolean;
     capabilities: string[];
     integrations: string[];
+    skipTraining?: boolean;
   };
   updateConfig: (key: string, value: any) => void;
   onEdit: (step: ConfigStep) => void;
@@ -55,6 +57,9 @@ const StepContent: React.FC<StepContentProps> = ({
             // En un caso real, aquí se procesarían los archivos
             // Por ahora, sólo guardamos que se han cargado documentos
             updateConfig('website', `${files.length} documento(s) cargado(s)`);
+          }}
+          onSkipTraining={(skip) => {
+            updateConfig('skipTraining', skip);
           }}
         />
       );

@@ -6,17 +6,20 @@ import FileList from './training/FileList';
 import WebsiteInput from './training/WebsiteInput';
 import TrainingSummary from './training/TrainingSummary';
 import { useToast } from '@/hooks/use-toast';
+import { InfoCircle } from 'lucide-react';
 
 interface TrainingDocsUploadProps {
   website?: string;
   onWebsiteChange: (url: string) => void;
   onFilesSelected: (files: File[]) => void;
+  onSkipTraining?: (skip: boolean) => void;
 }
 
 const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({ 
   website = '',
   onWebsiteChange,
-  onFilesSelected 
+  onFilesSelected,
+  onSkipTraining
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [websiteUrl, setWebsiteUrl] = useState(website);
@@ -48,6 +51,12 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
     setIsWebsiteValid(isValid);
     if (isValid) {
       onWebsiteChange(validUrl);
+    }
+  };
+
+  const handleSkipTraining = () => {
+    if (onSkipTraining) {
+      onSkipTraining(true);
     }
   };
   
@@ -86,6 +95,18 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
         filesCount={files.length}
         websiteUrl={websiteUrl}
       />
+
+      <div className="mt-4 p-4 bg-yellow-900/30 border border-yellow-800/50 rounded-md">
+        <div className="flex items-start">
+          <InfoCircle className="w-5 h-5 text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-yellow-300 text-sm">
+              <span className="font-medium">¿Prefieres configurar esto más tarde?</span> No hay problema. 
+              Puedes omitir este paso ahora y configurar el entrenamiento de Xelia desde tu dashboard cuando lo desees.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

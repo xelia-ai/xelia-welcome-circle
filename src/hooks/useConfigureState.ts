@@ -10,6 +10,7 @@ export interface ConfigState {
   websiteValidated: boolean;
   capabilities: string[];
   integrations: string[];
+  skipTraining: boolean;
 }
 
 export const useConfigureState = () => {
@@ -21,7 +22,8 @@ export const useConfigureState = () => {
     website: '',
     websiteValidated: false,
     capabilities: [],
-    integrations: []
+    integrations: [],
+    skipTraining: false
   });
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
 
@@ -78,8 +80,8 @@ export const useConfigureState = () => {
       case 'industry':
         return config.industries.length > 0;
       case 'website':
-        // Aseguramos que el sitio web haya sido validado o que estén usando documentos
-        return !!config.website;
+        // Permitir continuar sin validación del sitio web o documentos
+        return true;
       case 'capabilities':
         return config.capabilities.length > 0;
       case 'integrations':
