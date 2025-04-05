@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DocumentUploader from './training/DocumentUploader';
@@ -111,12 +110,10 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
       <div className="mt-4 p-4 bg-yellow-900/30 border border-yellow-800/50 rounded-md">
         <div className="flex items-start">
           <Info className="w-5 h-5 text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
-          <div>
-            <p className="text-yellow-300 text-sm">
-              <span className="font-medium">¿Prefieres configurar esto más tarde?</span> No hay problema. 
-              Puedes omitir este paso ahora y configurar el entrenamiento de Xelia desde tu dashboard cuando lo desees.
-            </p>
-          </div>
+          <p className="text-yellow-300 text-sm">
+            <span className="font-medium">¿Prefieres configurar esto más tarde?</span> No hay problema. 
+            Puedes omitir este paso ahora y configurar el entrenamiento desde tu dashboard cuando lo desees.
+          </p>
         </div>
       </div>
     </div>

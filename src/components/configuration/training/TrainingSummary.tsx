@@ -43,12 +43,12 @@ const TrainingSummary: React.FC<TrainingSummaryProps> = ({
           )}
         </p>
       ) : (
-        <div className="text-gray-300">
-          <p>No has proporcionado ninguna fuente de información para entrenar a Xelia.</p>
-          <p className="mt-2 text-yellow-300 text-sm">
-            Podrás configurar el entrenamiento de Xelia posteriormente desde tu dashboard cuando lo necesites.
-          </p>
-        </div>
+        <p className="text-gray-300">
+          No has proporcionado ninguna fuente de información para entrenar a Xelia.
+          <span className="block mt-2 text-yellow-300 text-sm">
+            Podrás configurar el entrenamiento posteriormente desde tu dashboard.
+          </span>
+        </p>
       )}
     </div>
   );
