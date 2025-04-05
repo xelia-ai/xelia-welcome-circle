@@ -22,7 +22,7 @@ export const stepInfo: Record<ConfigStep, StepInfo> = {
     icon: React.createElement(Building2, { className: "w-5 h-5" })
   },
   'website': {
-    title: 'Entrena a Xelia',
+    title: 'Entrenar a Xelia',
     description: 'Sube documentos o ingresa tu sitio web para entrenar a Xelia con tu información.',
     icon: React.createElement(FileText, { className: "w-5 h-5" })
   },

@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Upload, FileText, Check, File, Globe } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,7 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState(website);
   const [activeTab, setActiveTab] = useState<string>("docs");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -71,6 +72,13 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
       onFilesSelected(files);
     }
   };
+
+  const handleSelectFilesClick = () => {
+    // Abrir el diálogo de selección de archivos al hacer clic en el botón
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
   
   const getFileIcon = (fileName: string) => {
     const extension = fileName.split('.').pop()?.toLowerCase();
@@ -119,20 +127,23 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
               <p className="text-white font-medium mb-2">Arrastra y suelta tus documentos aquí</p>
               <p className="text-gray-400 text-sm mb-4">o</p>
               
-              <label htmlFor="file-upload" className="cursor-pointer">
-                <Button variant="outline" className="bg-xelia-accent/20 border-xelia-accent/40 text-white hover:bg-xelia-accent/30">
-                  <Upload className="w-4 h-4 mr-2" />
-                  Seleccionar archivos
-                </Button>
-                <Input 
-                  id="file-upload" 
-                  type="file" 
-                  multiple 
-                  accept=".pdf,.doc,.docx,.csv,.xls,.xlsx,.txt" 
-                  className="hidden" 
-                  onChange={handleFileInput}
-                />
-              </label>
+              <Button 
+                variant="outline" 
+                className="bg-xelia-accent/20 border-xelia-accent/40 text-white hover:bg-xelia-accent/30"
+                onClick={handleSelectFilesClick}
+              >
+                <Upload className="w-4 h-4 mr-2" />
+                Seleccionar archivos
+              </Button>
+              <Input 
+                id="file-upload" 
+                ref={fileInputRef}
+                type="file" 
+                multiple 
+                accept=".pdf,.doc,.docx,.csv,.xls,.xlsx,.txt" 
+                className="hidden" 
+                onChange={handleFileInput}
+              />
               <p className="text-xs text-gray-500 mt-4">
                 PDF, Word, Excel, CSV, Text (max 10MB por archivo)
               </p>
