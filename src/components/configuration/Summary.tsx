@@ -324,8 +324,7 @@ import IndustrySelection from './IndustrySelection';
 
 const IndustrySelectionWrapper = ({ 
   selectedIndustries, 
-  onSelect, 
-  compact, 
+  onSelect,
   ...rest 
 }) => {
   return (
