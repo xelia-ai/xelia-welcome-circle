@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { AlertCircle } from "lucide-react";
 
 interface ComingSoonFeature {
   id: string;
@@ -42,13 +43,21 @@ const ComingSoonFeatures: React.FC = () => {
     }
   ];
 
-  const handlePreorder = (featureId: string, featureName: string) => {
+  const handlePreorder = (featureId: string, featureName: string, price: string) => {
     if (preordered.includes(featureId)) return;
     
     setPreordered(prev => [...prev, featureId]);
     toast({
       title: "Precontratación exitosa",
-      description: `Has precontratado ${featureName}. Te notificaremos cuando esté disponible.`,
+      description: (
+        <div className="flex flex-col gap-2">
+          <p>Has precontratado {featureName}. Te notificaremos cuando esté disponible.</p>
+          <p className="flex items-center text-amber-500 font-medium">
+            <AlertCircle className="h-4 w-4 mr-1" />
+            El cargo de {price} se realizará automáticamente cuando la funcionalidad esté disponible.
+          </p>
+        </div>
+      ),
     });
   };
 
@@ -86,7 +95,7 @@ const ComingSoonFeatures: React.FC = () => {
                   ? "border-green-600 text-green-400 hover:text-green-500" 
                   : "bg-xelia-accent hover:bg-xelia-accent/90"
                 }
-                onClick={() => handlePreorder(feature.id, feature.name)}
+                onClick={() => handlePreorder(feature.id, feature.name, feature.price)}
                 disabled={isPreordered}
               >
                 {isPreordered ? "Precontratado" : "Precontratar"}

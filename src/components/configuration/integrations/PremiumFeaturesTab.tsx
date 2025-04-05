@@ -40,7 +40,7 @@ const PremiumFeaturesTab: React.FC<PremiumFeaturesTabProps> = ({
       <div>
         <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
           <span className="p-1 rounded-md bg-xelia-accent/20 mr-2 text-xelia-accent">🔹</span>
-          Próximamente
+          Funcionalidades Avanzadas
         </h2>
         <ComingSoonFeatures />
       </div>

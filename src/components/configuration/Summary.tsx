@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Building, CheckCircle2, Globe, Brain, Calendar, 
@@ -162,13 +161,12 @@ const Summary: React.FC<SummaryProps> = ({ config, onEdit }) => {
         {editingSection === 'industry' ? (
           <div className="p-2 bg-gray-700/40 rounded-lg">
             <p className="text-sm text-gray-300 mb-3">Selecciona tu industria:</p>
-            <IndustrySelection 
+            <IndustrySelectionWrapper
               selectedIndustries={tempIndustries}
               onSelect={(industries, industryNames) => {
                 setTempIndustries(industries);
                 setTempIndustryNames(industryNames);
               }}
-              compact={true}
             />
           </div>
         ) : (
@@ -320,3 +318,23 @@ const Summary: React.FC<SummaryProps> = ({ config, onEdit }) => {
 };
 
 export default Summary;
+
+import React from 'react';
+import IndustrySelection from './IndustrySelection';
+
+const IndustrySelectionWrapper = ({ 
+  selectedIndustries, 
+  onSelect, 
+  compact, 
+  ...rest 
+}) => {
+  return (
+    <IndustrySelection
+      selectedIndustries={selectedIndustries}
+      onSelect={onSelect}
+      {...rest}
+    />
+  );
+};
+
+export { IndustrySelectionWrapper };
