@@ -7,6 +7,7 @@ export interface ConfigState {
   industries: string[];
   industryNames: string[];
   website: string;
+  websiteValidated: boolean;
   capabilities: string[];
   integrations: string[];
 }
@@ -18,6 +19,7 @@ export const useConfigureState = () => {
     industries: [],
     industryNames: [],
     website: '',
+    websiteValidated: false,
     capabilities: [],
     integrations: []
   });
@@ -76,6 +78,7 @@ export const useConfigureState = () => {
       case 'industry':
         return config.industries.length > 0;
       case 'website':
+        // Aseguramos que el sitio web haya sido validado o que estén usando documentos
         return !!config.website;
       case 'capabilities':
         return config.capabilities.length > 0;

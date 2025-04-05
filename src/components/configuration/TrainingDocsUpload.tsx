@@ -5,6 +5,7 @@ import DocumentUploader from './training/DocumentUploader';
 import FileList from './training/FileList';
 import WebsiteInput from './training/WebsiteInput';
 import TrainingSummary from './training/TrainingSummary';
+import { useToast } from '@/hooks/use-toast';
 
 interface TrainingDocsUploadProps {
   website?: string;
@@ -20,6 +21,8 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
   const [files, setFiles] = useState<File[]>([]);
   const [websiteUrl, setWebsiteUrl] = useState(website);
   const [activeTab, setActiveTab] = useState<string>("docs");
+  const [isWebsiteValid, setIsWebsiteValid] = useState(false);
+  const { toast } = useToast();
   
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles(prev => [...prev, ...selectedFiles]);
@@ -28,18 +31,23 @@ const TrainingDocsUpload: React.FC<TrainingDocsUploadProps> = ({
 
   const handleWebsiteUrlChange = (url: string) => {
     setWebsiteUrl(url);
-    onWebsiteChange(url);
+    // Solo actualizaremos el estado global cuando se valide la URL
   };
   
   const handleTabChange = (value: string) => {
     setActiveTab(value);
-    // Si cambia a la pestaña del sitio web y hay una URL válida, actualiza la configuración
-    if (value === "website" && websiteUrl) {
-      onWebsiteChange(websiteUrl);
-    }
+    
     // Si cambia a documentos y hay archivos, actualiza usando los archivos
-    else if (value === "docs" && files.length > 0) {
+    if (value === "docs" && files.length > 0) {
       onFilesSelected(files);
+    }
+  };
+
+  // Esta función será llamada por el componente WebsiteInput cuando la validación sea exitosa
+  const handleWebsiteValidated = (validUrl: string, isValid: boolean) => {
+    setIsWebsiteValid(isValid);
+    if (isValid) {
+      onWebsiteChange(validUrl);
     }
   };
   
