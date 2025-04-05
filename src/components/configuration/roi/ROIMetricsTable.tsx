@@ -24,16 +24,16 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
         <table className="w-full table-fixed">
           <thead className="bg-gray-800/70">
             <tr>
-              <th className="px-3 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-2 py-1.5 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                 Métrica
               </th>
-              <th className="px-3 py-2 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-2 py-1.5 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
                 Actual
               </th>
-              <th className="px-3 py-2 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-2 py-1.5 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
                 Con Xelia
               </th>
-              <th className="px-3 py-2 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-2 py-1.5 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
                 Mejora
               </th>
             </tr>
@@ -41,16 +41,16 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
           <tbody className="divide-y divide-gray-700">
             {roiMetrics.map((metric, index) => (
               <tr key={index} className={index % 2 === 0 ? 'bg-gray-800/30' : 'bg-gray-800/50'}>
-                <td className="px-3 py-2 text-sm text-white">
+                <td className="px-2 py-1.5 text-xs text-white">
                   {metric.title}
                 </td>
-                <td className="px-3 py-2 text-sm text-gray-300 text-center">
+                <td className="px-2 py-1.5 text-xs text-gray-300 text-center">
                   {metric.baseValue}
                 </td>
-                <td className="px-3 py-2 text-sm text-gray-300 text-center">
+                <td className="px-2 py-1.5 text-xs text-gray-300 text-center">
                   {metric.improvedValue}
                 </td>
-                <td className="px-3 py-2 text-sm font-medium text-xelia-accent text-center">
+                <td className="px-2 py-1.5 text-xs font-medium text-xelia-accent text-center">
                   {metric.improvement}
                 </td>
               </tr>
@@ -59,7 +59,7 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
         </table>
         
         {capabilitiesCount === 0 && (
-          <p className="text-gray-400 italic text-center text-sm py-2 px-3">
+          <p className="text-gray-400 italic text-center text-xs py-1.5 px-2">
             Selecciona capacidades para calcular el ROI estimado
           </p>
         )}

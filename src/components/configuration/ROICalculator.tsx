@@ -40,13 +40,13 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
 
   return (
     <Card className="bg-gray-800/80 border border-gray-700 h-full">
-      <CardHeader className="pb-1 pt-4">
-        <CardTitle className="text-lg font-medium text-white flex items-center">
-          <TrendingUp className="w-4 h-4 mr-2 text-xelia-accent" />
+      <CardHeader className="pb-0 pt-3">
+        <CardTitle className="text-base font-medium text-white flex items-center">
+          <TrendingUp className="w-4 h-4 mr-1.5 text-xelia-accent" />
           ROI y ventaja competitiva
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 pt-0">
+      <CardContent className="space-y-2 pt-0">
         {/* Competitive advantage component */}
         <CompetitiveAdvantage 
           capabilitiesCount={capabilitiesCount}
