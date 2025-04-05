@@ -47,6 +47,10 @@ const StepContent: React.FC<StepContentProps> = ({
     case 'website':
       return (
         <TrainingDocsUpload
+          website={config.website}
+          onWebsiteChange={(url) => {
+            updateConfig('website', url);
+          }}
           onFilesSelected={(files) => {
             // En un caso real, aquí se procesarían los archivos
             // Por ahora, sólo guardamos que se han cargado documentos
