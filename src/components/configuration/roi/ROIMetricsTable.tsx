@@ -19,12 +19,12 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
   capabilitiesCount
 }) => {
   return (
-    <div className="w-full">
+    <div className="w-full mt-3">
       <div className="rounded-lg border border-gray-700 overflow-hidden">
         <table className="w-full table-fixed">
           <thead className="bg-gray-800/70">
             <tr>
-              <th className="px-2 py-1.5 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-2 py-1.5 text-left text-xs font-medium text-gray-300 uppercase tracking-wider w-1/3">
                 Métrica
               </th>
               <th className="px-2 py-1.5 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
@@ -44,10 +44,10 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
                 <td className="px-2 py-1.5 text-xs text-white">
                   {metric.title}
                 </td>
-                <td className="px-2 py-1.5 text-xs text-gray-300 text-center">
+                <td className="px-2 py-1.5 text-xs text-center font-medium">
                   {metric.baseValue}
                 </td>
-                <td className="px-2 py-1.5 text-xs text-gray-300 text-center">
+                <td className="px-2 py-1.5 text-xs text-center font-medium">
                   {metric.improvedValue}
                 </td>
                 <td className="px-2 py-1.5 text-xs font-medium text-xelia-accent text-center">
@@ -59,7 +59,7 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
         </table>
         
         {capabilitiesCount === 0 && (
-          <p className="text-gray-400 italic text-center text-xs py-1.5 px-2">
+          <p className="text-gray-400 italic text-center text-xs py-1 px-2">
             Selecciona capacidades para calcular el ROI estimado
           </p>
         )}

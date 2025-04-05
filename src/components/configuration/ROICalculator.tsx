@@ -46,7 +46,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
           ROI y ventaja competitiva
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 pt-0">
+      <CardContent className="pt-2">
         {/* Competitive advantage component */}
         <CompetitiveAdvantage 
           capabilitiesCount={capabilitiesCount}
