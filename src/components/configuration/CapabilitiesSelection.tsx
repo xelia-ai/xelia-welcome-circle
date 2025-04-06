@@ -78,8 +78,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
         {/* Columna de opciones */}
         <div className="w-full lg:flex-1 space-y-8">
           <div className="pb-2">
-            <h3 className="text-2xl font-medium text-white">Personaliza tu inversión</h3>
-            <p className="text-gray-400 mt-1">
+            <p className="text-gray-400">
               Selecciona sólo las capacidades que quieres para tu negocio.
             </p>
           </div>

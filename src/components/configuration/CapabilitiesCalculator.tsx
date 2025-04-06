@@ -88,7 +88,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
         <div className="p-2 rounded-lg bg-xelia-accent/20 text-xelia-accent mr-3">
           <CreditCard className="w-5 h-5" />
         </div>
-        <h3 className="text-xl font-medium text-white">Calculadora de precio</h3>
+        <h3 className="text-xl font-medium text-white">Personaliza tu inversión</h3>
       </div>
       
       <div className="space-y-4">
