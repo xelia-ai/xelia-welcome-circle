@@ -22,9 +22,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({
 }) => {
   return (
     <div 
-      className={`bg-gray-800/60 border rounded-lg p-5 transition-all duration-300 hover:bg-gray-700/50 cursor-pointer ${
-        status === 'connected' ? 'border-[#3EF3B0] border-2' : 'border-gray-700 hover:border-gray-500'
-      }`}
+      className="bg-[#1F1F2B] border border-gray-700 rounded-lg p-5 transition-all duration-300 hover:bg-gray-700/50 cursor-pointer"
       onClick={() => onConnect(id)}
     >
       <div className="flex items-center justify-between mb-3">
@@ -33,7 +31,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({
           <h3 className="text-lg font-medium text-white">{name}</h3>
         </div>
         {status === 'connected' && (
-          <span className="text-green-400 text-sm flex items-center">
+          <span className="text-[#3EF3B0] text-sm flex items-center">
             <CheckCircle2 className="w-4 h-4 mr-1" />
             Conectado
           </span>
@@ -44,7 +42,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({
         variant={status === 'connected' ? 'outline' : 'default'}
         size="sm" 
         className={status === 'connected' 
-          ? 'border-green-600 text-green-400 hover:text-green-500' 
+          ? 'border-[#3EF3B0]/50 text-[#3EF3B0] hover:text-[#3EF3B0]/80' 
           : 'bg-xelia-accent hover:bg-xelia-accent/90'
         }
         disabled={status === 'connecting'}

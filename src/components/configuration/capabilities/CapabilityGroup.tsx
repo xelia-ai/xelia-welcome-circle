@@ -45,19 +45,11 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
           return (
             <div 
               key={capability.id}
-              className={cn(
-                "bg-gray-800/80 rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:bg-gray-700/50",
-                isSelected 
-                  ? 'border-[#3EF3B0] border-2 shadow-sm bg-[#1F2232]' 
-                  : 'border-gray-700 border hover:border-gray-500 bg-[#1F2232]'
-              )}
+              className="bg-[#1F1F2B] rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:bg-gray-700/50 border border-gray-700"
               onClick={() => onToggle(capability.id)}
             >
               <div className="mr-4 mt-0.5">
-                <div className={cn(
-                  "p-2 rounded-full w-10 h-10 flex items-center justify-center",
-                  isSelected ? 'bg-[#3EF3B0]/20 text-white' : 'bg-gray-700 text-gray-300'
-                )}>
+                <div className="p-2 rounded-full w-10 h-10 flex items-center justify-center bg-gray-700 text-gray-300">
                   {capability.icon}
                 </div>
               </div>
@@ -70,12 +62,6 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                     >
                       {capability.name}
                     </Label>
-                    
-                    {isSelected && (
-                      <Badge variant="outline" className="ml-2 bg-[#3EF3B0]/10 text-[#3EF3B0] border-[#3EF3B0]/30 text-xs">
-                        ✓ Activado
-                      </Badge>
-                    )}
                   </div>
                   
                   <Tooltip>

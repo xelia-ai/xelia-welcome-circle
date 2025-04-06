@@ -24,20 +24,19 @@ const SmartSuggestions: React.FC<SmartSuggestionsProps> = ({
       </h3>
       <div className="space-y-3">
         {suggestedIntegrations.map((integration) => (
-          <div key={integration.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-xelia-accent/20">
+          <div key={integration.id} className="flex items-center justify-between p-3 bg-[#1F1F2B] rounded-lg border border-gray-700">
             <div className="flex items-center">
               <div className="mr-3 text-xl">{integration.logo}</div>
               <div>
                 <div className="flex items-center">
-                  <p className="font-medium text-gray-900">{integration.name}</p>
+                  <p className="font-medium text-white">{integration.name}</p>
                   <span className="ml-2 px-2 py-0.5 bg-xelia-accent/20 text-xelia-accent text-xs rounded-full">Recomendado</span>
                 </div>
-                <p className="text-sm text-gray-500">Ideal para tu industria</p>
+                <p className="text-sm text-gray-400">Ideal para tu industria</p>
               </div>
             </div>
             <Switch 
               id={`suggestion-${integration.id}`}
-              className="data-[state=checked]:bg-xelia-accent"
               checked={selectedIntegrations.includes(integration.id)}
               onCheckedChange={() => onIntegrationToggle(integration.id)}
             />

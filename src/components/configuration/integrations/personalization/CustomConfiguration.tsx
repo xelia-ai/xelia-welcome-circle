@@ -52,7 +52,7 @@ const CustomConfiguration: React.FC<CustomConfigurationProps> = ({
                 key={option.id}
                 pressed={selectedDbOption === option.id}
                 onPressedChange={() => setSelectedDbOption(option.id)}
-                className="flex justify-start gap-2 h-auto py-2"
+                className="flex justify-start gap-2 h-auto py-2 bg-[#1F1F2B] border border-gray-700 data-[state=on]:border-gray-500"
               >
                 {option.icon}
                 <span>{option.name}</span>
@@ -70,7 +70,7 @@ const CustomConfiguration: React.FC<CustomConfigurationProps> = ({
                 key={option.id}
                 pressed={selectedVolumeOption === option.id}
                 onPressedChange={() => setSelectedVolumeOption(option.id)}
-                className="flex flex-col items-start gap-1 h-auto py-2"
+                className="flex flex-col items-start gap-1 h-auto py-2 bg-[#1F1F2B] border border-gray-700 data-[state=on]:border-gray-500"
               >
                 <span>{option.name}</span>
                 <span className="text-xs text-gray-500">{option.price}</span>
@@ -88,7 +88,7 @@ const CustomConfiguration: React.FC<CustomConfigurationProps> = ({
                 key={style.id}
                 pressed={selectedVoiceStyle === style.id}
                 onPressedChange={() => setSelectedVoiceStyle(style.id)}
-                className="flex justify-start gap-2 h-auto py-2"
+                className="flex justify-start gap-2 h-auto py-2 bg-[#1F1F2B] border border-gray-700 data-[state=on]:border-gray-500"
               >
                 <span>{style.name}</span>
               </Toggle>

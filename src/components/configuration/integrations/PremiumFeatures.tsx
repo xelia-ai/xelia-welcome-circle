@@ -65,29 +65,16 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
         return (
           <Card 
             key={feature.id} 
-            className={cn(
-              "bg-gray-800/60 cursor-pointer transition-all duration-300 flex flex-col h-full", 
-              isActive 
-                ? "border-[#3EF3B0] border-2 shadow-sm" 
-                : "border-gray-700 border hover:border-gray-500 hover:bg-gray-700/50"
-            )}
+            className="bg-[#1F1F2B] cursor-pointer transition-all duration-300 flex flex-col h-full border border-gray-700 hover:bg-gray-700/50"
             onClick={() => onToggle(feature.id)}
           >
             <CardHeader className="pb-2 flex flex-row items-start justify-between gap-2">
               <div className="flex gap-3 items-center">
-                <span className={cn(
-                  "p-2 rounded-md w-10 h-10 flex items-center justify-center", 
-                  isActive ? "bg-[#3EF3B0]/20 text-white" : "bg-gray-700 text-gray-300"
-                )}>
+                <span className="p-2 rounded-md w-10 h-10 flex items-center justify-center bg-gray-700 text-gray-300">
                   {feature.icon}
                 </span>
                 <div>
                   <CardTitle className="text-lg font-semibold text-white">{feature.name}</CardTitle>
-                  {isActive && (
-                    <Badge variant="outline" className="mt-1 bg-[#3EF3B0]/10 text-[#3EF3B0] border-[#3EF3B0]/30 text-xs">
-                      ✓ Activado
-                    </Badge>
-                  )}
                 </div>
               </div>
               <div className="flex items-center shrink-0">

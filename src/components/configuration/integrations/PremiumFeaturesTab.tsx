@@ -24,7 +24,7 @@ const PremiumFeaturesTab: React.FC<PremiumFeaturesTabProps> = ({
   const integrationNames = getIntegrationNameMap();
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <PremiumFeatures 
         selectedFeatures={selectedPremiumFeatures} 
         onToggle={onPremiumToggle} 

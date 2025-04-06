@@ -64,13 +64,6 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
       price: 60
     },
     {
-      id: 'rescheduling',
-      name: 'Reprogramación inteligente',
-      description: 'Permite a los usuarios reprogramar citas, añadir notas o cancelar fácilmente',
-      icon: <RefreshCw className="w-5 h-5" />,
-      price: 65
-    },
-    {
       id: 'email-notes',
       name: 'Notas por correo al cliente',
       description: 'Envía una nota interna con el resumen de cada llamada al correo del responsable. Si lo deseas, también puedes programar una respuesta automática para el cliente.',
@@ -79,38 +72,21 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
     }
   ];
 
-  const intelligenceCapabilities: Capability[] = [
-    {
-      id: 'conversation-memory',
-      name: 'Memoria de conversaciones',
-      description: 'Recuerda detalles de conversaciones anteriores con tus clientes',
-      icon: <Brain className="w-5 h-5" />,
-      price: 55
-    },
-    {
-      id: 'real-time-data',
-      name: 'Datos en tiempo real',
-      description: 'Accede a información actualizada para respuestas más precisas',
-      icon: <Database className="w-5 h-5" />,
-      price: 70
-    },
-    {
-      id: 'database-search',
-      name: 'Búsqueda en base de datos',
-      description: 'Genera passkeys para que tus clientes accedan y editen su información',
-      icon: <FileSearch className="w-5 h-5" />,
-      price: 50
-    }
-  ];
-
   return (
     <div className="max-w-6xl mx-auto px-4">
       <div className="display-grid-parent flex flex-wrap gap-6">
         {/* Columna de opciones */}
-        <div className="w-full lg:flex-1 space-y-6">
-          <h3 className="text-2xl font-medium text-white mb-4">Selecciona las capacidades</h3>
+        <div className="w-full lg:flex-1 space-y-8">
+          <div className="pb-2">
+            <h3 className="text-2xl font-medium text-white">Personaliza tu inversión</h3>
+            <p className="text-gray-400 mt-1">
+              Selecciona las capacidades que necesitas para tu negocio y optimiza tu inversión.
+            </p>
+          </div>
+
+          <h4 className="text-lg font-medium text-white">Selecciona tus capacidades</h4>
           
-          <div className="space-y-10">
+          <div className="space-y-8">
             <CapabilityGroup
               title="Comunicación"
               icon={<MessageSquare className="w-5 h-5" />}
@@ -126,34 +102,16 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               selectedCapabilities={selectedCapabilities}
               onToggle={toggleCapability}
             />
-            
-            <CapabilityGroup
-              title="Inteligencia avanzada"
-              icon={<BrainCircuit className="w-5 h-5" />}
-              capabilities={intelligenceCapabilities}
-              selectedCapabilities={selectedCapabilities}
-              onToggle={toggleCapability}
-            />
+          </div>
+          
+          <div className="mt-8">
+            <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
           </div>
         </div>
 
         {/* Contenedor para calculadoras y tips - Reordenado según la petición */}
-        <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6">
-          {/* Personaliza tu inversión - Ahora primero */}
-          <div className="w-full">
-            <div className="mb-4">
-              <h4 className="text-lg font-medium text-white flex items-center">
-                <Wrench className="h-5 w-5 mr-2 text-xelia-accent" />
-                Personaliza tu inversión
-              </h4>
-              <p className="text-gray-400 text-sm mt-1">
-                Activa solo lo que necesitas para tu negocio y mira cómo se ajusta en tiempo real.
-              </p>
-            </div>
-            <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
-          </div>
-          
-          {/* ROI Calculator - Ahora segundo */}
+        <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-8">
+          {/* ROI Calculator */}
           <div className="w-full">
             <ROICalculator 
               selectedCapabilities={selectedCapabilities} 
@@ -162,7 +120,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
             />
           </div>
           
-          {/* Tips Widget - Ahora último */}
+          {/* Tips Widget */}
           <div className="w-full">
             <TipsWidget selectedCapabilities={selectedCapabilities} />
           </div>

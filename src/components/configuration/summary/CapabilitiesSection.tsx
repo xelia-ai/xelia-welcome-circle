@@ -49,7 +49,7 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
   };
 
   return (
-    <div className="bg-gray-800/60 border border-gray-700 rounded-lg p-5">
+    <div className="bg-[#1F1F2B] border border-gray-700 rounded-lg p-5">
       <SectionHeader 
         title="Capacidades" 
         section="capabilities" 
@@ -73,7 +73,7 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
           <ul className="space-y-3">
             {getSelectedCapabilities().map(cap => (
               <li key={cap.id} className="flex items-center">
-                <div className="p-1.5 w-8 h-8 rounded-full bg-xelia-accent/10 text-xelia-accent mr-3 flex items-center justify-center">
+                <div className="p-1.5 w-8 h-8 rounded-full bg-gray-700 text-gray-300 mr-3 flex items-center justify-center">
                   {cap.icon}
                 </div>
                 <span className="text-gray-300">{cap.name}</span>
