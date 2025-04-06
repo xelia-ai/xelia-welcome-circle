@@ -1,0 +1,61 @@
+
+/* Form and input styles */
+@layer components {
+  /* Apple-style buttons */
+  .btn-apple {
+    @apply relative overflow-hidden rounded-lg px-4 py-2 font-medium shadow-sm 
+           transition-all duration-300 ease-out focus:outline-none focus:ring-2
+           focus:ring-offset-2 active:scale-[0.97];
+  }
+
+  .btn-apple::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
+  .btn-apple:hover::before {
+    @apply opacity-100;
+  }
+
+  .btn-apple:active::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+/* Additional Apple-like CSS resets and improvements */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+/* Improved tap target sizes for mobile */
+@media (max-width: 640px) {
+  button, 
+  [role="button"],
+  input,
+  select,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

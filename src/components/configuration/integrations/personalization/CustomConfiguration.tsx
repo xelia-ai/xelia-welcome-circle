@@ -1,115 +1,114 @@
-
 import React from 'react';
-import { Toggle } from "@/components/ui/toggle";
-import { Label } from "@/components/ui/label";
+import { PencilLine, CreditCard, Package, Timer, Users, Calendar, UserPlus, Activity, Gift, CheckCircle2 } from 'lucide-react';
+import { cn } from "@/lib/utils";
+import { Separator } from '@/components/ui/separator';
 
-interface ConfigOption {
-  id: string;
-  name: string;
-  icon?: React.ReactNode;
-  price?: string;
+interface FeatureItemProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  comingSoon?: boolean;
+  active?: boolean;
 }
 
-interface CustomConfigurationProps {
-  dbOptions: ConfigOption[];
-  volumeOptions: ConfigOption[];
-  voiceStyles: ConfigOption[];
-  selectedDbOption: string | null;
-  selectedVolumeOption: string | null;
-  selectedVoiceStyle: string | null;
-  setSelectedDbOption: (id: string) => void;
-  setSelectedVolumeOption: (id: string) => void;
-  setSelectedVoiceStyle: (id: string) => void;
-}
+const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description, comingSoon = false, active = false }) => {
+  return (
+    <div className={cn(
+      "flex items-start space-x-3 p-4 rounded-md hover:bg-xelia-light transition-colors duration-200",
+      active ? "bg-xelia-light" : "bg-transparent",
+      comingSoon ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+    )}>
+      <div className="w-8 h-8 rounded-full bg-xelia-accent/10 flex items-center justify-center text-xelia-accent">
+        {icon}
+      </div>
+      <div>
+        <h3 className="text-sm font-semibold text-xelia-gray-dark">{title}</h3>
+        <p className="text-xs text-xelia-gray-medium">{description}</p>
+        {comingSoon && <span className="text-xs text-xelia-accent">Próximamente</span>}
+      </div>
+    </div>
+  );
+};
 
-const CustomConfiguration: React.FC<CustomConfigurationProps> = ({
-  dbOptions,
-  volumeOptions,
-  voiceStyles,
-  selectedDbOption,
-  selectedVolumeOption,
-  selectedVoiceStyle,
-  setSelectedDbOption,
-  setSelectedVolumeOption,
-  setSelectedVoiceStyle
-}) => {
+const CustomConfiguration: React.FC = () => {
   return (
     <div>
-      <h3 className="text-lg font-medium mb-4 flex items-center text-xelia-gray-dark">
-        <span className="h-5 w-5 mr-2 text-xelia-accent">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-        </span>
-        Configura a tu medida
-      </h3>
-      
-      <div className="space-y-6">
-        {/* Database selection */}
-        <div>
-          <Label className="block mb-2 text-sm font-medium text-xelia-gray-dark">Base de datos a usar</Label>
-          <div className="grid grid-cols-2 gap-2">
-            {dbOptions.map(option => (
-              <Toggle
-                key={option.id}
-                pressed={selectedDbOption === option.id}
-                onPressedChange={() => setSelectedDbOption(option.id)}
-                className={cn(
-                  "flex justify-start gap-2 h-auto py-2 bg-white border",
-                  selectedDbOption === option.id 
-                    ? "border-xelia-accent data-[state=on]:border-xelia-accent data-[state=on]:text-xelia-accent" 
-                    : "border-xelia-gray-light data-[state=on]:border-xelia-gray-medium"
-                )}
-              >
-                {option.icon}
-                <span>{option.name}</span>
-              </Toggle>
-            ))}
-          </div>
-        </div>
-        
-        {/* Volume selection */}
-        <div>
-          <Label className="block mb-2 text-sm font-medium text-xelia-gray-dark">Volumen estimado de llamadas</Label>
-          <div className="grid grid-cols-2 gap-2">
-            {volumeOptions.map(option => (
-              <Toggle
-                key={option.id}
-                pressed={selectedVolumeOption === option.id}
-                onPressedChange={() => setSelectedVolumeOption(option.id)}
-                className={cn(
-                  "flex flex-col items-start gap-1 h-auto py-2 bg-white border",
-                  selectedVolumeOption === option.id 
-                    ? "border-xelia-accent data-[state=on]:border-xelia-accent data-[state=on]:text-xelia-accent" 
-                    : "border-xelia-gray-light data-[state=on]:border-xelia-gray-medium"
-                )}
-              >
-                <span>{option.name}</span>
-                <span className="text-xs text-xelia-gray-medium">{option.price}</span>
-              </Toggle>
-            ))}
-          </div>
-        </div>
-        
-        {/* Voice style selection */}
-        <div>
-          <Label className="block mb-2 text-sm font-medium text-xelia-gray-dark">Estilo de voz del agente</Label>
-          <div className="grid grid-cols-2 gap-2">
-            {voiceStyles.map(style => (
-              <Toggle
-                key={style.id}
-                pressed={selectedVoiceStyle === style.id}
-                onPressedChange={() => setSelectedVoiceStyle(style.id)}
-                className={cn(
-                  "flex justify-start gap-2 h-auto py-2 bg-white border",
-                  selectedVoiceStyle === style.id 
-                    ? "border-xelia-accent data-[state=on]:border-xelia-accent data-[state=on]:text-xelia-accent" 
-                    : "border-xelia-gray-light data-[state=on]:border-xelia-gray-medium"
-                )}
-              >
-                <span>{style.name}</span>
-              </Toggle>
-            ))}
-          </div>
-        </div>
+      <h2 className="text-lg font-semibold text-xelia-gray-dark mb-4">
+        Elige las funcionalidades de tu Xelia
+      </h2>
+      <p className="text-sm text-xelia-gray-medium mb-6">
+        Selecciona las funcionalidades que quieres que tenga tu Xelia. Puedes
+        activar o desactivar funcionalidades en cualquier momento.
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <FeatureItem
+          icon={<PencilLine size={20} />}
+          title="Personalización del flujo de conversación"
+          description="Define el flujo de conversación de tu Xelia."
+        />
+        <FeatureItem
+          icon={<CreditCard size={20} />}
+          title="Integración con sistemas de pago"
+          description="Integra tu Xelia con sistemas de pago."
+          comingSoon
+        />
+        <FeatureItem
+          icon={<Package size={20} />}
+          title="Gestión de envíos"
+          description="Gestiona los envíos de tus productos."
+          comingSoon
+        />
+        <FeatureItem
+          icon={<Timer size={20} />}
+          title="Recordatorios de citas"
+          description="Envía recordatorios de citas a tus clientes."
+        />
+        <FeatureItem
+          icon={<Users size={20} />}
+          title="Gestión de clientes"
+          description="Gestiona tus clientes desde tu Xelia."
+        />
+        <FeatureItem
+          icon={<Calendar size={20} />}
+          title="Integración con calendarios"
+          description="Integra tu Xelia con calendarios."
+          comingSoon
+        />
+        <FeatureItem
+          icon={<UserPlus size={20} />}
+          title="Programa de referidos"
+          description="Crea un programa de referidos para tus clientes."
+          comingSoon
+        />
+        <FeatureItem
+          icon={<Activity size={20} />}
+          title="Analíticas avanzadas"
+          description="Obtén analíticas avanzadas de tu Xelia."
+          comingSoon
+        />
+        <FeatureItem
+          icon={<Gift size={20} />}
+          title="Programa de lealtad"
+          description="Crea un programa de lealtad para tus clientes."
+          comingSoon
+        />
+        <FeatureItem
+          icon={<CheckCircle2 size={20} />}
+          title="Automatización de tareas"
+          description="Automatiza tareas repetitivas."
+        />
+      </div>
+
+      <Separator className="my-6" />
+
+      <div className="text-center">
+        <p className="text-sm text-xelia-gray-medium">
+          ¿Necesitas alguna funcionalidad en especial?{" "}
+          <a href="#" className="text-xelia-accent hover:underline">
+            ¡Contáctanos!
+          </a>
+        </p>
       </div>
     </div>
   );
