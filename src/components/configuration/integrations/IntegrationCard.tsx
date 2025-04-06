@@ -22,7 +22,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({
 }) => {
   return (
     <div 
-      className="bg-[#1F1F2B] border border-gray-700 rounded-lg p-5 transition-all duration-300 hover:bg-gray-700/50 cursor-pointer"
+      className="bg-[#1F1F2B] border border-gray-700 rounded-lg p-5 transition-all duration-300 hover:bg-gray-700/30 cursor-pointer"
       onClick={() => onConnect(id)}
     >
       <div className="flex items-center justify-between mb-3">

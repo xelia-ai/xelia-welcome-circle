@@ -45,7 +45,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
           return (
             <div 
               key={capability.id}
-              className="bg-[#1F1F2B] rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:bg-gray-700/50 border border-gray-700"
+              className="bg-[#1F1F2B] rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:bg-gray-700/30 border border-gray-700"
               onClick={() => onToggle(capability.id)}
             >
               <div className="mr-4 mt-0.5">
