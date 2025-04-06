@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Info } from 'lucide-react';
+import { TrendingUp, Info, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { estimateBaseMetrics, BaseMetrics } from '@/utils/metricsEstimation';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import CompetitiveAdvantage from './roi/CompetitiveAdvantage';
 import ROIMetricsTable from './roi/ROIMetricsTable';
 import { useROICalculations } from './roi/useROICalculations';
+import { Progress } from '@/components/ui/progress';
 
 interface ROICalculatorProps {
   selectedCapabilities: string[];
@@ -42,7 +43,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
   const capabilitiesCount = selectedCapabilities.length;
 
   return (
-    <Card className="roi-module bg-gray-800/80 border border-gray-700 h-full w-full max-w-full m-0 p-0 box-border relative overflow-hidden self-start">
+    <Card className="roi-module bg-gray-800/80 border border-gray-700 h-full w-full max-w-full m-0 p-0 box-border relative overflow-hidden self-start shadow-[0_0_15px_rgba(0,0,0,0.2)]">
       <CardHeader className="pb-0 pt-3">
         <CardTitle className="text-base font-medium text-white flex items-center">
           <TrendingUp className="w-4 h-4 mr-1.5 text-xelia-accent" />
@@ -60,6 +61,16 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-2">
+        {/* ROI explanation */}
+        <div className="bg-gray-700/30 rounded-lg p-3 mb-3 text-xs text-gray-300 leading-relaxed">
+          <div className="flex gap-2">
+            <AlertCircle className="w-4 h-4 text-xelia-accent flex-shrink-0 mt-0.5" />
+            <p>
+              Esta sección calcula el retorno estimado que puedes obtener según las capacidades que hayas activado para tu negocio.
+            </p>
+          </div>
+        </div>
+        
         {/* Competitive advantage component */}
         <CompetitiveAdvantage 
           capabilitiesCount={capabilitiesCount}

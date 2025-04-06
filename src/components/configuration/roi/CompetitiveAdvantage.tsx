@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Progress } from '@/components/ui/progress';
 
 interface CompetitiveAdvantageProps {
   capabilitiesCount: number;
@@ -13,12 +14,16 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
   totalCapabilities
 }) => {
   const [animate, setAnimate] = useState(false);
+  const [progressValue, setProgressValue] = useState(0);
 
   useEffect(() => {
     // Trigger animation after component mounts
-    const timer = setTimeout(() => setAnimate(true), 300);
+    const timer = setTimeout(() => {
+      setAnimate(true);
+      setProgressValue(capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100));
+    }, 300);
     return () => clearTimeout(timer);
-  }, []);
+  }, [capabilitiesCount, totalCapabilities]);
 
   const getCompetitiveMessage = () => {
     if (capabilitiesCount === 0) {
@@ -56,14 +61,11 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
       <p className="text-sm text-gray-300 mb-2">{competitiveMessage}</p>
       
       {/* Progress bar with animation */}
-      <div className="w-full bg-gray-700 rounded-full h-2.5">
+      <Progress value={progressValue} className="h-2.5 bg-gray-700">
         <div 
-          className="bg-xelia-accent h-2.5 rounded-full transition-all duration-1000 ease-out"
-          style={{ 
-            width: animate ? `${competitiveAdvantage}%` : '0%' 
-          }}
+          className="h-full bg-xelia-accent transition-all duration-1000 ease-out"
         ></div>
-      </div>
+      </Progress>
     </div>
   );
 };
