@@ -7,6 +7,7 @@ import ROICalculator from './ROICalculator';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CapabilityGroup, { Capability } from './capabilities/CapabilityGroup';
 import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch } from 'lucide-react';
+import TipsWidget from './roi/TipsWidget';
 
 interface CapabilitiesSelectionProps {
   selectedCapabilities: string[];
@@ -129,18 +130,30 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           </div>
         </div>
 
-        {/* Contenedor para calculadoras - Apilar en móvil, lado a lado en desktop */}
+        {/* Contenedor para calculadoras y tips - Apilar en móvil, lado a lado en desktop */}
         <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6">
+          {/* Calculadora de precio */}
           <div className="w-full">
             <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
           </div>
           
+          {/* Tips Widget */}
+          <div className="w-full hidden lg:block">
+            <TipsWidget selectedCapabilities={selectedCapabilities} />
+          </div>
+          
+          {/* ROI Calculator */}
           <div className="w-full">
             <ROICalculator 
               selectedCapabilities={selectedCapabilities} 
               website={website}
               fullWidth={true}
             />
+          </div>
+          
+          {/* Tips Widget (mobile position) */}
+          <div className="w-full lg:hidden">
+            <TipsWidget selectedCapabilities={selectedCapabilities} />
           </div>
         </div>
       </div>
