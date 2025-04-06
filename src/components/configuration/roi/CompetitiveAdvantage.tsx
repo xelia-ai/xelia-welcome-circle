@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { motion } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 
 interface CompetitiveAdvantageProps {
   capabilitiesCount: number;
@@ -14,11 +14,24 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
   totalCapabilities
 }) => {
   const [progressValue, setProgressValue] = useState(0);
+  const controls = useAnimation();
 
   useEffect(() => {
     // Set the progress value based on selected capabilities
-    setProgressValue(capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100));
-  }, [capabilitiesCount, totalCapabilities]);
+    const newProgressValue = capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100);
+    setProgressValue(newProgressValue);
+
+    // Animate the progress bar
+    controls.start({
+      width: `${newProgressValue}%`,
+      transition: {
+        duration: 0.8,
+        type: "spring", 
+        stiffness: 120, 
+        damping: 20
+      }
+    });
+  }, [capabilitiesCount, totalCapabilities, controls]);
 
   const getCompetitiveMessage = () => {
     if (capabilitiesCount === 0) {
@@ -38,7 +51,7 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
   const competitiveAdvantage = capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100);
 
   return (
-    <div className="bg-gray-700/50 rounded-lg p-4">
+    <div className="bg-gray-700/50 backdrop-blur-sm rounded-lg p-4 shadow-elegant">
       <div className="flex justify-between items-center mb-1">
         <h4 className="text-white font-medium flex items-center">
           Ventaja competitiva
@@ -51,27 +64,45 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
             </TooltipContent>
           </Tooltip>
         </h4>
-        <motion.span 
-          className="text-xelia-accent font-bold text-lg"
-          key={competitiveAdvantage}
+        <AnimatePresence mode="wait">
+          <motion.span 
+            key={Math.round(competitiveAdvantage)}
+            className="text-xelia-accent font-bold text-lg"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ 
+              duration: 0.3,
+              ease: [0.23, 1, 0.32, 1] // Apple-like easing
+            }}
+          >
+            {Math.round(competitiveAdvantage)}%
+          </motion.span>
+        </AnimatePresence>
+      </div>
+      
+      <AnimatePresence mode="wait">
+        <motion.p 
+          key={competitiveMessage}
+          className="text-sm text-gray-300 mb-2"
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 5 }}
           transition={{ duration: 0.3 }}
         >
-          {Math.round(competitiveAdvantage)}%
-        </motion.span>
-      </div>
-      <p className="text-sm text-gray-300 mb-2">{competitiveMessage}</p>
+          {competitiveMessage}
+        </motion.p>
+      </AnimatePresence>
       
-      {/* Progress bar with improved animation */}
-      <div className="h-2.5 w-full bg-gray-700 rounded-full overflow-hidden">
+      {/* Progress bar with refined animation */}
+      <div className="h-2.5 w-full bg-gray-700/80 rounded-full overflow-hidden shadow-inner">
         <motion.div 
-          className="h-full bg-xelia-accent"
+          className="h-full bg-gradient-to-r from-xelia-accent to-xelia-accent-light"
           initial={{ width: 0 }}
-          animate={{ width: `${progressValue}%` }}
-          transition={{
-            duration: 0.8,
-            ease: [0.34, 1.56, 0.64, 1], // Custom spring-like bounce effect
+          animate={controls}
+          style={{ 
+            boxShadow: '0 0 8px rgba(92, 106, 255, 0.5)',
+            borderRadius: 'inherit'
           }}
         />
       </div>
