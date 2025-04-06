@@ -12,13 +12,13 @@ export interface StepInfo {
 
 export const stepInfo: Record<ConfigStep, StepInfo> = {
   'agent-type': {
-    title: 'Elige el tipo de agente',
-    description: 'Selecciona el tipo de agente IA que mejor se adapte a tus necesidades.',
+    title: 'Elige el tipo de Xelia',
+    description: 'Selecciona el tipo de Xelia que mejor se adapte a tus necesidades.',
     icon: React.createElement(Bot, { className: "w-5 h-5" })
   },
   'industry': {
     title: 'Selecciona tu industria',
-    description: 'Personaliza tu agente según tu industria para obtener mejores resultados.',
+    description: 'Personaliza tu Xelia según tu industria para obtener mejores resultados.',
     icon: React.createElement(Building2, { className: "w-5 h-5" })
   },
   'website': {
@@ -28,7 +28,7 @@ export const stepInfo: Record<ConfigStep, StepInfo> = {
   },
   'capabilities': {
     title: 'Selecciona las capacidades',
-    description: 'Elige las funcionalidades que necesita tu agente de IA.',
+    description: 'Elige las funcionalidades que necesita tu Xelia para potenciar tu negocio.',
     icon: React.createElement(Zap, { className: "w-5 h-5" })
   },
   'integrations': {

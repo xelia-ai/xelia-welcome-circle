@@ -13,6 +13,7 @@ const AgentTypeStep: React.FC<AgentTypeStepProps> = ({
 }) => {
   return (
     <div className="md:col-span-2">
+      <h2 className="text-white text-xl font-semibold mb-4">Configura tu Xelia según tus objetivos</h2>
       <AgentTypeSelection 
         selectedType={selectedType} 
         onSelect={onSelect} 

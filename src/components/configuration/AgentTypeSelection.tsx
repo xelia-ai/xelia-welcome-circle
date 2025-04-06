@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bot, ShoppingCart, HeadphonesIcon, Users } from 'lucide-react';
+import { ShoppingCart, HeadphonesIcon, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface AgentTypeSelectionProps {
@@ -19,19 +19,19 @@ const AgentTypeSelection: React.FC<AgentTypeSelectionProps> = ({ selectedType, o
   const agentTypes: AgentType[] = [
     {
       id: 'sales',
-      name: 'Agente de Ventas',
+      name: 'Ventas',
       icon: <ShoppingCart className="h-6 w-6" />,
       description: 'Especializado en convertir visitantes en clientes, calificar leads y maximizar oportunidades de venta.'
     },
     {
       id: 'customer-service',
-      name: 'Atención al Cliente',
+      name: 'Atención',
       icon: <HeadphonesIcon className="h-6 w-6" />,
       description: 'Responde consultas, resuelve problemas y ofrece soporte excepcional a tus clientes existentes.'
     },
     {
       id: 'hybrid',
-      name: 'Agente Híbrido',
+      name: 'Híbrida',
       icon: <Users className="h-6 w-6" />,
       description: 'Combina habilidades de ventas y servicio al cliente para una experiencia completa.'
     }
@@ -44,7 +44,7 @@ const AgentTypeSelection: React.FC<AgentTypeSelectionProps> = ({ selectedType, o
           key={type.id}
           onClick={() => onSelect(type.id)}
           className={cn(
-            "frosted-glass rounded-xl p-6 cursor-pointer transition-all duration-300 relative group flex flex-col h-full",
+            "frosted-glass rounded-xl p-6 cursor-pointer transition-all duration-300 relative group flex flex-col h-full bg-gray-800/90",
             selectedType === type.id 
               ? "border-xelia-accent bg-xelia-accent/5 shadow-accent" 
               : "hover:border-white/20 hover:shadow-elegant-hover"
@@ -59,8 +59,6 @@ const AgentTypeSelection: React.FC<AgentTypeSelectionProps> = ({ selectedType, o
             )}>
               {type.icon}
             </div>
-            
-            {/* Removed the duplicate "Seleccionado" indicator that was here */}
           </div>
           
           <h3 className={cn(
