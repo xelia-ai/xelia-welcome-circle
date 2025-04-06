@@ -36,7 +36,7 @@ const IndustryPreview: React.FC<IndustryPreviewProps> = ({
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-medium text-gradient">
+        <h3 className="text-xl font-medium text-white">
           {selectedIndustries.length === 1
             ? (selectedIndustryData?.id === 'custom' 
               ? 'Solución personalizada' 

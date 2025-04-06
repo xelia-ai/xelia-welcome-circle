@@ -38,9 +38,9 @@ export const colors = {
       dark: '#0F1012',
       DEFAULT: '#181A1F',
       light: '#1E2026',
-      accent: '#5C6AFF', // Cambiado a azul
-      'accent-light': '#7E89FF', // Azul más claro
-      'accent-dark': '#4652E5', // Azul más oscuro
+      accent: '#5C6AFF',
+      'accent-light': '#7E89FF',
+      'accent-dark': '#4652E5',
       white: '#FFFFFF',
       muted: '#8A8D96',
       'gray-light': '#E0E0E0',

@@ -45,7 +45,7 @@ const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustrie
         </div>
 
         <div className="relative">
-          <div className="frosted-glass rounded-xl p-5 h-full">
+          <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 h-full">
             <IndustryPreview 
               selectedIndustries={selectedIndustries}
               industries={industries}
