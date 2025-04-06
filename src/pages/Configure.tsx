@@ -48,7 +48,10 @@ const Configure = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light py-4 md:py-8 px-3 md:px-4 sm:px-6">
       <div className="max-w-5xl w-full mx-auto flex flex-col flex-grow">
-        <StepHeader stepInfo={stepInfo[currentStep]} />
+        <StepHeader 
+          stepInfo={stepInfo[currentStep]} 
+          currentStep={currentStep} 
+        />
         
         <ConfigurationProgress 
           currentStep={currentStep} 

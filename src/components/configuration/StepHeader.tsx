@@ -10,9 +10,15 @@ interface StepInfo {
 
 interface StepHeaderProps {
   stepInfo: StepInfo;
+  currentStep?: string;
 }
 
-const StepHeader: React.FC<StepHeaderProps> = ({ stepInfo }) => {
+const StepHeader: React.FC<StepHeaderProps> = ({ stepInfo, currentStep }) => {
+  // Custom title for agent-type step
+  const displayTitle = currentStep === 'agent-type' 
+    ? "Configura a Xelia según tus objetivos" 
+    : stepInfo.title;
+    
   return (
     <div className="mb-6">
       <div className="flex items-center mb-2">
@@ -20,7 +26,7 @@ const StepHeader: React.FC<StepHeaderProps> = ({ stepInfo }) => {
           {stepInfo.icon}
         </div>
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">{stepInfo.title}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">{displayTitle}</h1>
           <p className="text-gray-400 text-sm">{stepInfo.description}</p>
         </div>
       </div>
