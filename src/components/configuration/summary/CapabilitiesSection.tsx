@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch } from 'lucide-react';
+import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch, Mail } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import CapabilitiesSelection from '../CapabilitiesSelection';
 import SectionHeader from './SectionHeader';
@@ -33,14 +33,15 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
   saveChanges
 }) => {
   const capabilityList: CapabilityInfo[] = [
-    { id: 'multi-language', name: 'Multilingüe', icon: <Globe className="w-4 h-4" /> },
-    { id: 'conversation-memory', name: 'Memoria de conversaciones', icon: <Brain className="w-4 h-4" /> },
-    { id: 'appointment-scheduling', name: 'Programación de citas', icon: <Calendar className="w-4 h-4" /> },
-    { id: 'real-time-data', name: 'Datos en tiempo real', icon: <Database className="w-4 h-4" /> },
-    { id: 'whatsapp-integration', name: 'Integración con WhatsApp', icon: <IconBrandWhatsapp size={16} /> },
-    { id: 'follow-ups', name: 'Seguimiento automático', icon: <Clock className="w-4 h-4" /> },
-    { id: 'rescheduling', name: 'Reprogramación inteligente', icon: <RefreshCw className="w-4 h-4" /> },
-    { id: 'database-search', name: 'Búsqueda en base de datos', icon: <FileSearch className="w-4 h-4" /> }
+    { id: 'multi-language', name: 'Multilingüe', icon: <Globe className="w-5 h-5" /> },
+    { id: 'conversation-memory', name: 'Memoria de conversaciones', icon: <Brain className="w-5 h-5" /> },
+    { id: 'appointment-scheduling', name: 'Programación de citas', icon: <Calendar className="w-5 h-5" /> },
+    { id: 'real-time-data', name: 'Datos en tiempo real', icon: <Database className="w-5 h-5" /> },
+    { id: 'whatsapp-integration', name: 'Integración con WhatsApp', icon: <IconBrandWhatsapp size={20} /> },
+    { id: 'follow-ups', name: 'Seguimiento automático', icon: <Clock className="w-5 h-5" /> },
+    { id: 'rescheduling', name: 'Reprogramación inteligente', icon: <RefreshCw className="w-5 h-5" /> },
+    { id: 'database-search', name: 'Búsqueda en base de datos', icon: <FileSearch className="w-5 h-5" /> },
+    { id: 'email-notes', name: 'Notas por correo al cliente', icon: <Mail className="w-5 h-5" /> }
   ];
 
   const getSelectedCapabilities = () => {
@@ -72,7 +73,7 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
           <ul className="space-y-3">
             {getSelectedCapabilities().map(cap => (
               <li key={cap.id} className="flex items-center">
-                <div className="p-1 rounded-full bg-xelia-accent/10 text-xelia-accent mr-2">
+                <div className="p-1.5 w-8 h-8 rounded-full bg-xelia-accent/10 text-xelia-accent mr-3 flex items-center justify-center">
                   {cap.icon}
                 </div>
                 <span className="text-gray-300">{cap.name}</span>

@@ -3,6 +3,7 @@ import React from 'react';
 import { Brain, BarChart2, Share2, FileText, Mic, Database } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 interface PremiumFeature {
@@ -65,30 +66,34 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
           <Card 
             key={feature.id} 
             className={cn(
-              "bg-gray-800/60 border transition-all duration-300 flex flex-col h-full", 
+              "bg-gray-800/60 cursor-pointer transition-all duration-300 flex flex-col h-full", 
               isActive 
-                ? "border-xelia-accent shadow-[0_0_15px_rgba(92,106,255,0.3)]" 
-                : "border-gray-700 hover:border-gray-500"
+                ? "border-[#3EF3B0] border-2 shadow-sm" 
+                : "border-gray-700 border hover:border-gray-500 hover:bg-gray-700/50"
             )}
+            onClick={() => onToggle(feature.id)}
           >
             <CardHeader className="pb-2 flex flex-row items-start justify-between gap-2">
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-3 items-center">
                 <span className={cn(
-                  "p-2 rounded-md", 
-                  isActive ? "bg-xelia-accent text-white" : "bg-gray-700 text-gray-300"
+                  "p-2 rounded-md w-10 h-10 flex items-center justify-center", 
+                  isActive ? "bg-[#3EF3B0]/20 text-white" : "bg-gray-700 text-gray-300"
                 )}>
                   {feature.icon}
                 </span>
-                <CardTitle className="text-lg font-semibold text-white">{feature.name}</CardTitle>
+                <div>
+                  <CardTitle className="text-lg font-semibold text-white">{feature.name}</CardTitle>
+                  {isActive && (
+                    <Badge variant="outline" className="mt-1 bg-[#3EF3B0]/10 text-[#3EF3B0] border-[#3EF3B0]/30 text-xs">
+                      ✓ Activado
+                    </Badge>
+                  )}
+                </div>
               </div>
               <div className="flex items-center shrink-0">
                 <Switch 
                   checked={isActive} 
                   onCheckedChange={() => onToggle(feature.id)}
-                  className={cn(
-                    "data-[state=checked]:bg-xelia-accent",
-                    isActive ? "shadow-[0_0_8px_rgba(92,106,255,0.4)]" : ""
-                  )}
                 />
               </div>
             </CardHeader>

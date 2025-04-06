@@ -46,15 +46,16 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
             <div 
               key={capability.id}
               className={cn(
-                "bg-gray-800/80 border rounded-lg p-4 flex items-start transition-all duration-300",
+                "bg-gray-800/80 rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:bg-gray-700/50",
                 isSelected 
-                  ? 'border-[#3EF3B0] border-4 shadow-[0_0_15px_rgba(62,243,176,0.2)] bg-[#202A2A]' 
-                  : 'border-gray-700 hover:border-gray-500 bg-[#1F2232]'
+                  ? 'border-[#3EF3B0] border-2 shadow-sm bg-[#1F2232]' 
+                  : 'border-gray-700 border hover:border-gray-500 bg-[#1F2232]'
               )}
+              onClick={() => onToggle(capability.id)}
             >
               <div className="mr-4 mt-0.5">
                 <div className={cn(
-                  "p-2 rounded-full",
+                  "p-2 rounded-full w-10 h-10 flex items-center justify-center",
                   isSelected ? 'bg-[#3EF3B0]/20 text-white' : 'bg-gray-700 text-gray-300'
                 )}>
                   {capability.icon}
@@ -83,10 +84,6 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                         id={`capability-${capability.id}`}
                         checked={isSelected}
                         onCheckedChange={() => onToggle(capability.id)}
-                        className={cn(
-                          "data-[state=checked]:bg-[#3EF3B0]",
-                          isSelected ? "shadow-[0_0_8px_rgba(62,243,176,0.4)]" : ""
-                        )}
                       />
                     </TooltipTrigger>
                     <TooltipContent side="top">
@@ -101,7 +98,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                   <div className="mt-2 flex justify-between items-center">
                     <div></div>
                     {isSelected && (
-                      <Badge variant="outline" className="bg-gray-700/50 text-gray-300 border-gray-600 text-xs animate-fade-in">
+                      <Badge variant="outline" className="bg-gray-700/50 text-gray-300 border-gray-600 text-xs">
                         +${capability.price} USD
                       </Badge>
                     )}

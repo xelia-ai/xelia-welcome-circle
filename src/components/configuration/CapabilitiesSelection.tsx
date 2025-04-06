@@ -139,16 +139,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
 
         {/* Contenedor para calculadoras y tips - Reordenado según la petición */}
         <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6">
-          {/* ROI Calculator - Ahora primero */}
-          <div className="w-full">
-            <ROICalculator 
-              selectedCapabilities={selectedCapabilities} 
-              website={website}
-              fullWidth={true}
-            />
-          </div>
-          
-          {/* Calculadora de precio - Ahora segundo */}
+          {/* Personaliza tu inversión - Ahora primero */}
           <div className="w-full">
             <div className="mb-4">
               <h4 className="text-lg font-medium text-white flex items-center">
@@ -160,6 +151,15 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               </p>
             </div>
             <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
+          </div>
+          
+          {/* ROI Calculator - Ahora segundo */}
+          <div className="w-full">
+            <ROICalculator 
+              selectedCapabilities={selectedCapabilities} 
+              website={website}
+              fullWidth={true}
+            />
           </div>
           
           {/* Tips Widget - Ahora último */}
