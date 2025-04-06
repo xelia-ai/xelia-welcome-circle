@@ -89,9 +89,9 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4">
-      <div className="grid grid-cols-1 gap-8">
+      <div className="display-grid-parent flex flex-wrap gap-6">
         {/* Columna de opciones */}
-        <div className="space-y-6">
+        <div className="w-full lg:flex-1 space-y-6">
           <h3 className="text-2xl font-medium text-white mb-4">Selecciona las capacidades</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {capabilities.map((capability) => (
@@ -126,8 +126,8 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           </div>
         </div>
 
-        {/* Calculadoras en contenedores responsivos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Contenedor para calculadoras - Apilar en móvil, lado a lado en desktop */}
+        <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6">
           <div className="w-full">
             <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
           </div>
