@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { ROIMetric } from './useROICalculations';
+import { ROIMetric } from './types';
 
 interface ROIMetricsTableProps {
   roiMetrics: ROIMetric[];

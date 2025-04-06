@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { BaseMetrics } from '@/utils/metricsEstimation';
-import { ROIMetric } from './ROIMetricsTable';
+import { ROIMetric } from './types';
 
 export const useROICalculations = (
   selectedCapabilities: string[],
@@ -27,28 +27,48 @@ export const useROICalculations = (
         baseValue: `${baseMetrics.efficiency}%`,
         baseNumeric: baseMetrics.efficiency,
         improvedValue: `${Math.round(baseMetrics.efficiency * (1 + efficiencyIncrease/100))}%`,
-        improvement: `+${Math.round(efficiencyIncrease)}%`
+        improvement: `+${Math.round(efficiencyIncrease)}%`,
+        // Add compatibility fields
+        name: "efficiency",
+        current: baseMetrics.efficiency,
+        improved: Math.round(baseMetrics.efficiency * (1 + efficiencyIncrease/100)),
+        percentIncrease: Math.round(efficiencyIncrease)
       },
       {
         title: "Satisfacción del cliente",
         baseValue: `${baseMetrics.satisfaction}%`,
         baseNumeric: baseMetrics.satisfaction,
         improvedValue: `${Math.round(baseMetrics.satisfaction * (1 + satisfactionIncrease/100))}%`,
-        improvement: `+${Math.round(satisfactionIncrease)}%`
+        improvement: `+${Math.round(satisfactionIncrease)}%`,
+        // Add compatibility fields
+        name: "satisfaction",
+        current: baseMetrics.satisfaction,
+        improved: Math.round(baseMetrics.satisfaction * (1 + satisfactionIncrease/100)),
+        percentIncrease: Math.round(satisfactionIncrease)
       },
       {
         title: "Tasa de conversión",
         baseValue: `${baseMetrics.conversion}%`,
         baseNumeric: baseMetrics.conversion,
         improvedValue: `${Math.round(baseMetrics.conversion * (1 + conversionIncrease/100))}%`,
-        improvement: `+${Math.round(conversionIncrease)}%`
+        improvement: `+${Math.round(conversionIncrease)}%`,
+        // Add compatibility fields
+        name: "conversion",
+        current: baseMetrics.conversion,
+        improved: Math.round(baseMetrics.conversion * (1 + conversionIncrease/100)),
+        percentIncrease: Math.round(conversionIncrease)
       },
       {
         title: "Tiempo de respuesta",
         baseValue: `${baseMetrics.responseTime}%`,
         baseNumeric: baseMetrics.responseTime,
         improvedValue: `${Math.round(baseMetrics.responseTime * (1 - timeReduction/100))}%`,
-        improvement: `-${Math.round(timeReduction)}%`
+        improvement: `-${Math.round(timeReduction)}%`,
+        // Add compatibility fields
+        name: "responseTime",
+        current: baseMetrics.responseTime,
+        improved: Math.round(baseMetrics.responseTime * (1 - timeReduction/100)),
+        percentIncrease: -Math.round(timeReduction)
       }
     ];
     
