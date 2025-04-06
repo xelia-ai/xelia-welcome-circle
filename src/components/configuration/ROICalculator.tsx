@@ -10,11 +10,13 @@ import { useROICalculations } from './roi/useROICalculations';
 interface ROICalculatorProps {
   selectedCapabilities: string[];
   website?: string;
+  fullWidth?: boolean;
 }
 
 const ROICalculator: React.FC<ROICalculatorProps> = ({ 
   selectedCapabilities, 
-  website = ''
+  website = '',
+  fullWidth = false
 }) => {
   const [baseMetrics, setBaseMetrics] = useState<BaseMetrics>({
     efficiency: 75,
@@ -39,7 +41,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
   const capabilitiesCount = selectedCapabilities.length;
 
   return (
-    <Card className="bg-gray-800/80 border border-gray-700 h-full">
+    <Card className={`bg-gray-800/80 border border-gray-700 h-full ${fullWidth ? 'w-full' : ''}`}>
       <CardHeader className="pb-0 pt-3">
         <CardTitle className="text-base font-medium text-white flex items-center">
           <TrendingUp className="w-4 h-4 mr-1.5 text-xelia-accent" />
@@ -57,6 +59,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
         <ROIMetricsTable 
           roiMetrics={roiMetrics}
           capabilitiesCount={capabilitiesCount}
+          fullWidth={fullWidth}
         />
       </CardContent>
     </Card>

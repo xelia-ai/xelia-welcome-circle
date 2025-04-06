@@ -36,7 +36,7 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
   const competitiveAdvantage = capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100);
 
   return (
-    <div className="bg-gray-700/50 rounded-lg p-4 mb-4">
+    <div className="bg-gray-700/50 rounded-lg p-4 mb-3">
       <div className="flex justify-between items-center mb-1">
         <h4 className="text-white font-medium">Ventaja competitiva</h4>
         <span className="text-xelia-accent font-bold text-lg">{Math.round(competitiveAdvantage)}%</span>
@@ -44,9 +44,9 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
       <p className="text-sm text-gray-300 mb-2">{competitiveMessage}</p>
       
       {/* Progress bar with animation */}
-      <div className="w-full bg-gray-700 rounded-full h-2">
+      <div className="w-full bg-gray-700 rounded-full h-2.5">
         <div 
-          className="bg-xelia-accent h-2 rounded-full transition-all duration-1000 ease-out"
+          className="bg-xelia-accent h-2.5 rounded-full transition-all duration-1000 ease-out"
           style={{ 
             width: animate ? `${competitiveAdvantage}%` : '0%' 
           }}

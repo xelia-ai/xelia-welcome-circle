@@ -84,12 +84,6 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
     }
   };
 
-  const getCapabilityNames = () => {
-    return capabilities
-      .filter(capability => selectedCapabilities.includes(capability.id))
-      .map(capability => capability.name);
-  };
-
   return (
     <div className="max-w-6xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -129,37 +123,14 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           </div>
         </div>
 
-        {/* Columna de calculadora y resumen */}
+        {/* Columna de calculadora y ROI */}
         <div className="md:col-span-5 space-y-6">
           <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
-          
-          <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-6">
-            <h3 className="text-xl font-medium mb-4 text-white flex items-center">
-              <CheckCircle2 className="w-5 h-5 mr-2 text-xelia-accent" />
-              Resumen de capacidades
-            </h3>
-            
-            {selectedCapabilities.length > 0 ? (
-              <div>
-                <p className="text-gray-300 mb-3">
-                  Has activado las siguientes capacidades:
-                </p>
-                <ul className="list-disc list-inside text-white space-y-1.5">
-                  {getCapabilityNames().map((name, index) => (
-                    <li key={index}>{name}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <p className="text-gray-400 italic">
-                Selecciona al menos una capacidad para Xelia
-              </p>
-            )}
-          </div>
           
           <ROICalculator 
             selectedCapabilities={selectedCapabilities} 
             website={website}
+            fullWidth={true}
           />
         </div>
       </div>

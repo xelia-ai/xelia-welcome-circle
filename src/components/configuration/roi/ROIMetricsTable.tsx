@@ -15,6 +15,7 @@ export interface ROIMetric {
 interface ROIMetricsTableProps {
   roiMetrics: ROIMetric[];
   capabilitiesCount: number;
+  fullWidth?: boolean;
 }
 
 const tooltipDescriptions: Record<string, string> = {
@@ -26,7 +27,8 @@ const tooltipDescriptions: Record<string, string> = {
 
 const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
   roiMetrics,
-  capabilitiesCount
+  capabilitiesCount,
+  fullWidth = false
 }) => {
   const isMobile = useIsMobile();
 
