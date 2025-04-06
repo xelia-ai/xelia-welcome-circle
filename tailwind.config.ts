@@ -65,11 +65,14 @@ export default {
 					dark: '#0F1012',
 					DEFAULT: '#181A1F',
 					light: '#1E2026',
-					accent: '#888888',
-					'accent-light': '#999999',
-					'accent-dark': '#777777',
+					accent: '#3EF3B0',  // Updated to match the brand green accent
+					'accent-light': '#5FF5C0', // Lighter shade of brand green
+					'accent-dark': '#2AD197', // Darker shade of brand green
 					white: '#FFFFFF',
-					muted: '#8A8D96'
+					muted: '#8A8D96',
+					'gray-light': '#E0E0E0', // Light gray for subtle borders
+					'gray-medium': '#A0A0A0', // Medium gray for unselected states
+					'gray-dark': '#3A3A3A', // Dark gray for text and headings
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',

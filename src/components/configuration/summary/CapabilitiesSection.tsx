@@ -49,7 +49,7 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
   };
 
   return (
-    <div className="bg-[#1F1F2B] border border-gray-700 rounded-lg p-5">
+    <div className="bg-white border border-xelia-gray-light rounded-lg p-5">
       <SectionHeader 
         title="Capacidades" 
         section="capabilities" 
@@ -60,8 +60,8 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
       />
       
       {editingSection === 'capabilities' ? (
-        <div className="p-2 bg-gray-700/40 rounded-lg">
-          <p className="text-sm text-gray-300 mb-3">Selecciona las capacidades:</p>
+        <div className="p-2 bg-xelia-gray-light/20 rounded-lg">
+          <p className="text-sm text-xelia-gray-dark mb-3">Selecciona las capacidades:</p>
           <CapabilitiesSelection 
             selectedCapabilities={tempCapabilities}
             onChange={setTempCapabilities}
@@ -73,15 +73,15 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
           <ul className="space-y-3">
             {getSelectedCapabilities().map(cap => (
               <li key={cap.id} className="flex items-center">
-                <div className="p-1.5 w-8 h-8 rounded-full bg-gray-700 text-gray-300 mr-3 flex items-center justify-center">
+                <div className="p-1.5 w-8 h-8 rounded-full bg-xelia-accent/10 text-xelia-accent mr-3 flex items-center justify-center">
                   {cap.icon}
                 </div>
-                <span className="text-gray-300">{cap.name}</span>
+                <span className="text-xelia-gray-dark">{cap.name}</span>
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-gray-400 italic">No se seleccionaron capacidades</p>
+          <p className="text-xelia-gray-medium italic">No se seleccionaron capacidades</p>
         )
       )}
     </div>

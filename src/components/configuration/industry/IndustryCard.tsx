@@ -22,10 +22,10 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ industry, isSelected, onTog
     <div
       key={industry.id}
       className={cn(
-        "relative frosted-glass p-4 rounded-xl cursor-pointer transition-all hover:shadow-elegant-hover group",
+        "relative bg-white p-4 rounded-xl cursor-pointer transition-all hover:shadow-md group",
         isSelected 
-          ? "border-xelia-accent bg-xelia-accent/5" 
-          : "border-white/10 bg-xelia-light/30"
+          ? "border-xelia-accent border" 
+          : "border border-xelia-gray-light"
       )}
       onClick={() => onToggle(industry.id)}
     >
@@ -33,16 +33,16 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ industry, isSelected, onTog
         <div className={cn(
           "p-2.5 rounded-lg transition-all duration-300", 
           isSelected 
-            ? "bg-xelia-accent text-white shadow-accent" 
-            : "bg-xelia-light text-gray-300 group-hover:bg-xelia-accent/20 group-hover:text-white"
+            ? "bg-xelia-accent text-white" 
+            : "bg-white text-xelia-gray-medium border border-xelia-gray-light group-hover:text-xelia-accent"
         )}>
           {industry.icon}
         </div>
         <h3 className={cn(
           "text-lg font-medium",
           isSelected 
-            ? "text-white" 
-            : "text-gray-200"
+            ? "text-xelia-gray-dark" 
+            : "text-xelia-gray-dark"
         )}>
           {industry.name}
         </h3>
@@ -54,12 +54,12 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ industry, isSelected, onTog
               <Check className="h-3 w-3 text-white" />
             </div>
           ) : (
-            <div className="w-5 h-5 rounded-sm border border-gray-500"></div>
+            <div className="w-5 h-5 rounded-sm border border-xelia-gray-medium"></div>
           )}
         </div>
       </div>
       
-      <div className="mt-3 space-y-2 text-gray-300 text-xs">
+      <div className="mt-3 space-y-2 text-xelia-gray-dark text-xs">
         {industry.valuePoints.map((point, index) => (
           <div key={index} className="flex items-start gap-2">
             <div className="min-w-[4px] h-[4px] rounded-full bg-xelia-accent mt-1.5"></div>
@@ -75,23 +75,23 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ industry, isSelected, onTog
               Ver más
             </button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1A1F2C] text-white border-gray-700">
+          <DialogContent className="bg-white text-xelia-gray-dark border border-xelia-gray-light">
             <DialogHeader>
-              <DialogTitle className="flex items-center gap-2 text-gradient">
-                <span className="p-1.5 rounded-lg bg-xelia-accent/20">
+              <DialogTitle className="flex items-center gap-2 text-xelia-gray-dark">
+                <span className="p-1.5 rounded-lg bg-xelia-accent/20 text-xelia-accent">
                   {industry.icon}
                 </span>
                 Xelia para {industry.name}
               </DialogTitle>
             </DialogHeader>
             <div className="my-2">
-              <p className="mb-4 text-gray-300">{industry.detailedDescription}</p>
-              <h4 className="font-medium text-white mb-2">Principales beneficios:</h4>
+              <p className="mb-4 text-xelia-gray-dark">{industry.detailedDescription}</p>
+              <h4 className="font-medium text-xelia-gray-dark mb-2">Principales beneficios:</h4>
               <ul className="space-y-2">
                 {industry.valuePoints.map((point, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <div className="min-w-[6px] h-[6px] rounded-full bg-xelia-accent mt-1.5"></div>
-                    <p className="text-gray-200">{point}</p>
+                    <p className="text-xelia-gray-dark">{point}</p>
                   </li>
                 ))}
               </ul>
@@ -99,8 +99,6 @@ const IndustryCard: React.FC<IndustryCardProps> = ({ industry, isSelected, onTog
           </DialogContent>
         </Dialog>
       </div>
-      
-      {/* Removed the absolute positioned checkbox from the bottom of the card */}
     </div>
   );
 };

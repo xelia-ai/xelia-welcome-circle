@@ -68,32 +68,32 @@ const ComingSoonFeatures: React.FC = () => {
         return (
           <Card 
             key={feature.id} 
-            className="bg-gray-800/60 border border-gray-700 hover:border-gray-600 transition-all duration-300 relative overflow-hidden group"
+            className="bg-white border border-xelia-gray-light hover:border-xelia-gray-medium transition-all duration-300 relative overflow-hidden group hover:shadow-md"
           >
             {/* Premium spotlight effect on hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-xelia-accent/0 via-xelia-accent/5 to-xelia-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
-                <span className="p-2 rounded-md bg-gray-700 text-xelia-accent">
+                <span className="p-2 rounded-md bg-white border border-xelia-gray-light text-xelia-accent">
                   {feature.icon}
                 </span>
                 <Badge variant="outline" className="border-amber-500 text-amber-400 bg-amber-500/10">
                   Coming Soon
                 </Badge>
               </div>
-              <CardTitle className="text-lg font-semibold text-white mt-3">{feature.name}</CardTitle>
+              <CardTitle className="text-lg font-semibold text-xelia-gray-dark mt-3">{feature.name}</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-300 min-h-[80px]">{feature.description}</CardDescription>
+              <CardDescription className="text-xelia-gray-dark min-h-[80px]">{feature.description}</CardDescription>
             </CardContent>
-            <CardFooter className="flex justify-between items-center border-t border-gray-700 pt-4">
+            <CardFooter className="flex justify-between items-center border-t border-xelia-gray-light pt-4">
               <p className="text-xelia-accent font-semibold">{feature.price}</p>
               <Button 
                 variant={isPreordered ? "outline" : "default"}
                 className={isPreordered 
                   ? "border-green-600 text-green-400 hover:text-green-500" 
-                  : "bg-xelia-accent hover:bg-xelia-accent/90"
+                  : "bg-xelia-accent text-white hover:bg-xelia-accent-dark"
                 }
                 onClick={() => handlePreorder(feature.id, feature.name, feature.price)}
                 disabled={isPreordered}

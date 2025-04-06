@@ -34,8 +34,8 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-3">
-        <div className="p-1.5 rounded-md bg-gray-700/80 text-gray-300">{icon}</div>
-        <h4 className="text-lg font-medium text-white">{title}</h4>
+        <div className="p-1.5 rounded-md bg-white border border-xelia-gray-light text-xelia-gray-dark">{icon}</div>
+        <h4 className="text-lg font-medium text-xelia-gray-dark">{title}</h4>
       </div>
       
       <div className="grid grid-cols-1 gap-3">
@@ -45,11 +45,17 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
           return (
             <div 
               key={capability.id}
-              className="bg-[#1F1F2B] rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:bg-gray-700/30 border border-gray-700"
+              className={cn(
+                "bg-white rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:shadow-md border",
+                isSelected ? "border-xelia-accent" : "border-xelia-gray-light"
+              )}
               onClick={() => onToggle(capability.id)}
             >
               <div className="mr-4 mt-0.5">
-                <div className="p-2 rounded-full w-10 h-10 flex items-center justify-center bg-gray-700 text-gray-300">
+                <div className={cn(
+                  "p-2 rounded-full w-10 h-10 flex items-center justify-center",
+                  isSelected ? "bg-xelia-accent text-white" : "bg-white border border-xelia-gray-light text-xelia-gray-medium"
+                )}>
                   {capability.icon}
                 </div>
               </div>
@@ -58,7 +64,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                   <div className="flex items-center">
                     <Label 
                       htmlFor={`capability-${capability.id}`}
-                      className="text-white font-medium cursor-pointer"
+                      className="text-xelia-gray-dark font-medium cursor-pointer"
                     >
                       {capability.name}
                     </Label>
@@ -78,13 +84,13 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                   </Tooltip>
                 </div>
                 
-                <p className="text-sm text-gray-400">{capability.description}</p>
+                <p className="text-sm text-xelia-gray-dark">{capability.description}</p>
                 
                 {capability.price > 0 && (
                   <div className="mt-2 flex justify-between items-center">
                     <div></div>
                     {isSelected && (
-                      <Badge variant="outline" className="bg-gray-700/50 text-gray-300 border-gray-600 text-xs">
+                      <Badge variant="outline" className="bg-white text-xelia-gray-dark border-xelia-gray-light text-xs">
                         +${capability.price} USD
                       </Badge>
                     )}

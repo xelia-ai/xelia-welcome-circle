@@ -65,16 +65,23 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
         return (
           <Card 
             key={feature.id} 
-            className="bg-[#1F1F2B] cursor-pointer transition-all duration-300 flex flex-col h-full border border-gray-700 hover:bg-gray-700/50"
+            className={cn(
+              "bg-white cursor-pointer transition-all duration-300 flex flex-col h-full border",
+              isActive ? "border-xelia-accent" : "border-xelia-gray-light",
+              "hover:shadow-md"
+            )}
             onClick={() => onToggle(feature.id)}
           >
             <CardHeader className="pb-2 flex flex-row items-start justify-between gap-2">
               <div className="flex gap-3 items-center">
-                <span className="p-2 rounded-md w-10 h-10 flex items-center justify-center bg-gray-700 text-gray-300">
+                <span className={cn(
+                  "p-2 rounded-md w-10 h-10 flex items-center justify-center",
+                  isActive ? "bg-xelia-accent text-white" : "bg-white text-xelia-gray-medium border border-xelia-gray-light"
+                )}>
                   {feature.icon}
                 </span>
                 <div>
-                  <CardTitle className="text-lg font-semibold text-white">{feature.name}</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-xelia-gray-dark">{feature.name}</CardTitle>
                 </div>
               </div>
               <div className="flex items-center shrink-0">
@@ -85,7 +92,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
               </div>
             </CardHeader>
             <CardContent className="flex-1">
-              <CardDescription className="text-gray-300">{feature.description}</CardDescription>
+              <CardDescription className="text-xelia-gray-dark">{feature.description}</CardDescription>
             </CardContent>
           </Card>
         );
