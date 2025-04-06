@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { estimateBaseMetrics, BaseMetrics } from '@/utils/metricsEstimation';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import CompetitiveAdvantage from './roi/CompetitiveAdvantage';
 import ROIMetricsTable from './roi/ROIMetricsTable';
 import { useROICalculations } from './roi/useROICalculations';
@@ -41,11 +42,21 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
   const capabilitiesCount = selectedCapabilities.length;
 
   return (
-    <Card className={`bg-gray-800/80 border border-gray-700 h-full ${fullWidth ? 'w-full' : ''}`}>
+    <Card className={`bg-gray-800/80 border border-gray-700 h-full ${fullWidth ? 'w-full' : 'max-w-[450px]'}`}>
       <CardHeader className="pb-0 pt-3">
         <CardTitle className="text-base font-medium text-white flex items-center">
           <TrendingUp className="w-4 h-4 mr-1.5 text-xelia-accent" />
-          ROI y ventaja competitiva
+          <span className="flex items-center">
+            ROI y ventaja competitiva
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-4 w-4 text-gray-400 ml-1.5 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-[300px] text-sm">
+                El Retorno de Inversión (ROI) estima cuánto puedes mejorar tu negocio con Xelia, comparando tus métricas actuales contra las que puedes alcanzar al automatizar.
+              </TooltipContent>
+            </Tooltip>
+          </span>
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-2">
@@ -61,6 +72,16 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
           capabilitiesCount={capabilitiesCount}
           fullWidth={fullWidth}
         />
+
+        {/* ROI Definition for when no capabilities are selected */}
+        {capabilitiesCount === 0 && (
+          <div className="mt-3 mb-2">
+            <h5 className="text-white text-sm font-medium mb-1">¿Qué es ROI?</h5>
+            <p className="text-gray-400 text-[14px] leading-relaxed">
+              El Retorno de Inversión (ROI) estima cuánto puedes mejorar tu negocio con Xelia, comparando tus métricas actuales contra las que puedes alcanzar al automatizar.
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

@@ -6,6 +6,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
 import ROICalculator from './ROICalculator';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface CapabilitiesSelectionProps {
   selectedCapabilities: string[];
@@ -25,6 +26,8 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
   onChange,
   website = ''
 }) => {
+  const isMobile = useIsMobile();
+  
   const capabilities: Capability[] = [
     {
       id: 'multi-language',
@@ -86,7 +89,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div className={`grid grid-cols-1 ${isMobile ? '' : 'md:grid-cols-12'} gap-8`}>
         {/* Columna de opciones */}
         <div className="md:col-span-7 space-y-6">
           <h3 className="text-2xl font-medium text-white mb-4">Selecciona las capacidades</h3>
