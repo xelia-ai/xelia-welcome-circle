@@ -31,6 +31,15 @@ const Configure = () => {
     }
   };
 
+  const handlePreviousStep = () => {
+    if (currentStep === 'agent-type') {
+      // Navigate back to homepage if on first step
+      navigate('/');
+    } else {
+      goToPreviousStep();
+    }
+  };
+
   // Empty function for backward compatibility
   const handleEditInSummary = () => {};
 
@@ -64,7 +73,7 @@ const Configure = () => {
           totalSteps={totalSteps}
           canProceed={canProceed()}
           onNext={handleNextStep}
-          onPrevious={goToPreviousStep}
+          onPrevious={handlePreviousStep}
         />
       </div>
     </div>
