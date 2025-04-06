@@ -60,25 +60,33 @@ const Index = () => {
       </div>
       
       <div className="max-w-xl w-full flex flex-col items-center px-6 py-12 z-10">
-        <div className="w-full mb-8">
+        <div className="flex justify-center w-full mb-8">
           <WelcomeCircle />
         </div>
         
-        <div className="text-center space-y-6">
-          <h1 ref={textRef} className="text-4xl font-bold tracking-tight text-white sm:text-5xl min-h-[60px]">
+        <div className="text-center space-y-6 w-full">
+          <h1 
+            ref={textRef} 
+            className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl min-h-[60px] font-display leading-tight"
+            style={{
+              letterSpacing: '-0.025em',
+              fontWeight: '600',
+            }}
+          >
             Hola, soy Xelia. ¡Empecemos!
           </h1>
           
-          <p className="text-lg text-gray-300 max-w-sm mx-auto">
+          <p className="text-lg text-gray-300 max-w-md mx-auto font-light leading-relaxed">
             Tu asistente inteligente personalizado para automatizar la atención y ventas de tu empresa.
           </p>
           
-          <div className="mt-8">
+          <div className="mt-10 w-full flex justify-center">
             <Button 
-              className="cta-button text-white font-medium px-8 py-6 rounded-xl text-lg"
+              className="cta-button text-white font-medium px-8 py-6 rounded-xl text-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300"
               onClick={handleConfigureClick}
+              style={{ backdropFilter: 'blur(12px)' }}
             >
-              Configura tu agente <ArrowRight className="ml-2" />
+              Comenzar <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>
