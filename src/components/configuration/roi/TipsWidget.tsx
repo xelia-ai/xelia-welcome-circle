@@ -1,112 +1,95 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useIsMobile } from '@/hooks/use-mobile';
-
-// Import our components
+import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import TipContent from './components/TipContent';
-import TipIcon from './components/TipIcon';
 import EmptyTipState from './components/EmptyTipState';
 import { useTipsData } from './hooks/useTipsData';
-
-// Import carousel for mobile
-import {
+import { 
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+  CarouselNext
+} from '@/components/ui/carousel';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface TipsWidgetProps {
   selectedCapabilities: string[];
 }
 
 const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
-  const { filteredTips, currentTip, setCurrentTipIndex, currentTipIndex } = useTipsData(selectedCapabilities);
+  const { currentTipIndex, setCurrentTipIndex, filteredTips } = useTipsData(selectedCapabilities);
   const isMobile = useIsMobile();
-
-  // If no tips are available, show the empty state
-  if (filteredTips.length === 0) {
-    return (
-      <Card className="bg-gray-800/80 border border-gray-700 rounded-lg shadow-[0_0_15px_rgba(0,0,0,0.2)] h-full">
-        <CardContent className="p-4 md:p-6 flex flex-col h-full justify-center">
-          <EmptyTipState />
-        </CardContent>
-      </Card>
-    );
-  }
-
-  // Mobile UI with Carousel
-  if (isMobile) {
-    return (
-      <Card className="bg-gray-800/80 border border-gray-700 rounded-lg shadow-[0_0_15px_rgba(0,0,0,0.2)] h-full transition-all duration-300 hover:border-white/15">
-        <CardContent className="p-4 flex flex-col h-full">
-          <h3 className="text-white text-lg font-medium mb-3 text-center">¿Sabías que...?</h3>
-          
-          <Carousel
-            opts={{ loop: true }}
-            className="w-full"
-            onSelect={(index) => setCurrentTipIndex(index)}
-          >
+  
+  const hasTips = filteredTips.length > 0;
+  
+  return (
+    <div className="bg-gray-800/80 border border-gray-700 rounded-lg overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+      <div className="bg-gray-700/50 p-2 md:p-3 flex items-center justify-between">
+        <div className="flex items-center">
+          <Sparkles className="h-5 w-5 text-gray-300 mr-2" />
+          <h3 className="text-white text-sm md:text-base font-medium">¿Sabías que...?</h3>
+        </div>
+        
+        {hasTips && filteredTips.length > 1 && !isMobile && (
+          <div className="flex space-x-1">
+            {filteredTips.map((_, idx) => (
+              <button
+                key={`tip-dot-${idx}`}
+                onClick={() => setCurrentTipIndex(idx)}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  idx === currentTipIndex ? 'bg-xelia-accent' : 'bg-gray-600'
+                }`}
+                aria-label={`Tip ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {hasTips ? (
+        isMobile ? (
+          <Carousel className="w-full">
             <CarouselContent>
               {filteredTips.map((tip, index) => (
                 <CarouselItem key={tip.id}>
-                  <div className="p-1">
-                    <div className="flex flex-col items-center">
-                      <div className="p-2 rounded-lg bg-gray-700/50 mb-3 flex-shrink-0">
-                        <TipIcon currentTip={tip} />
-                      </div>
-                      <TipContent currentTip={tip} />
-                    </div>
-                  </div>
+                  <TipContent tip={tip} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-
-            <div className="flex justify-center mt-4 space-x-1">
-              {filteredTips.map((_, index) => (
-                <div 
-                  key={index} 
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    index === currentTipIndex ? 
-                    'w-4 bg-gray-300' : 
-                    'w-1.5 bg-gray-600'
-                  }`}
-                />
-              ))}
+            <div className="flex justify-end p-2 space-x-2">
+              <CarouselPrevious className="relative static h-7 w-7" />
+              <CarouselNext className="relative static h-7 w-7" />
             </div>
           </Carousel>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  // Desktop UI
-  return (
-    <Card className="bg-gray-800/80 border border-gray-700 rounded-lg shadow-[0_0_15px_rgba(0,0,0,0.2)] h-full transition-all duration-300 hover:border-white/15">
-      <CardContent className="p-6 flex flex-col h-full">
-        <div className="flex-1">
-          <div className="flex items-start mb-4">
-            <div className="p-2 rounded-lg bg-gray-700/50 mr-4 flex-shrink-0">
-              <AnimatePresence mode="wait">
-                <TipIcon currentTip={currentTip} />
-              </AnimatePresence>
-            </div>
-            <div>
-              <h3 className="text-white text-lg font-medium mb-2">¿Sabías que...?</h3>
-              <AnimatePresence mode="wait">
-                <TipContent currentTip={currentTip} />
-              </AnimatePresence>
-            </div>
+        ) : (
+          <div className="relative">
+            <TipContent tip={filteredTips[currentTipIndex]} />
+            
+            {filteredTips.length > 1 && (
+              <div className="absolute bottom-2 right-2 flex space-x-1">
+                <button 
+                  onClick={() => setCurrentTipIndex((currentTipIndex - 1 + filteredTips.length) % filteredTips.length)}
+                  className="p-1 rounded-full bg-gray-700/50 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                  aria-label="Tip anterior"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button 
+                  onClick={() => setCurrentTipIndex((currentTipIndex + 1) % filteredTips.length)}
+                  className="p-1 rounded-full bg-gray-700/50 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                  aria-label="Siguiente tip"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            )}
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        )
+      ) : (
+        <EmptyTipState />
+      )}
+    </div>
   );
 };
 
