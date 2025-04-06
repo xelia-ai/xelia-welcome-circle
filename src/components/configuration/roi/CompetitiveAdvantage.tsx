@@ -83,18 +83,21 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
         </AnimatePresence>
       </div>
       
-      <AnimatePresence mode="wait">
-        <motion.p 
-          key={competitiveMessage}
-          className="text-sm text-gray-300 mb-2"
-          initial={{ opacity: 0, y: -5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 5 }}
-          transition={{ duration: 0.3 }}
-        >
-          {competitiveMessage}
-        </motion.p>
-      </AnimatePresence>
+      {/* Only show message if capabilities are selected, otherwise rely on the message in ROICalculator */}
+      {capabilitiesCount > 0 && (
+        <AnimatePresence mode="wait">
+          <motion.p 
+            key={competitiveMessage}
+            className="text-sm text-gray-300 mb-2"
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            transition={{ duration: 0.3 }}
+          >
+            {competitiveMessage}
+          </motion.p>
+        </AnimatePresence>
+      )}
       
       {/* Progress bar with enhanced animation */}
       <div className="h-2.5 w-full bg-gray-700/80 rounded-full overflow-hidden shadow-inner">

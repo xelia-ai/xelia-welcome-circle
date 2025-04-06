@@ -73,7 +73,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
           fullWidth={fullWidth}
         />
 
-        {/* Only show a message when no capabilities are selected */}
+        {/* Only show ROI message when no capabilities are selected */}
         {capabilitiesCount === 0 && (
           <div className="text-center text-gray-400 text-sm italic my-3">
             Selecciona capacidades para ver una estimación de ROI
