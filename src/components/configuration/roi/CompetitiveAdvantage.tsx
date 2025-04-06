@@ -21,14 +21,16 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
     const newProgressValue = capabilitiesCount === 0 ? 0 : Math.min(capabilitiesCount * (100 / totalCapabilities), 100);
     setProgressValue(newProgressValue);
 
-    // Animate the progress bar
+    // Animate the progress bar with enhanced animation
     controls.start({
       width: `${newProgressValue}%`,
       transition: {
-        duration: 0.8,
+        duration: 1.2,
         type: "spring", 
-        stiffness: 120, 
-        damping: 20
+        stiffness: 60, 
+        damping: 15,
+        mass: 1,
+        velocity: 2
       }
     });
   }, [capabilitiesCount, totalCapabilities, controls]);
@@ -94,7 +96,7 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
         </motion.p>
       </AnimatePresence>
       
-      {/* Progress bar with refined animation */}
+      {/* Progress bar with enhanced animation */}
       <div className="h-2.5 w-full bg-gray-700/80 rounded-full overflow-hidden shadow-inner">
         <motion.div 
           className="h-full bg-gradient-to-r from-xelia-accent to-xelia-accent-light"

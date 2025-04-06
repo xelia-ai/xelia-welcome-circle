@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { MessageSquare, BrainCircuit, Bot, Wrench, Mail } from 'lucide-react';
+import { MessageSquare, Bot } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
 import ROICalculator from './roi/ROICalculator';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CapabilityGroup, { Capability } from './capabilities/CapabilityGroup';
-import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch } from 'lucide-react';
+import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch, Mail } from 'lucide-react';
 import TipsWidget from './roi/TipsWidget';
 
 interface CapabilitiesSelectionProps {
@@ -80,11 +80,9 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           <div className="pb-2">
             <h3 className="text-2xl font-medium text-white">Personaliza tu inversión</h3>
             <p className="text-gray-400 mt-1">
-              Selecciona las capacidades que necesitas para tu negocio y optimiza tu inversión.
+              Selecciona sólo las capacidades que quieres para tu negocio.
             </p>
           </div>
-
-          <h4 className="text-lg font-medium text-white">Selecciona tus capacidades</h4>
           
           <div className="space-y-8">
             <CapabilityGroup

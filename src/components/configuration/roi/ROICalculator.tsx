@@ -45,7 +45,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
     <Card className="roi-module bg-gray-800/80 border border-gray-700 h-full w-full max-w-full m-0 p-0 box-border relative overflow-hidden self-start shadow-[0_0_15px_rgba(0,0,0,0.2)]">
       <CardHeader className="pb-0 pt-3">
         <CardTitle className="text-base font-medium text-white flex items-center">
-          <TrendingUp className="w-4 h-4 mr-1.5 text-xelia-accent" />
+          <TrendingUp className="w-5 h-5 mr-1.5 text-xelia-accent" />
           <span className="flex items-center">
             ROI y ventaja competitiva
             <Tooltip>
