@@ -8,3 +8,17 @@ export interface Tip {
   iconName: string;
   capabilities: string[];
 }
+
+// Add the missing ROIMetric interface
+export interface ROIMetric {
+  title: string;
+  baseValue: string;
+  baseNumeric: number;
+  improvedValue: string;
+  improvement: string;
+  // Legacy fields for compatibility with ROIMetricsTable component
+  name: string;
+  current: number;
+  improved: number;
+  percentIncrease: number;
+}
