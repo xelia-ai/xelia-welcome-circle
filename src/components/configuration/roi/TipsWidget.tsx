@@ -58,6 +58,18 @@ const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
       capabilities: ['real-time-data']
     },
     {
+      id: 'tip-7',
+      text: 'Al integrar WhatsApp y programación de citas, puedes reducir tus tiempos de respuesta en más del 50%.',
+      icon: <Zap className="h-8 w-8 text-xelia-accent" />,
+      capabilities: ['whatsapp-integration', 'appointment-scheduling']
+    },
+    {
+      id: 'tip-8',
+      text: 'Activar memoria de conversaciones mejora la personalización y fidelización en cada interacción.',
+      icon: <Lightbulb className="h-8 w-8 text-xelia-accent" />,
+      capabilities: ['conversation-memory']
+    },
+    {
       id: 'tip-generic-1',
       text: 'Combinando 3 o más capacidades de Xelia, obtienes un asistente superior al 90% de soluciones del mercado.',
       icon: <TrendingUp className="h-8 w-8 text-xelia-accent" />,
@@ -76,7 +88,8 @@ const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
     // First, find tips that are specifically relevant to selected capabilities
     const relevantTips = allTips.filter(tip => 
       tip.capabilities.length === 0 || // Generic tips
-      tip.capabilities.some(cap => selectedCapabilities.includes(cap)) // Capability-specific tips
+      tip.capabilities.some(cap => selectedCapabilities.includes(cap)) || // Single capability tips
+      (tip.capabilities.length > 1 && tip.capabilities.every(cap => selectedCapabilities.includes(cap))) // Multi-capability tips
     );
     
     // If no capabilities are selected, just show generic tips

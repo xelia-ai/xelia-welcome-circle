@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MessageSquare, BrainCircuit, Bot, Wrench } from 'lucide-react';
+import { MessageSquare, BrainCircuit, Bot, Wrench, Mail } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
 import ROICalculator from './roi/ROICalculator';
@@ -69,6 +69,13 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
       description: 'Permite a los usuarios reprogramar citas, añadir notas o cancelar fácilmente',
       icon: <RefreshCw className="w-5 h-5" />,
       price: 65
+    },
+    {
+      id: 'email-notes',
+      name: 'Notas por correo al cliente',
+      description: 'Envía una nota interna con el resumen de cada llamada al correo del responsable. Si lo deseas, también puedes programar una respuesta automática para el cliente.',
+      icon: <Mail className="w-5 h-5" />,
+      price: 55
     }
   ];
 
@@ -130,15 +137,19 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           </div>
         </div>
 
-        {/* Contenedor para calculadoras y tips - Apilar en móvil, lado a lado en desktop */}
+        {/* Contenedor para calculadoras y tips - Reordenado según la petición */}
         <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6">
-          {/* Tips Widget - Now first in the order */}
-          <div className="w-full hidden lg:block">
-            <TipsWidget selectedCapabilities={selectedCapabilities} />
+          {/* ROI Calculator - Ahora primero */}
+          <div className="w-full">
+            <ROICalculator 
+              selectedCapabilities={selectedCapabilities} 
+              website={website}
+              fullWidth={true}
+            />
           </div>
           
-          {/* Calculadora de precio - Now with title section */}
-          <div className="w-full mt-4">
+          {/* Calculadora de precio - Ahora segundo */}
+          <div className="w-full">
             <div className="mb-4">
               <h4 className="text-lg font-medium text-white flex items-center">
                 <Wrench className="h-5 w-5 mr-2 text-xelia-accent" />
@@ -151,17 +162,8 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
             <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
           </div>
           
-          {/* ROI Calculator */}
+          {/* Tips Widget - Ahora último */}
           <div className="w-full">
-            <ROICalculator 
-              selectedCapabilities={selectedCapabilities} 
-              website={website}
-              fullWidth={true}
-            />
-          </div>
-          
-          {/* Tips Widget (mobile position) */}
-          <div className="w-full lg:hidden">
             <TipsWidget selectedCapabilities={selectedCapabilities} />
           </div>
         </div>

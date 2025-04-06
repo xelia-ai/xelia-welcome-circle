@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch } from 'lucide-react';
+import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch, Mail } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -48,14 +48,14 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
               className={cn(
                 "bg-gray-800/80 border rounded-lg p-4 flex items-start transition-all duration-300",
                 isSelected 
-                  ? 'border-xelia-accent shadow-[0_0_15px_rgba(92,106,255,0.15)] bg-gradient-to-br from-gray-800/90 to-gray-700/70' 
-                  : 'border-gray-700 hover:border-gray-500'
+                  ? 'border-[#3EF3B0] border-4 shadow-[0_0_15px_rgba(62,243,176,0.2)] bg-[#202A2A]' 
+                  : 'border-gray-700 hover:border-gray-500 bg-[#1F2232]'
               )}
             >
               <div className="mr-4 mt-0.5">
                 <div className={cn(
                   "p-2 rounded-full",
-                  isSelected ? 'bg-xelia-accent/20 text-xelia-accent' : 'bg-gray-700 text-gray-300'
+                  isSelected ? 'bg-[#3EF3B0]/20 text-white' : 'bg-gray-700 text-gray-300'
                 )}>
                   {capability.icon}
                 </div>
@@ -71,7 +71,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                     </Label>
                     
                     {isSelected && (
-                      <Badge variant="outline" className="ml-2 bg-xelia-accent/10 text-xelia-accent border-xelia-accent/30 text-xs">
+                      <Badge variant="outline" className="ml-2 bg-[#3EF3B0]/10 text-[#3EF3B0] border-[#3EF3B0]/30 text-xs">
                         ✓ Activado
                       </Badge>
                     )}
@@ -84,8 +84,8 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                         checked={isSelected}
                         onCheckedChange={() => onToggle(capability.id)}
                         className={cn(
-                          "data-[state=checked]:bg-xelia-accent",
-                          isSelected ? "shadow-[0_0_8px_rgba(92,106,255,0.4)]" : ""
+                          "data-[state=checked]:bg-[#3EF3B0]",
+                          isSelected ? "shadow-[0_0_8px_rgba(62,243,176,0.4)]" : ""
                         )}
                       />
                     </TooltipTrigger>
