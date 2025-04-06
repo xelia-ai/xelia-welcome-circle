@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Info, AlertCircle } from 'lucide-react';
+import { TrendingUp, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { estimateBaseMetrics, BaseMetrics } from '@/utils/metricsEstimation';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -60,12 +60,12 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-2">
-        {/* ROI explanation */}
-        <div className="bg-gray-700/30 rounded-lg p-3 mb-3 text-xs text-gray-300 leading-relaxed">
-          <div className="flex gap-2">
-            <AlertCircle className="w-4 h-4 text-xelia-accent flex-shrink-0 mt-0.5" />
+        {/* ROI explanation - more compact now */}
+        <div className="bg-gray-700/30 rounded-lg p-2.5 mb-3 text-xs text-gray-300">
+          <div className="flex gap-1.5">
+            <Info className="w-4 h-4 text-xelia-accent flex-shrink-0 mt-0.5" />
             <p>
-              Esta sección calcula el retorno estimado que puedes obtener según las capacidades que hayas activado para tu negocio.
+              Esta sección calcula el retorno estimado según las capacidades activadas para tu negocio.
             </p>
           </div>
         </div>
@@ -83,13 +83,10 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
           fullWidth={fullWidth}
         />
 
-        {/* ROI Definition for when no capabilities are selected */}
+        {/* Only show a message when no capabilities are selected */}
         {capabilitiesCount === 0 && (
-          <div className="mt-3 mb-2">
-            <h5 className="text-white text-sm font-medium mb-1">¿Qué es ROI?</h5>
-            <p className="text-gray-400 text-[14px] leading-relaxed">
-              El Retorno de Inversión (ROI) estima cuánto puedes mejorar tu negocio con Xelia, comparando tus métricas actuales contra las que puedes alcanzar al automatizar.
-            </p>
+          <div className="text-center text-gray-400 text-sm italic my-3">
+            Selecciona capacidades para ver una estimación de ROI
           </div>
         )}
       </CardContent>
