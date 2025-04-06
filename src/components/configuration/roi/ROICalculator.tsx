@@ -7,7 +7,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import CompetitiveAdvantage from './CompetitiveAdvantage';
 import ROIMetricsTable from './ROIMetricsTable';
 import { useROICalculations } from './useROICalculations';
-import { Progress } from '@/components/ui/progress';
 
 interface ROICalculatorProps {
   selectedCapabilities: string[];

@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 
 export interface Capability {
   id: string;
@@ -44,16 +45,18 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
           return (
             <div 
               key={capability.id}
-              className={`bg-gray-800/80 border rounded-lg p-4 flex items-start transition-all duration-300 ${
+              className={cn(
+                "bg-gray-800/80 border rounded-lg p-4 flex items-start transition-all duration-300",
                 isSelected 
                   ? 'border-xelia-accent shadow-[0_0_15px_rgba(92,106,255,0.15)] bg-gradient-to-br from-gray-800/90 to-gray-700/70' 
                   : 'border-gray-700 hover:border-gray-500'
-              }`}
+              )}
             >
               <div className="mr-4 mt-0.5">
-                <div className={`p-2 rounded-full ${
+                <div className={cn(
+                  "p-2 rounded-full",
                   isSelected ? 'bg-xelia-accent/20 text-xelia-accent' : 'bg-gray-700 text-gray-300'
-                }`}>
+                )}>
                   {capability.icon}
                 </div>
               </div>
@@ -80,7 +83,10 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                         id={`capability-${capability.id}`}
                         checked={isSelected}
                         onCheckedChange={() => onToggle(capability.id)}
-                        className="data-[state=checked]:bg-xelia-accent"
+                        className={cn(
+                          "data-[state=checked]:bg-xelia-accent",
+                          isSelected ? "shadow-[0_0_8px_rgba(92,106,255,0.4)]" : ""
+                        )}
                       />
                     </TooltipTrigger>
                     <TooltipContent side="top">

@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { MessageSquare, BrainCircuit, Bot } from 'lucide-react';
+import { MessageSquare, BrainCircuit, Bot, Wrench } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
-import ROICalculator from './ROICalculator';
+import ROICalculator from './roi/ROICalculator';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CapabilityGroup, { Capability } from './capabilities/CapabilityGroup';
 import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch } from 'lucide-react';
@@ -132,14 +132,23 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
 
         {/* Contenedor para calculadoras y tips - Apilar en móvil, lado a lado en desktop */}
         <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6">
-          {/* Calculadora de precio */}
-          <div className="w-full">
-            <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
-          </div>
-          
-          {/* Tips Widget */}
+          {/* Tips Widget - Now first in the order */}
           <div className="w-full hidden lg:block">
             <TipsWidget selectedCapabilities={selectedCapabilities} />
+          </div>
+          
+          {/* Calculadora de precio - Now with title section */}
+          <div className="w-full mt-4">
+            <div className="mb-4">
+              <h4 className="text-lg font-medium text-white flex items-center">
+                <Wrench className="h-5 w-5 mr-2 text-xelia-accent" />
+                Personaliza tu inversión
+              </h4>
+              <p className="text-gray-400 text-sm mt-1">
+                Activa solo lo que necesitas para tu negocio y mira cómo se ajusta en tiempo real.
+              </p>
+            </div>
+            <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
           </div>
           
           {/* ROI Calculator */}
