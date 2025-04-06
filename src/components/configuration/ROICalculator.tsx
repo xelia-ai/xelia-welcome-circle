@@ -42,7 +42,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
   const capabilitiesCount = selectedCapabilities.length;
 
   return (
-    <Card className={`bg-gray-800/80 border border-gray-700 h-full ${fullWidth ? 'w-full' : 'max-w-[450px]'}`}>
+    <Card className="bg-gray-800/80 border border-gray-700 h-full w-full max-w-full overflow-hidden box-border self-start">
       <CardHeader className="pb-0 pt-3">
         <CardTitle className="text-base font-medium text-white flex items-center">
           <TrendingUp className="w-4 h-4 mr-1.5 text-xelia-accent" />

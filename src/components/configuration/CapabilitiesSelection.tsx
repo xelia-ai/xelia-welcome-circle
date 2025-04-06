@@ -89,9 +89,9 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4">
-      <div className={`grid grid-cols-1 ${isMobile ? '' : 'md:grid-cols-12'} gap-8`}>
+      <div className="grid grid-cols-1 gap-8">
         {/* Columna de opciones */}
-        <div className="md:col-span-7 space-y-6">
+        <div className="space-y-6">
           <h3 className="text-2xl font-medium text-white mb-4">Selecciona las capacidades</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {capabilities.map((capability) => (
@@ -126,15 +126,19 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           </div>
         </div>
 
-        {/* Columna de calculadora y ROI */}
-        <div className="md:col-span-5 space-y-6">
-          <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
+        {/* Calculadoras en contenedores responsivos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="w-full">
+            <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
+          </div>
           
-          <ROICalculator 
-            selectedCapabilities={selectedCapabilities} 
-            website={website}
-            fullWidth={true}
-          />
+          <div className="w-full">
+            <ROICalculator 
+              selectedCapabilities={selectedCapabilities} 
+              website={website}
+              fullWidth={true}
+            />
+          </div>
         </div>
       </div>
     </div>
