@@ -5,6 +5,6 @@ import React from 'react';
 export interface Tip {
   id: string;
   text: string;
-  icon: React.ReactNode;
+  iconName: string;
   capabilities: string[];
 }

@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { Zap, TrendingUp } from 'lucide-react';
 import { Tip } from '../types';
 
 export const useTipsData = (selectedCapabilities: string[]) => {
@@ -12,19 +11,19 @@ export const useTipsData = (selectedCapabilities: string[]) => {
     {
       id: 'tip-1',
       text: 'La capacidad "Multilingüe" te permite duplicar tu alcance internacional y atender clientes globales sin barreras.',
-      icon: <Zap className="h-8 w-8 text-xelia-accent" />,
+      iconName: 'Zap',
       capabilities: ['multi-language']
     },
     {
       id: 'tip-2',
       text: 'Las empresas que integran WhatsApp con Xelia logran tasas de respuesta 5 veces más rápidas que la competencia.',
-      icon: <TrendingUp className="h-8 w-8 text-xelia-accent" />,
+      iconName: 'TrendingUp',
       capabilities: ['whatsapp-integration']
     },
     {
       id: 'tip-3',
       text: 'La programación de citas automatizada reduce hasta un 80% el tiempo administrativo dedicado a esta tarea.',
-      icon: <Zap className="h-8 w-8 text-xelia-accent" />,
+      iconName: 'Zap',
       capabilities: ['appointment-scheduling']
     }
   ];
