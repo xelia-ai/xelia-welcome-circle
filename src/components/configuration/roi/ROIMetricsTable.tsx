@@ -18,7 +18,7 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
   const displayMetrics = roiMetrics.slice(0, 2);
   
   return (
-    <div className="mt-3 mb-3">
+    <div className="mt-3">
       {capabilitiesCount > 0 ? (
         <div className={cn(
           "bg-gray-700/30 rounded-lg overflow-hidden",
@@ -74,7 +74,7 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
         </div>
       ) : (
         <div className="text-center py-2 text-sm text-gray-400 italic">
-          Activa capacidades para ver tu ventaja competitiva
+          Selecciona capacidades para ver tu ventaja competitiva
         </div>
       )}
     </div>

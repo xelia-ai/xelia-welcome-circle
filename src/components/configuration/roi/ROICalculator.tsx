@@ -60,16 +60,6 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-2">
-        {/* ROI explanation - more compact now */}
-        <div className="bg-gray-700/30 rounded-lg p-2.5 mb-3 text-xs text-gray-300">
-          <div className="flex gap-1.5">
-            <Info className="w-4 h-4 text-xelia-accent flex-shrink-0 mt-0.5" />
-            <p>
-              Esta sección calcula el retorno estimado según las capacidades activadas para tu negocio.
-            </p>
-          </div>
-        </div>
-        
         {/* Competitive advantage component */}
         <CompetitiveAdvantage 
           capabilitiesCount={capabilitiesCount}
