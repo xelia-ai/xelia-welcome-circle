@@ -13,7 +13,11 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: {
+				DEFAULT: '1rem',
+				sm: '1.5rem',
+				md: '2rem'
+			},
 			screens: {
 				'2xl': '1400px'
 			}
@@ -82,6 +86,12 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			spacing: {
+				'safe-top': 'env(safe-area-inset-top)',
+				'safe-bottom': 'env(safe-area-inset-bottom)',
+				'safe-left': 'env(safe-area-inset-left)',
+				'safe-right': 'env(safe-area-inset-right)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -153,8 +163,76 @@ export default {
         'elegant-sm': '0px 5px 15px -5px rgba(0, 0, 0, 0.2)',
         'elegant-hover': '0px 15px 30px -5px rgba(0, 0, 0, 0.4)',
         'accent': '0px 5px 15px -5px rgba(92, 106, 255, 0.35)',
+				'mobile-bottom': '0px -2px 10px rgba(0, 0, 0, 0.3)',
       }
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		function({ addBase, addUtilities, addComponents, theme }) {
+			// Add base styles for better mobile experience
+			addBase({
+				// Improve touch area for interactive elements
+				'button, .touch-target': {
+					'@media (max-width: 640px)': {
+						minHeight: '44px',
+						minWidth: '44px',
+					},
+				},
+				// Improved font rendering
+				'html, body': {
+					'-webkit-font-smoothing': 'antialiased',
+					'-moz-osx-font-smoothing': 'grayscale',
+					'text-rendering': 'optimizeLegibility',
+				},
+			});
+
+			// Add utilities for mobile-specific needs
+			addUtilities({
+				'.pb-safe': {
+					paddingBottom: `max(env(safe-area-inset-bottom), 1.5rem)`,
+				},
+				'.pt-safe': {
+					paddingTop: `max(env(safe-area-inset-top), 1rem)`,
+				},
+				'.mobile-full-width': {
+					'@media (max-width: 640px)': {
+						width: '100vw',
+						marginLeft: 'calc(-50vw + 50%)',
+					},
+				},
+				'.tap-highlight-none': {
+					'-webkit-tap-highlight-color': 'transparent',
+				},
+				'.touch-pan-y': {
+					'touch-action': 'pan-y',
+				},
+				'.touch-pan-x': {
+					'touch-action': 'pan-x',
+				},
+			});
+
+			// Add components for mobile scenarios
+			addComponents({
+				'.sticky-header': {
+					position: 'sticky',
+					top: '0',
+					zIndex: '40',
+					backdropFilter: 'blur(8px)',
+					'@media (max-width: 640px)': {
+						paddingTop: 'max(env(safe-area-inset-top), 0.5rem)',
+					},
+				},
+				'.sticky-bottom': {
+					position: 'sticky',
+					bottom: '0',
+					zIndex: '40',
+					backdropFilter: 'blur(8px)',
+					'@media (max-width: 640px)': {
+						paddingBottom: 'max(env(safe-area-inset-bottom), 0.5rem)',
+					},
+				},
+			});
+		},
+	],
 } satisfies Config;

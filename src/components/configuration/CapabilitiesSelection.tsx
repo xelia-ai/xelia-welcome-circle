@@ -73,17 +73,17 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4">
-      <div className="display-grid-parent flex flex-wrap gap-6">
-        {/* Columna de opciones */}
-        <div className="w-full lg:flex-1 space-y-8">
+    <div className="w-full mx-auto px-2 md:px-4">
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Columna de opciones - Siempre primero en móvil */}
+        <div className="w-full lg:flex-1 space-y-6 md:space-y-8">
           <div className="pb-2">
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-sm md:text-base">
               Selecciona sólo las capacidades que quieres para tu negocio.
             </p>
           </div>
           
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             <CapabilityGroup
               title="Comunicación"
               icon={<MessageSquare className="w-5 h-5" />}
@@ -101,13 +101,15 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
             />
           </div>
           
-          <div className="mt-8">
-            <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
-          </div>
+          {isMobile && (
+            <div className="mt-6 md:mt-8">
+              <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
+            </div>
+          )}
         </div>
 
-        {/* Contenedor para calculadoras y tips - Reordenado según la petición */}
-        <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-8">
+        {/* Contenedor para calculadoras y tips - Después de las capacidades en móvil */}
+        <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6 md:gap-8">
           {/* ROI Calculator */}
           <div className="w-full">
             <ROICalculator 
@@ -121,6 +123,13 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           <div className="w-full">
             <TipsWidget selectedCapabilities={selectedCapabilities} />
           </div>
+          
+          {/* Capabilities Calculator only on desktop */}
+          {!isMobile && (
+            <div className="w-full">
+              <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
+            </div>
+          )}
         </div>
       </div>
     </div>

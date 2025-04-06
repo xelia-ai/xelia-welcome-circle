@@ -2,6 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { ROIMetric } from './types';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ROIMetricsTableProps {
   roiMetrics: ROIMetric[];
@@ -16,6 +17,7 @@ const ROIMetricsTable: React.FC<ROIMetricsTableProps> = ({
 }) => {
   // Just show the first two metrics (efficiency and satisfaction)
   const displayMetrics = roiMetrics.slice(0, 2);
+  const isMobile = useIsMobile();
   
   return (
     <div className="mt-3">

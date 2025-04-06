@@ -8,9 +8,11 @@ import AnimatedStepContent from '@/components/configuration/AnimatedStepContent'
 import StepContent from '@/components/configuration/StepContent';
 import { stepInfo } from '@/utils/configStepInfo';
 import { useConfigureState } from '@/hooks/useConfigureState';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Configure = () => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const { 
     currentStep, 
     config, 
@@ -35,7 +37,7 @@ const Configure = () => {
   const totalSteps = 6;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light py-8 px-4 sm:px-6">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light py-4 md:py-8 px-3 md:px-4 sm:px-6">
       <div className="max-w-5xl w-full mx-auto flex flex-col flex-grow">
         <StepHeader stepInfo={stepInfo[currentStep]} />
         
@@ -44,8 +46,8 @@ const Configure = () => {
           totalSteps={totalSteps} 
         />
 
-        <div className="frosted-glass rounded-xl p-6 flex-grow mb-6">
-          <div className="h-full">
+        <div className="frosted-glass rounded-xl p-3 md:p-6 flex-grow mb-6">
+          <div className="h-full overflow-y-auto pb-16 md:pb-0">
             <AnimatedStepContent currentStep={currentStep} direction={direction}>
               <StepContent
                 currentStep={currentStep}
