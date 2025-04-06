@@ -1,15 +1,10 @@
 
-// ROI metric interface definition
-export interface ROIMetric {
-  title: string;
-  baseValue: string;
-  baseNumeric: number;
-  improvedValue: string;
-  improvement: string;
-  
-  // For compatibility with the ROIMetricsTable component
-  name?: string;
-  current?: number;
-  improved?: number;
-  percentIncrease?: number;
+import React from 'react';
+
+// This file already exists with ROI types, so we'll add the Tip interface
+export interface Tip {
+  id: string;
+  text: string;
+  icon: React.ReactNode;
+  capabilities: string[];
 }
