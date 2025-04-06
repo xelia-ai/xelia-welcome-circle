@@ -63,7 +63,7 @@ const AgentTypeSelection: React.FC<AgentTypeSelectionProps> = ({ selectedType, o
           
           <h3 className={cn(
             "text-xl font-medium mb-2",
-            selectedType === type.id ? "text-gradient-accent" : "text-white"
+            selectedType === type.id ? "text-xelia-accent" : "text-white"
           )}>
             {type.name}
           </h3>
