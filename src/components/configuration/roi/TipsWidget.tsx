@@ -32,7 +32,7 @@ const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
       <CardContent className="p-6 flex flex-col h-full">
         <div className="flex-1">
           <div className="flex items-start mb-4">
-            <div className="p-2 rounded-lg bg-xelia-accent/20 mr-4 flex-shrink-0">
+            <div className="p-2 rounded-lg bg-gray-700/50 mr-4 flex-shrink-0">
               <AnimatePresence mode="wait">
                 <TipIcon currentTip={currentTip} />
               </AnimatePresence>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Tip } from '../types';
-import { Zap, TrendingUp, Lightbulb } from 'lucide-react';
+import { Zap, TrendingUp, Lightbulb, Sparkles } from 'lucide-react';
 
 interface TipIconProps {
   currentTip: Tip;
@@ -13,11 +13,11 @@ const TipIcon: React.FC<TipIconProps> = ({ currentTip }) => {
   const renderIcon = () => {
     switch (currentTip.iconName) {
       case 'Zap':
-        return <Zap className="h-8 w-8 text-xelia-accent" />;
+        return <Sparkles className="h-8 w-8 text-gray-300" />;
       case 'TrendingUp':
-        return <TrendingUp className="h-8 w-8 text-xelia-accent" />;
+        return <TrendingUp className="h-8 w-8 text-gray-300" />;
       default:
-        return <Lightbulb className="h-8 w-8 text-xelia-accent" />;
+        return <Lightbulb className="h-8 w-8 text-gray-300" />;
     }
   };
 

@@ -34,7 +34,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-3">
-        <div className="p-1.5 rounded-md bg-gray-700/80 text-xelia-accent">{icon}</div>
+        <div className="p-1.5 rounded-md bg-gray-700/80 text-gray-300">{icon}</div>
         <h4 className="text-lg font-medium text-white">{title}</h4>
       </div>
       

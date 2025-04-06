@@ -61,9 +61,9 @@ export default {
 					dark: '#0F1012',
 					DEFAULT: '#181A1F',
 					light: '#1E2026',
-					accent: '#5C6AFF',
-					'accent-light': '#7E89FF',
-					'accent-dark': '#4652E5',
+					accent: '#888888',
+					'accent-light': '#999999',
+					'accent-dark': '#777777',
 					white: '#FFFFFF',
 					muted: '#8A8D96'
 				},

@@ -11,10 +11,10 @@ const TipContent: React.FC<TipContentProps> = ({ currentTip }) => {
   return (
     <motion.div
       key={currentTip.id}
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 5 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.3 }}
+      exit={{ opacity: 0, y: -5 }}
+      transition={{ duration: 0.2 }}
       className="text-gray-300 leading-relaxed"
     >
       {currentTip.text}
