@@ -3,39 +3,40 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment, Float, Sphere, MeshDistortMaterial } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Environment } from '@react-three/drei';
 
 interface WelcomeCircleProps {
   className?: string;
 }
 
+// Simpler sphere component to avoid the error
 const XeliaSphere = () => {
   return (
-    <Float 
-      speed={2} 
-      rotationIntensity={0.5} 
-      floatIntensity={0.5}
-    >
-      <Sphere args={[1, 64, 64]} position={[0, 0, 0]}>
-        <MeshDistortMaterial
+    <group position={[0, 0, 0]}>
+      {/* Inner colored sphere */}
+      <mesh>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshStandardMaterial 
           color="#5C6AFF"
-          attach="material"
-          distort={0.2}
-          speed={2}
           roughness={0.2}
           metalness={0.8}
+          emissive="#5C6AFF"
+          emissiveIntensity={0.2}
           opacity={0.8}
           transparent
         />
-      </Sphere>
-      <Sphere args={[1, 64, 64]} position={[0, 0, 0]} scale={1.1}>
+      </mesh>
+      
+      {/* Outer glow sphere */}
+      <mesh>
+        <sphereGeometry args={[1.1, 32, 32]} />
         <meshBasicMaterial
           color="#FFFFFF"
           opacity={0.4}
           transparent
         />
-      </Sphere>
-    </Float>
+      </mesh>
+    </group>
   );
 };
 
