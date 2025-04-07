@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bot, Building2, FileText, Zap, Link, Settings } from 'lucide-react';
+import { Bot, Building2, FileText, Zap, Link, Settings, Sparkles } from 'lucide-react';
 
 export type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'integrations' | 'summary';
 
@@ -14,7 +14,7 @@ export const stepInfo: Record<ConfigStep, StepInfo> = {
   'agent-type': {
     title: 'Elige el tipo de Xelia',
     description: 'Selecciona el tipo de Xelia que mejor se adapte a las necesidades de tu empresa.',
-    icon: React.createElement(Bot, { className: "w-5 h-5" })
+    icon: React.createElement(Sparkles, { className: "w-5 h-5" })
   },
   'industry': {
     title: 'Selecciona tu industria',
