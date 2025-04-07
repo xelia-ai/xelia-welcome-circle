@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import WelcomeCircle from '@/components/WelcomeCircle';
@@ -145,7 +144,6 @@ const Index = () => {
           </motion.div>
         </div>
         
-        {/* Features */}
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-lg mt-12"
           initial={{ opacity: 0, y: 30 }}
