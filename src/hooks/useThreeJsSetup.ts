@@ -43,7 +43,7 @@ export const useThreeJsSetup = (canvasRef: React.RefObject<HTMLCanvasElement>): 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       alpha: true,
-      antialias: true // Adding antialiasing for smoother particles
+      antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0); // Transparent background
@@ -61,6 +61,7 @@ export const useThreeJsSetup = (canvasRef: React.RefObject<HTMLCanvasElement>): 
     for (let i = 0; i < particleCount; i++) {
       // Create a more organic, varying distribution
       const angle = Math.random() * Math.PI * 2;
+      // Avoid placing particles at the exact center (0,0,0)
       const radius = 0.8 + Math.random() * 1.2; // Varying radius
       const height = (Math.random() - 0.5) * 2;
       
@@ -87,7 +88,8 @@ export const useThreeJsSetup = (canvasRef: React.RefObject<HTMLCanvasElement>): 
     if (context) {
       // Draw a gradient circle for better-looking particles
       const gradient = context.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)'); // Slightly more transparent at center
+      gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.4)');
       gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
       
       context.fillStyle = gradient;
@@ -101,12 +103,12 @@ export const useThreeJsSetup = (canvasRef: React.RefObject<HTMLCanvasElement>): 
     
     const material = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.12, // Smaller size to avoid the single white dot at the top
+      size: 0.10, // Reduced size to make particles less prominent
       transparent: true,
       map: texture,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      sizeAttenuation: true // Makes particles smaller when further away
+      sizeAttenuation: true
     });
     
     const points = new THREE.Points(particles, material);

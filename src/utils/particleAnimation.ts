@@ -74,6 +74,14 @@ export const animateParticles = (
         velocities[i][2] -= positions[i * 3 + 2] * 0.002;
       }
       
+      // Make sure particles don't get too close to center (0,0,0) to avoid the white dot
+      if (distance < 0.5) {
+        // Push particles away from the center
+        velocities[i][0] += positions[i * 3] < 0 ? -0.01 : 0.01;
+        velocities[i][1] += positions[i * 3 + 1] < 0 ? -0.01 : 0.01;
+        velocities[i][2] += positions[i * 3 + 2] < 0 ? -0.01 : 0.01;
+      }
+      
       // Dampen velocities to prevent excessive movement
       velocities[i][0] *= 0.99;
       velocities[i][1] *= 0.99;
