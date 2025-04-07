@@ -9,36 +9,38 @@ interface WelcomeCircleProps {
 
 const WelcomeCircle: React.FC<WelcomeCircleProps> = ({ className }) => {
   return (
-    <div className={cn('relative h-[280px] w-[280px] flex items-center justify-center', className)}>
-      {/* Simple luminous circle with avatar */}
+    <motion.div 
+      className={cn('relative h-[280px] w-[280px] flex items-center justify-center', className)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      {/* Outer glow effect */}
       <motion.div 
-        className="absolute inset-0 w-full h-full rounded-full opacity-30"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.3 }}
-        transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+        className="absolute w-[260px] h-[260px] rounded-full"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.15 }}
+        transition={{ duration: 1 }}
         style={{
-          boxShadow: '0 0 60px 30px rgba(255, 255, 255, 0.15)',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)'
+          background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)',
+          filter: 'blur(20px)'
         }}
       />
       
-      {/* Avatar image */}
-      <motion.div 
-        className="relative z-10"
-        initial={{ scale: 0.6, opacity: 0 }}
+      {/* Simple container for avatar */}
+      <motion.div
+        className="z-10 flex items-center justify-center"
+        initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
+        transition={{ duration: 1, delay: 0.2 }}
       >
         <img 
           src="/lovable-uploads/9f5bc4b9-a87a-4af7-88b1-e1249e0a7301.png" 
           alt="Xelia Avatar" 
           className="w-[100px] h-[100px] object-contain"
-          style={{ 
-            filter: 'drop-shadow(0 2px 3px rgba(0,0,0,0.1))'
-          }}
         />
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
