@@ -45,16 +45,13 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
           return (
             <div 
               key={capability.id}
-              className={cn(
-                "bg-white rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:shadow-md border",
-                isSelected ? "border-xelia-accent" : "border-xelia-gray-light"
-              )}
+              className="bg-white rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:shadow-md border border-xelia-gray-light"
               onClick={() => onToggle(capability.id)}
             >
               <div className="mr-4 mt-0.5">
                 <div className={cn(
                   "p-2 rounded-full w-10 h-10 flex items-center justify-center",
-                  isSelected ? "bg-xelia-accent text-white" : "bg-white border border-xelia-gray-light text-xelia-gray-medium"
+                  isSelected ? "bg-[#3EF3B0] text-white" : "bg-white border border-xelia-gray-light text-xelia-gray-medium"
                 )}>
                   {capability.icon}
                 </div>
