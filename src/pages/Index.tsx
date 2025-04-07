@@ -83,11 +83,11 @@ const Index = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            className="min-h-[140px]"
+            className="min-h-[120px]" // Reduced height to accommodate smaller text
           >
             <motion.h1 
               variants={item}
-              className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl font-display leading-tight mb-4"
+              className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl font-display leading-tight mb-4"
               style={{
                 letterSpacing: '-0.025em',
                 fontWeight: '600',
@@ -98,7 +98,7 @@ const Index = () => {
             </motion.h1>
             <motion.h1 
               variants={item}
-              className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl font-display leading-tight"
+              className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl font-display leading-tight"
               style={{
                 letterSpacing: '-0.025em',
                 fontWeight: '600',
