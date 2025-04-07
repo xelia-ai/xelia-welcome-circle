@@ -55,11 +55,13 @@ const WelcomeExperience: React.FC = () => {
         preload="auto"
       />
 
-      {/* Three.js canvas for particles - always visible */}
-      <ParticleVisualization 
-        audioPermission={audioPermission} 
-        audioElement={audioRef.current}
-      />
+      {/* Only show particles after user clicks the start button */}
+      {audioPermission && (
+        <ParticleVisualization 
+          audioPermission={audioPermission} 
+          audioElement={audioRef.current}
+        />
+      )}
 
       {/* Text container - only visible after permission */}
       {audioPermission && (

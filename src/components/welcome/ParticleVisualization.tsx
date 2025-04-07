@@ -30,9 +30,10 @@ const ParticleVisualization: React.FC<ParticleVisualizationProps> = ({
   // Initialize audio analyzer
   const { analyser, dataArray } = useAudioAnalyzer(audioElement, audioPermission);
   
-  // Set up animation loop
+  // Set up animation loop only when component is visible
   useEffect(() => {
-    // Always animate particles, even without audio
+    if (!audioPermission) return;
+    
     animateParticles(
       analyser,
       dataArray,
