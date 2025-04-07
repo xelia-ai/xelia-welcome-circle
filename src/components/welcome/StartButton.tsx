@@ -9,7 +9,7 @@ interface StartButtonProps {
 const StartButton: React.FC<StartButtonProps> = ({ onClick }) => {
   return (
     <motion.div 
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex justify-center"
+      className="absolute inset-0 flex items-center justify-center z-20"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
