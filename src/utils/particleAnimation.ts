@@ -13,22 +13,25 @@ export const animateParticles = (
   setAnimationFrameId: (id: number | null) => void
 ) => {
   const animate = () => {
-    if (!analyser || !dataArray || !scene || !camera || 
-        !renderer || !particles || !particlePositions || !particleVelocities) {
+    if (!scene || !camera || !renderer || !particles || !particlePositions || !particleVelocities) {
       const animationFrameId = requestAnimationFrame(animate);
       setAnimationFrameId(animationFrameId);
       return;
     }
     
-    analyser.getByteFrequencyData(dataArray);
-    
-    // Calculate average volume
-    let sum = 0;
-    for (let i = 0; i < dataArray.length; i++) {
-      sum += dataArray[i];
+    // Get volume data from audio if available
+    let normalizedVolume = 0.5; // Default value if no audio
+    if (analyser && dataArray) {
+      analyser.getByteFrequencyData(dataArray);
+      
+      // Calculate average volume
+      let sum = 0;
+      for (let i = 0; i < dataArray.length; i++) {
+        sum += dataArray[i];
+      }
+      const average = sum / dataArray.length;
+      normalizedVolume = average / 255;
     }
-    const average = sum / dataArray.length;
-    const normalizedVolume = average / 255;
     
     // Get the positions array from the buffer geometry
     const positions = particlePositions;

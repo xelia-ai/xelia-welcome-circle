@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import ParticleVisualization from './welcome/ParticleVisualization';
 import TypingText from './welcome/TypingText';
 import StartButton from './welcome/StartButton';
@@ -9,7 +9,30 @@ const welcomeScript = `Hola, soy Xelia, tu asistente virtual de inteligencia art
 
 const WelcomeExperience: React.FC = () => {
   const [audioPermission, setAudioPermission] = useState(false);
+  const [audioLoaded, setAudioLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Try to preload audio
+  useEffect(() => {
+    if (audioRef.current) {
+      const audio = audioRef.current;
+      audio.addEventListener('canplaythrough', () => {
+        setAudioLoaded(true);
+      });
+      
+      // Handle audio load error
+      audio.addEventListener('error', (e) => {
+        console.error('Audio file could not be loaded', e);
+        // We still allow the experience to continue even if audio fails
+        setAudioLoaded(true);
+      });
+      
+      return () => {
+        audio.removeEventListener('canplaythrough', () => setAudioLoaded(true));
+        audio.removeEventListener('error', () => {});
+      };
+    }
+  }, []);
 
   // Start experience on user interaction (to comply with browser autoplay policies)
   const startExperience = () => {
@@ -18,12 +41,13 @@ const WelcomeExperience: React.FC = () => {
     if (audioRef.current) {
       audioRef.current.play().catch(error => {
         console.error('Audio playback failed:', error);
+        // Continue with visual experience even if audio fails
       });
     }
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-screen overflow-hidden">
       {/* Audio element */}
       <audio 
         ref={audioRef}
@@ -31,18 +55,20 @@ const WelcomeExperience: React.FC = () => {
         preload="auto"
       />
 
-      {/* Three.js canvas for particles */}
+      {/* Three.js canvas for particles - always visible */}
       <ParticleVisualization 
         audioPermission={audioPermission} 
         audioElement={audioRef.current}
       />
 
-      {/* Text container */}
-      <TypingText 
-        audioElement={audioRef.current}
-        audioPermission={audioPermission}
-        welcomeScript={welcomeScript}
-      />
+      {/* Text container - only visible after permission */}
+      {audioPermission && (
+        <TypingText 
+          audioElement={audioRef.current}
+          audioPermission={audioPermission}
+          welcomeScript={welcomeScript}
+        />
+      )}
 
       {/* Start button (only shown before permission is granted) */}
       {!audioPermission && (

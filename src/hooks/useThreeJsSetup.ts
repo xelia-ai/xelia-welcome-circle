@@ -42,10 +42,11 @@ export const useThreeJsSetup = (canvasRef: React.RefObject<HTMLCanvasElement>): 
     // Create renderer
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
-      alpha: true
+      alpha: true,
+      antialias: true // Adding antialiasing for smoother particles
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
+    renderer.setClearColor(0x000000, 0); // Transparent background
     rendererRef.current = renderer;
 
     // Create particles
@@ -84,10 +85,14 @@ export const useThreeJsSetup = (canvasRef: React.RefObject<HTMLCanvasElement>): 
     canvas.height = 32;
     
     if (context) {
-      // Draw a circle
+      // Draw a gradient circle for better-looking particles
+      const gradient = context.createRadialGradient(16, 16, 0, 16, 16, 16);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      context.fillStyle = gradient;
       context.beginPath();
-      context.arc(16, 16, 15, 0, Math.PI * 2);
-      context.fillStyle = 'white';
+      context.arc(16, 16, 16, 0, Math.PI * 2);
       context.fill();
     }
     
@@ -96,11 +101,12 @@ export const useThreeJsSetup = (canvasRef: React.RefObject<HTMLCanvasElement>): 
     
     const material = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.15,
+      size: 0.12, // Smaller size to avoid the single white dot at the top
       transparent: true,
       map: texture,
       blending: THREE.AdditiveBlending,
-      depthWrite: false
+      depthWrite: false,
+      sizeAttenuation: true // Makes particles smaller when further away
     });
     
     const points = new THREE.Points(particles, material);
