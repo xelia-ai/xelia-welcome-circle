@@ -1,38 +1,38 @@
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 
 interface WelcomeCircleProps {
   className?: string;
 }
 
-// Simpler sphere component to avoid the error
+// Simplificado para evitar errores con three.js
 const XeliaSphere = () => {
   return (
-    <group position={[0, 0, 0]}>
-      {/* Inner colored sphere */}
+    <group>
+      {/* Esfera principal blanca luminosa */}
       <mesh>
         <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial 
-          color="#5C6AFF"
-          roughness={0.2}
-          metalness={0.8}
-          emissive="#5C6AFF"
+          color="#FFFFFF"
+          roughness={0.1}
+          metalness={0.2}
+          emissive="#FFFFFF"
           emissiveIntensity={0.2}
-          opacity={0.8}
+          opacity={0.9}
           transparent
         />
       </mesh>
       
-      {/* Outer glow sphere */}
+      {/* Resplandor exterior sutil */}
       <mesh>
-        <sphereGeometry args={[1.1, 32, 32]} />
+        <sphereGeometry args={[1.05, 24, 24]} />
         <meshBasicMaterial
           color="#FFFFFF"
-          opacity={0.4}
+          opacity={0.2}
           transparent
         />
       </mesh>
@@ -64,13 +64,10 @@ const WelcomeCircle: React.FC<WelcomeCircleProps> = ({ className }) => {
       >
         <Canvas>
           <PerspectiveCamera makeDefault position={[0, 0, 5]} />
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.8} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#5C6AFF" />
-          <Suspense fallback={null}>
-            <XeliaSphere />
-            <Environment preset="city" />
-          </Suspense>
+          <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#FFFFFF" />
+          <XeliaSphere />
           <OrbitControls 
             enableZoom={false}
             enablePan={false}
@@ -94,10 +91,10 @@ const WelcomeCircle: React.FC<WelcomeCircleProps> = ({ className }) => {
         }}
       >
         <motion.div 
-          className="w-[120px] h-[120px] rounded-full bg-white flex items-center justify-center overflow-hidden shadow-[0_8px_30px_rgba(92,106,255,0.3)]"
+          className="w-[120px] h-[120px] rounded-full bg-white flex items-center justify-center overflow-hidden shadow-[0_8px_30px_rgba(255,255,255,0.3)]"
           animate={{ 
             boxShadow: isLoaded 
-              ? '0 8px 30px rgba(92, 106, 255, 0.3), 0 0 15px rgba(92, 106, 255, 0.2)'
+              ? '0 8px 30px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2)'
               : '0 4px 15px rgba(0, 0, 0, 0.1)'
           }}
           transition={{ duration: 1, ease: "easeOut" }}
