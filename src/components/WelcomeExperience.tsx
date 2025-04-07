@@ -22,6 +22,8 @@ const WelcomeExperience: React.FC = () => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const particlesRef = useRef<THREE.Points | null>(null);
+  const particlePositionsRef = useRef<Float32Array | null>(null);
+  const particleVelocitiesRef = useRef<Float32Array[] | null>(null);
 
   // Setup Three.js scene with particles
   useEffect(() => {
@@ -51,32 +53,65 @@ const WelcomeExperience: React.FC = () => {
     rendererRef.current = renderer;
 
     // Create particles
-    const particleCount = 200;
+    const particleCount = 300;
     const particles = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     
-    // Position particles in a circle
-    const radius = 2;
+    // Create velocity array for organic movement
+    const velocities: Float32Array[] = [];
+    
+    // Position particles in a sphere-like organic form
     for (let i = 0; i < particleCount; i++) {
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
+      // Create a more organic, varying distribution
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 0.8 + Math.random() * 1.2; // Varying radius
+      const height = (Math.random() - 0.5) * 2;
       
-      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = radius * Math.cos(phi);
+      positions[i * 3] = Math.cos(angle) * radius; // x
+      positions[i * 3 + 1] = height; // y
+      positions[i * 3 + 2] = Math.sin(angle) * radius; // z
+      
+      // Create individual velocity vectors for organic movement
+      velocities.push(new Float32Array([
+        (Math.random() - 0.5) * 0.005,
+        (Math.random() - 0.5) * 0.005,
+        (Math.random() - 0.5) * 0.005
+      ]));
     }
     
     particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     
+    // Create a circular texture for round particles
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = 32;
+    canvas.height = 32;
+    
+    if (context) {
+      // Draw a circle
+      context.beginPath();
+      context.arc(16, 16, 15, 0, Math.PI * 2);
+      context.fillStyle = 'white';
+      context.fill();
+    }
+    
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    
     const material = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.05,
-      transparent: true
+      size: 0.15,
+      transparent: true,
+      map: texture,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
     });
     
     const points = new THREE.Points(particles, material);
     scene.add(points);
     particlesRef.current = points;
+    particlePositionsRef.current = positions;
+    particleVelocitiesRef.current = velocities;
 
     // Handle window resize
     const handleResize = () => {
@@ -125,7 +160,8 @@ const WelcomeExperience: React.FC = () => {
     
     // Start the animation
     const animate = () => {
-      if (!analyserRef.current || !dataArrayRef.current || !sceneRef.current || !cameraRef.current || !rendererRef.current || !particlesRef.current) {
+      if (!analyserRef.current || !dataArrayRef.current || !sceneRef.current || !cameraRef.current || 
+          !rendererRef.current || !particlesRef.current || !particlePositionsRef.current || !particleVelocitiesRef.current) {
         animationFrameRef.current = requestAnimationFrame(animate);
         return;
       }
@@ -138,13 +174,60 @@ const WelcomeExperience: React.FC = () => {
         sum += dataArrayRef.current[i];
       }
       const average = sum / dataArrayRef.current.length;
-      
-      // Use volume to affect the particle animation
       const normalizedVolume = average / 255;
-      const scale = 1 + normalizedVolume * 0.3;
       
-      particlesRef.current.rotation.y += 0.003;
-      particlesRef.current.scale.set(scale, scale, scale);
+      // Get the positions array from the buffer geometry
+      const positions = particlePositionsRef.current;
+      const velocities = particleVelocitiesRef.current;
+      const particles = particlesRef.current.geometry as THREE.BufferGeometry;
+      
+      // Animate particles in an organic, living fashion
+      for (let i = 0; i < positions.length / 3; i++) {
+        // Update positions based on velocities
+        positions[i * 3] += velocities[i][0];
+        positions[i * 3 + 1] += velocities[i][1];
+        positions[i * 3 + 2] += velocities[i][2];
+        
+        // Apply audio reactivity - pulsing effect
+        const pulseScale = 1 + normalizedVolume * 0.3;
+        
+        // Apply volume-based movement intensity
+        velocities[i][0] += (Math.random() - 0.5) * 0.0015 * normalizedVolume;
+        velocities[i][1] += (Math.random() - 0.5) * 0.0015 * normalizedVolume;
+        velocities[i][2] += (Math.random() - 0.5) * 0.0015 * normalizedVolume;
+        
+        // Add some randomness for natural movement
+        if (Math.random() > 0.95) {
+          velocities[i][0] = (Math.random() - 0.5) * 0.005;
+          velocities[i][1] = (Math.random() - 0.5) * 0.005;
+          velocities[i][2] = (Math.random() - 0.5) * 0.005;
+        }
+        
+        // Limit the distance from center (boundary)
+        const distance = Math.sqrt(
+          positions[i * 3] ** 2 + 
+          positions[i * 3 + 1] ** 2 + 
+          positions[i * 3 + 2] ** 2
+        );
+        
+        if (distance > 2.5) {
+          // Nudge particles back toward center
+          velocities[i][0] -= positions[i * 3] * 0.002;
+          velocities[i][1] -= positions[i * 3 + 1] * 0.002;
+          velocities[i][2] -= positions[i * 3 + 2] * 0.002;
+        }
+        
+        // Dampen velocities to prevent excessive movement
+        velocities[i][0] *= 0.99;
+        velocities[i][1] *= 0.99;
+        velocities[i][2] *= 0.99;
+      }
+      
+      // Update the buffer
+      particles.getAttribute('position').needsUpdate = true;
+      
+      // Subtle overall movement
+      particlesRef.current.rotation.y += 0.001;
       
       rendererRef.current.render(sceneRef.current, cameraRef.current);
       
@@ -210,7 +293,7 @@ const WelcomeExperience: React.FC = () => {
       {/* Start button (only shown before permission is granted) */}
       {!audioPermission && (
         <motion.div 
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 w-full flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -228,3 +311,4 @@ const WelcomeExperience: React.FC = () => {
 };
 
 export default WelcomeExperience;
+
