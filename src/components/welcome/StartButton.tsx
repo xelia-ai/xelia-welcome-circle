@@ -8,7 +8,7 @@ interface StartButtonProps {
 
 const StartButton: React.FC<StartButtonProps> = ({ onClick }) => {
   return (
-    <div className="absolute inset-0 flex items-center justify-center z-20">
+    <div className="fixed inset-0 flex items-center justify-center z-20">
       <motion.button
         onClick={onClick}
         className="cta-button text-white font-medium px-8 py-6 rounded-xl text-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300"
