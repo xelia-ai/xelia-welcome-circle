@@ -83,8 +83,19 @@ const Index = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            className="min-h-[90px]" // Further reduced height for exactly 2 lines
+            className="min-h-[120px]" // Height for two lines of text
           >
+            <motion.h1 
+              variants={item}
+              className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl font-display leading-tight mb-2"
+              style={{
+                letterSpacing: '-0.025em',
+                fontWeight: '600',
+                lineHeight: '1.2',
+              }}
+            >
+              Hola, soy Xelia...
+            </motion.h1>
             <motion.h1 
               variants={item}
               className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl font-display leading-tight"
@@ -94,7 +105,7 @@ const Index = () => {
                 lineHeight: '1.2',
               }}
             >
-              Hola, soy Xelia... ¡La IA que mueve tu mundo!
+              ¡La IA que mueve tu mundo!
             </motion.h1>
           </motion.div>
           
