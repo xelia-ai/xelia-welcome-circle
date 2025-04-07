@@ -17,7 +17,7 @@ const WelcomeCircle: React.FC<WelcomeCircleProps> = ({ className }) => {
   }, []);
 
   return (
-    <div className={cn('circle-container relative h-[280px] w-[280px]', className)}>
+    <div className={cn('relative h-[280px] w-[280px] flex items-center justify-center', className)}>
       {/* Luminous background effect */}
       <motion.div 
         className="absolute inset-0 w-full h-full rounded-full bg-white/10"
