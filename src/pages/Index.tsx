@@ -1,6 +1,6 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import WelcomeCircle from '@/components/WelcomeCircle';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Star, Shield, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -78,16 +78,6 @@ const Index = () => {
       </motion.div>
       
       <div className="max-w-xl w-full flex flex-col items-center px-6 py-12 z-10">
-        <motion.div 
-          className="flex justify-center w-full mb-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-        >
-          {/* Only WelcomeCircle component */}
-          <WelcomeCircle />
-        </motion.div>
-        
         <div className="text-center space-y-6 w-full">
           <motion.div
             variants={container}
