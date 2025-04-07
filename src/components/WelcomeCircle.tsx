@@ -3,7 +3,7 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, useGLTF, Environment, Float, Sphere, MeshDistortMaterial } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Environment, Float, Sphere, MeshDistortMaterial } from '@react-three/drei';
 
 interface WelcomeCircleProps {
   className?: string;
@@ -15,9 +15,8 @@ const XeliaSphere = () => {
       speed={2} 
       rotationIntensity={0.5} 
       floatIntensity={0.5}
-      position={[0, 0, 0]}
     >
-      <Sphere args={[1, 64, 64]} scale={1.2}>
+      <Sphere args={[1, 64, 64]} position={[0, 0, 0]}>
         <MeshDistortMaterial
           color="#5C6AFF"
           attach="material"
@@ -29,7 +28,7 @@ const XeliaSphere = () => {
           transparent
         />
       </Sphere>
-      <Sphere args={[1, 64, 64]} scale={1.1}>
+      <Sphere args={[1, 64, 64]} position={[0, 0, 0]} scale={1.1}>
         <meshBasicMaterial
           color="#FFFFFF"
           opacity={0.4}

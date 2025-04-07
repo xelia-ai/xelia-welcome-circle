@@ -97,7 +97,7 @@ const Index = () => {
           >
             <motion.h1 
               variants={item}
-              className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl font-display leading-tight mb-2"
+              className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl font-display leading-tight mb-4"
               style={{
                 letterSpacing: '-0.025em',
                 fontWeight: '600',
