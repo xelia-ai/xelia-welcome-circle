@@ -34,6 +34,7 @@ const ParticleVisualization: React.FC<ParticleVisualizationProps> = ({
   useEffect(() => {
     if (!audioPermission) return;
     
+    // Safely animate even if audio analysis isn't available
     animateParticles(
       analyser,
       dataArray,
@@ -53,9 +54,6 @@ const ParticleVisualization: React.FC<ParticleVisualizationProps> = ({
     };
   }, [
     audioPermission, 
-    audioElement, 
-    analyser, 
-    dataArray, 
     scene, 
     camera, 
     renderer, 
@@ -63,7 +61,12 @@ const ParticleVisualization: React.FC<ParticleVisualizationProps> = ({
     particlePositions, 
     particleVelocities, 
     animationFrameId, 
-    setAnimationFrameId
+    setAnimationFrameId,
+    // Remove these dependencies to prevent re-creating the animation loop
+    // when audio context changes
+    // audioElement, 
+    // analyser, 
+    // dataArray
   ]);
 
   return (
