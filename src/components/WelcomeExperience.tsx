@@ -1,6 +1,5 @@
 
 import React, { useRef, useState, useEffect } from 'react';
-import ParticleVisualization from './welcome/ParticleVisualization';
 import TypingText from './welcome/TypingText';
 import StartButton from './welcome/StartButton';
 
@@ -54,14 +53,6 @@ const WelcomeExperience: React.FC = () => {
         src="/lovable-uploads/mensaje-oficial-xelia.mp3" 
         preload="auto"
       />
-
-      {/* Only show particles after user clicks the start button */}
-      {audioPermission && (
-        <ParticleVisualization 
-          audioPermission={audioPermission} 
-          audioElement={audioRef.current}
-        />
-      )}
 
       {/* Text container - only visible after permission */}
       {audioPermission && (
