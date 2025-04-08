@@ -30,6 +30,7 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
   };
 
   const isFirstStep = currentStep === 'agent-type';
+  const isCapabilitiesStep = currentStep === 'capabilities';
 
   return (
     <div className={`flex justify-between items-center w-full ${isMobile ? 'fixed bottom-0 left-0 right-0 z-50 bg-xelia-dark/95 border-t border-gray-700 p-3 backdrop-blur-md' : ''}`}>
@@ -55,12 +56,16 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
           onClick={onNext}
           disabled={!canProceed}
           className={`flex items-center gap-1 md:gap-2 transition-all duration-300 h-10 md:h-auto px-3 md:px-4 text-sm md:text-base ${
-            canProceed 
-              ? 'bg-xelia-accent hover:bg-xelia-accent-dark shadow-accent transform hover:-translate-y-0.5' 
-              : 'bg-xelia-accent/50 cursor-not-allowed'
+            isCapabilitiesStep 
+              ? 'bg-[#3EF3B0] hover:bg-[#35D39B] text-black shadow-accent transform hover:-translate-y-0.5'
+              : canProceed 
+                ? 'bg-xelia-accent hover:bg-xelia-accent-dark shadow-accent transform hover:-translate-y-0.5' 
+                : 'bg-xelia-accent/50 cursor-not-allowed'
           }`}
         >
-          {currentStep === 'summary' ? 'Finalizar' : 'Siguiente'}
+          {currentStep === 'summary' ? 'Finalizar' : (
+            isCapabilitiesStep ? 'Continuar con tarifa base' : 'Siguiente'
+          )}
           {currentStep === 'summary' ? <Check size={isMobile ? 14 : 16} /> : <ArrowRight size={isMobile ? 14 : 16} />}
         </Button>
       </motion.div>

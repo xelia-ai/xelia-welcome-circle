@@ -83,7 +83,9 @@ export const useConfigureState = () => {
         // Permitir continuar sin validación del sitio web o documentos
         return true;
       case 'capabilities':
-        return config.capabilities.length > 0;
+        // Permitir continuar incluso si no seleccionan capacidades adicionales
+        // para que puedan proceder solo con la tarifa base
+        return true;
       case 'integrations':
         return true;
       case 'summary':

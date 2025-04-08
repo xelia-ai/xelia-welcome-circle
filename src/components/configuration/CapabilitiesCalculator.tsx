@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { CreditCard, AlertCircle } from 'lucide-react';
+import { CreditCard, AlertCircle, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Button } from "@/components/ui/button";
 
 interface CapabilitiesCalculatorProps {
   selectedCapabilities: string[];
@@ -82,6 +83,8 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     handleCapabilityChange();
   }, [selectedCapabilities]);
 
+  const isBaseTariffOnly = selectedCapabilities.length === 0;
+
   return (
     <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-6 shadow-[0_0_15px_rgba(0,0,0,0.2)]">
       <div className="flex items-center mb-4">
@@ -144,6 +147,15 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
             <span className="text-white font-semibold text-xl">${calculatedPrice.totalPrice} USD</span>
           </div>
         </div>
+
+        {isBaseTariffOnly && (
+          <div className="mt-3 bg-[#3EF3B0]/10 rounded-lg p-3 border border-[#3EF3B0]/30">
+            <p className="text-sm text-white/90 flex items-center">
+              <span className="mr-2">✓</span>
+              Puedes continuar solo con la tarifa base y agregar capacidades en el futuro
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
