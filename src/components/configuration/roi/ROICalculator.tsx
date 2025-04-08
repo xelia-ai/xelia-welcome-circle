@@ -1,14 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { estimateBaseMetrics, BaseMetrics } from '@/utils/metricsEstimation';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import CompetitiveAdvantage from './CompetitiveAdvantage';
-import ROIMetricsTable from './ROIMetricsTable';
 import { useROICalculations } from './useROICalculations';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface ROICalculatorProps {
   selectedCapabilities: string[];
@@ -70,27 +67,14 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
           totalCapabilities={totalCapabilities}
         />
         
-        {/* ROI metrics table component with scroll area for mobile */}
-        {isMobile ? (
-          <ScrollArea className="w-full overflow-x-auto pb-2">
-            <div className="min-w-[450px]">
-              <ROIMetricsTable 
-                roiMetrics={roiMetrics}
-                capabilitiesCount={capabilitiesCount}
-                fullWidth={true}
-              />
-            </div>
-          </ScrollArea>
+        {/* Only show ROI message when capabilities are selected */}
+        {capabilitiesCount > 0 ? (
+          <div className="mt-3 bg-gray-700/30 rounded-lg p-4">
+            <p className="text-sm text-gray-200">
+              Con {capabilitiesCount} capacidades activadas, tu negocio podrá mejorar significativamente la eficiencia operativa y satisfacción del cliente.
+            </p>
+          </div>
         ) : (
-          <ROIMetricsTable 
-            roiMetrics={roiMetrics}
-            capabilitiesCount={capabilitiesCount}
-            fullWidth={fullWidth}
-          />
-        )}
-
-        {/* Only show ROI message when no capabilities are selected */}
-        {capabilitiesCount === 0 && (
           <div className="text-center text-gray-400 text-sm italic my-3">
             Selecciona capacidades para ver una estimación de ROI
           </div>

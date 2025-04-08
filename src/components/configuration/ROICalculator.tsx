@@ -1,13 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { Lightbulb, Info, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { estimateBaseMetrics, BaseMetrics } from '@/utils/metricsEstimation';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import CompetitiveAdvantage from './roi/CompetitiveAdvantage';
-import ROIMetricsTable from './roi/ROIMetricsTable';
 import { useROICalculations } from './roi/useROICalculations';
-import { Progress } from '@/components/ui/progress';
 
 interface ROICalculatorProps {
   selectedCapabilities: string[];
@@ -35,7 +32,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
     }
   }, [website]);
   
-  // Get ROI metrics using custom hook
+  // Get ROI metrics using custom hook (keeping for future use)
   const { roiMetrics } = useROICalculations(selectedCapabilities, baseMetrics);
   
   // Constants
@@ -77,19 +74,18 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
           totalCapabilities={totalCapabilities}
         />
         
-        {/* ROI metrics table component */}
-        <ROIMetricsTable 
-          roiMetrics={roiMetrics}
-          capabilitiesCount={capabilitiesCount}
-          fullWidth={fullWidth}
-        />
-
         {/* ROI Definition for when no capabilities are selected */}
-        {capabilitiesCount === 0 && (
+        {capabilitiesCount === 0 ? (
           <div className="mt-3 mb-2">
             <h5 className="text-white text-sm font-medium mb-1">¿Qué es ROI?</h5>
             <p className="text-gray-400 text-[14px] leading-relaxed">
               El Retorno de Inversión (ROI) estima cuánto puedes mejorar tu negocio con Xelia, comparando tus métricas actuales contra las que puedes alcanzar al automatizar.
+            </p>
+          </div>
+        ) : (
+          <div className="mt-3 bg-gray-700/30 rounded-lg p-4">
+            <p className="text-sm text-gray-200">
+              Con {capabilitiesCount} capacidades activadas, tu negocio puede aumentar la eficiencia hasta un {20 + capabilitiesCount * 5}% y la satisfacción del cliente hasta un {15 + capabilitiesCount * 6}%.
             </p>
           </div>
         )}
