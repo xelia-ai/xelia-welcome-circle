@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MessageSquare, Bot } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
@@ -38,13 +37,6 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
       description: 'Responde a tus clientes en varios idiomas (español, inglés, etc.)',
       icon: <Globe className="w-5 h-5" />,
       price: 60
-    },
-    {
-      id: 'whatsapp-integration',
-      name: 'Integración con WhatsApp',
-      description: 'Interactúa con tus clientes a través de WhatsApp',
-      icon: <IconBrandWhatsapp size={20} />,
-      price: 75
     }
   ];
 
