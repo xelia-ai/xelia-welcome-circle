@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils, Settings } from 'lucide-react';
+import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils, Settings, Scale, Smartphone, Leaf, Music, Radio, Hammer, Zap, Truck, HeartHandshake } from 'lucide-react';
 import { Industry } from '@/types/industry';
 
 export const industries: Industry[] = [
@@ -41,16 +41,16 @@ export const industries: Industry[] = [
     detailedDescription: "Para el sector salud, Xelia automatiza la gestión de citas, seguimiento a pacientes, recordatorios de medicación, responde preguntas frecuentes sobre servicios y tratamientos, y facilita la comunicación entre pacientes y personal médico sin sobrecarga administrativa."
   },
   {
-    id: 'finance',
-    name: 'Finanzas',
+    id: 'banking',
+    name: 'Bancos',
     icon: <Landmark className="h-6 w-6" />,
-    description: 'Brinda soporte financiero personalizado y respuestas a consultas bancarias comunes.',
+    description: 'Brinda soporte bancario personalizado y respuestas a consultas sobre productos y servicios bancarios.',
     valuePoints: [
-      "Proporciona información sobre productos financieros",
+      "Proporciona información sobre productos bancarios",
       "Asiste en trámites bancarios básicos",
       "Genera alertas sobre movimientos sospechosos"
     ],
-    detailedDescription: "En el sector financiero, Xelia puede atender consultas sobre productos bancarios, verificar estados de cuenta, dar orientación inicial sobre inversiones, y facilitar procesos como solicitudes de tarjetas o préstamos, reduciendo tiempos de espera y mejorando la experiencia digital del cliente."
+    detailedDescription: "En el sector bancario, Xelia puede atender consultas sobre productos, verificar estados de cuenta, dar orientación inicial sobre servicios, y facilitar procesos como solicitudes de tarjetas o préstamos, reduciendo tiempos de espera y mejorando la experiencia digital del cliente."
   },
   {
     id: 'education',
@@ -111,6 +111,174 @@ export const industries: Industry[] = [
       "Gestiona solicitudes internas entre departamentos"
     ],
     detailedDescription: "En el ámbito corporativo, Xelia puede optimizar procesos de comunicación interna, gestionar solicitudes entre departamentos, coordinar agendas de reuniones, proporcionar información sobre políticas y procedimientos, y servir como primer punto de contacto con clientes corporativos."
+  },
+  {
+    id: 'legal',
+    name: 'Servicios Legales',
+    icon: <Scale className="h-6 w-6" />,
+    description: 'Automatiza consultas legales básicas y mejora la gestión de casos y clientes.',
+    valuePoints: [
+      "Responde preguntas legales frecuentes",
+      "Programa consultas con abogados",
+      "Asiste en la recolección inicial de información de casos"
+    ],
+    detailedDescription: "Para bufetes y servicios legales, Xelia puede proporcionar información sobre servicios, recopilar datos preliminares de casos, programar citas con abogados y mantener a los clientes informados sobre el estado de sus casos, mejorando la eficiencia y satisfacción del cliente."
+  },
+  {
+    id: 'fintech',
+    name: 'Fintech',
+    icon: <Smartphone className="h-6 w-6" />,
+    description: 'Mejora la experiencia de usuario en servicios financieros digitales.',
+    valuePoints: [
+      "Asiste en procesos de onboarding de clientes",
+      "Proporciona soporte para operaciones financieras digitales",
+      "Monitorea y alerta sobre transacciones inusuales"
+    ],
+    detailedDescription: "En el sector fintech, Xelia puede guiar a los usuarios en el uso de plataformas financieras digitales, responder consultas sobre funcionamiento de servicios, asistir en la resolución de problemas técnicos y proporcionar información actualizada sobre el estado de operaciones financieras."
+  },
+  {
+    id: 'agriculture',
+    name: 'Agricultura',
+    icon: <Leaf className="h-6 w-6" />,
+    description: 'Optimiza la gestión agrícola con asistencia inteligente y automatizada.',
+    valuePoints: [
+      "Proporciona información sobre cultivos y técnicas agrícolas",
+      "Monitorea condiciones climáticas y envía alertas",
+      "Gestiona inventarios y programaciones de cosecha"
+    ],
+    detailedDescription: "Para el sector agrícola, Xelia puede ayudar a optimizar operaciones proporcionando información sobre cultivos, gestionar inventarios de insumos, programar actividades de siembra y cosecha, y conectar con proveedores y compradores potenciales, mejorando la eficiencia y rentabilidad."
+  },
+  {
+    id: 'entertainment',
+    name: 'Entretenimiento',
+    icon: <Music className="h-6 w-6" />,
+    description: 'Mejora la experiencia del cliente en servicios de entretenimiento y eventos.',
+    valuePoints: [
+      "Gestiona reservas y entradas para eventos",
+      "Proporciona información sobre programación y disponibilidad",
+      "Personaliza recomendaciones de contenido y eventos"
+    ],
+    detailedDescription: "En la industria del entretenimiento, Xelia puede gestionar reservas para eventos, proporcionar información detallada sobre programación, responder consultas de fans y asistentes, y ofrecer recomendaciones personalizadas, mejorando la experiencia del usuario y optimizando la gestión de eventos."
+  },
+  {
+    id: 'media',
+    name: 'Medios y Comunicación',
+    icon: <Radio className="h-6 w-6" />,
+    description: 'Optimiza la distribución de contenido y la interacción con audiencias.',
+    valuePoints: [
+      "Personaliza recomendaciones de contenido",
+      "Gestiona suscripciones y accesos a contenido premium",
+      "Recoge feedback de audiencias y genera informes"
+    ],
+    detailedDescription: "Para medios de comunicación, Xelia puede ayudar a distribuir contenido segmentado, gestionar interacciones con audiencias, recopilar datos sobre preferencias de usuarios, y optimizar estrategias de engagement, mejorando la retención de audiencias y la monetización de contenidos."
+  },
+  {
+    id: 'construction',
+    name: 'Construcción',
+    icon: <Hammer className="h-6 w-6" />,
+    description: 'Optimiza la gestión de proyectos de construcción y la comunicación con clientes.',
+    valuePoints: [
+      "Gestiona consultas sobre proyectos y avances",
+      "Facilita la comunicación entre equipos de trabajo",
+      "Monitorea inventarios y programación de materiales"
+    ],
+    detailedDescription: "En el sector de construcción, Xelia puede coordinar actividades entre diferentes equipos, gestionar inventarios de materiales, programar entregas, mantener informados a los clientes sobre avances de obra, y facilitar la comunicación entre arquitectos, ingenieros y contratistas."
+  },
+  {
+    id: 'energy',
+    name: 'Energía',
+    icon: <Zap className="h-6 w-6" />,
+    description: 'Mejora la gestión de servicios energéticos y la atención al cliente.',
+    valuePoints: [
+      "Gestiona consultas sobre consumo y facturación",
+      "Programa visitas técnicas y mantenimientos",
+      "Proporciona consejos de eficiencia energética"
+    ],
+    detailedDescription: "Para el sector energético, Xelia puede gestionar consultas sobre consumo y facturación, programar visitas técnicas, proporcionar información sobre tarifas y servicios, y ofrecer recomendaciones personalizadas para mejorar la eficiencia energética, optimizando la experiencia del cliente y reduciendo costos operativos."
+  },
+  {
+    id: 'logistics',
+    name: 'Logística y Transporte',
+    icon: <Truck className="h-6 w-6" />,
+    description: 'Optimiza operaciones logísticas y mejora el seguimiento de envíos.',
+    valuePoints: [
+      "Proporciona información en tiempo real sobre envíos",
+      "Gestiona reservas y programación de transportes",
+      "Optimiza rutas y recursos logísticos"
+    ],
+    detailedDescription: "En logística y transporte, Xelia puede proporcionar actualizaciones en tiempo real sobre el estado de envíos, gestionar reservas de servicios, optimizar rutas de entrega, y facilitar la comunicación entre proveedores, transportistas y clientes, mejorando la eficiencia operativa y la satisfacción del cliente."
+  },
+  {
+    id: 'ecommerce',
+    name: 'E-commerce',
+    icon: <ShoppingBag className="h-6 w-6" />,
+    description: 'Mejora la experiencia de compra online y optimiza la gestión de pedidos.',
+    valuePoints: [
+      "Asiste a compradores con recomendaciones personalizadas",
+      "Gestiona consultas sobre productos y pedidos",
+      "Automatiza seguimiento post-venta y fidelización"
+    ],
+    detailedDescription: "Para plataformas de e-commerce, Xelia puede asistir a compradores con recomendaciones personalizadas, responder consultas sobre productos, gestionar procesos de compra, dar seguimiento a pedidos y facilitar devoluciones, mejorando la conversión y la satisfacción del cliente."
+  },
+  {
+    id: 'investments',
+    name: 'Inversiones',
+    icon: <Landmark className="h-6 w-6" />,
+    description: 'Asiste a inversores con información y recomendaciones personalizadas.',
+    valuePoints: [
+      "Proporciona información actualizada sobre mercados",
+      "Ofrece orientación básica sobre productos de inversión",
+      "Monitorea portafolios y envía alertas personalizadas"
+    ],
+    detailedDescription: "En el sector de inversiones, Xelia puede proporcionar información actualizada sobre mercados, orientar sobre productos financieros, monitorear portafolios, y programar consultas con asesores financieros, mejorando la experiencia del inversor y facilitando la toma de decisiones informadas."
+  },
+  {
+    id: 'insurance-finance',
+    name: 'Seguros Financieros',
+    icon: <Briefcase className="h-6 w-6" />,
+    description: 'Optimiza la gestión de pólizas financieras y la atención al cliente.',
+    valuePoints: [
+      "Responde consultas sobre productos de seguros financieros",
+      "Asiste en la contratación y renovación de pólizas",
+      "Gestiona la primera fase de reclamaciones"
+    ],
+    detailedDescription: "Para seguros financieros, Xelia puede proporcionar información detallada sobre productos, asistir en procesos de contratación, gestionar renovaciones, y facilitar la primera fase de reclamaciones, mejorando la eficiencia operativa y la experiencia del cliente."
+  },
+  {
+    id: 'manufacturing',
+    name: 'Manufactura',
+    icon: <Settings className="h-6 w-6" />,
+    description: 'Optimiza procesos de producción y gestión de inventarios.',
+    valuePoints: [
+      "Monitorea inventarios y alerta sobre necesidades de reposición",
+      "Facilita la comunicación entre departamentos",
+      "Optimiza programación de producción"
+    ],
+    detailedDescription: "En manufactura, Xelia puede ayudar a monitorear inventarios, optimizar programación de producción, facilitar la comunicación entre departamentos, y gestionar pedidos de proveedores y clientes, mejorando la eficiencia operativa y reduciendo tiempos de inactividad."
+  },
+  {
+    id: 'tech',
+    name: 'Tecnología',
+    icon: <Smartphone className="h-6 w-6" />,
+    description: 'Mejora el soporte técnico y la gestión de servicios tecnológicos.',
+    valuePoints: [
+      "Proporciona soporte técnico básico automatizado",
+      "Gestiona tickets y solicitudes de servicio",
+      "Facilita onboarding de usuarios en plataformas tecnológicas"
+    ],
+    detailedDescription: "Para empresas tecnológicas, Xelia puede proporcionar soporte técnico básico, gestionar tickets de servicio, facilitar el onboarding de usuarios en nuevas plataformas, y recopilar feedback para mejora continua, optimizando la experiencia del usuario y reduciendo costos de soporte."
+  },
+  {
+    id: 'nonprofit',
+    name: 'ONGs y Sin Fines de Lucro',
+    icon: <HeartHandshake className="h-6 w-6" />,
+    description: 'Optimiza la gestión de donaciones y la comunicación con donantes y voluntarios.',
+    valuePoints: [
+      "Gestiona información sobre programas y necesidades",
+      "Facilita procesos de donación y voluntariado",
+      "Mantiene informados a donantes sobre impacto de donaciones"
+    ],
+    detailedDescription: "Para organizaciones sin fines de lucro, Xelia puede gestionar consultas sobre programas, facilitar procesos de donación, coordinar actividades de voluntariado, y mantener comunicación constante con donantes sobre el impacto de sus contribuciones, mejorando la transparencia y efectividad organizacional."
   },
   {
     id: 'custom',

@@ -10,10 +10,10 @@ import { Input } from '@/components/ui/input';
 
 // Agrupar industrias por categorías
 const industryCategories = {
-  'servicios': ['real-estate', 'insurance', 'healthcare', 'education', 'corporate'],
-  'comercial': ['retail', 'hospitality'],
-  'financiero': ['finance'],
-  'otros': ['automotive', 'custom']
+  'servicios': ['real-estate', 'insurance', 'healthcare', 'education', 'corporate', 'legal', 'custom'],
+  'comercial': ['retail', 'hospitality', 'ecommerce', 'manufacturing'],
+  'financiero': ['banking', 'fintech', 'investments', 'insurance-finance'],
+  'otros': ['automotive', 'tech', 'agriculture', 'entertainment', 'media', 'construction', 'energy', 'logistics', 'nonprofit']
 };
 
 interface IndustrySelectionProps {
@@ -23,7 +23,7 @@ interface IndustrySelectionProps {
 
 const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustries, onSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeTab, setActiveTab] = useState('todas');
+  const [activeTab, setActiveTab] = useState('servicios');
 
   // Manejar la selección/deselección de industrias
   const handleIndustryToggle = (industryId: string) => {
@@ -76,13 +76,13 @@ const IndustrySelection: React.FC<IndustrySelectionProps> = ({ selectedIndustrie
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
             {/* Navegación por tabs */}
-            <Tabs defaultValue="todas" value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <Tabs defaultValue="servicios" value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid grid-cols-5 w-full bg-gray-800/60 mb-4">
-                <TabsTrigger value="todas">Todas</TabsTrigger>
                 <TabsTrigger value="servicios">Servicios</TabsTrigger>
                 <TabsTrigger value="comercial">Comercial</TabsTrigger>
                 <TabsTrigger value="financiero">Financiero</TabsTrigger>
                 <TabsTrigger value="otros">Otros</TabsTrigger>
+                <TabsTrigger value="todas">Todas</TabsTrigger>
               </TabsList>
               
               <TabsContent value={activeTab} className="mt-0">
