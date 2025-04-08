@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import TypingText from './welcome/TypingText';
 import StartButton from './welcome/StartButton';
+import WelcomeCircle from './WelcomeCircle';
 
 // The welcome text that will be typed out
 const welcomeScript = `Hola, soy Xelia, tu asistente virtual de inteligencia artificial. Estoy aquí para ayudarte a automatizar la atención y ventas de tu empresa con tecnología avanzada y personalizada.`;
@@ -46,7 +47,7 @@ const WelcomeExperience: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-xelia-dark to-xelia-dark/95">
       {/* Audio element */}
       <audio 
         ref={audioRef}
@@ -56,11 +57,14 @@ const WelcomeExperience: React.FC = () => {
 
       {/* Text container - only visible after permission */}
       {audioPermission && (
-        <TypingText 
-          audioElement={audioRef.current}
-          audioPermission={audioPermission}
-          welcomeScript={welcomeScript}
-        />
+        <>
+          <WelcomeCircle className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          <TypingText 
+            audioElement={audioRef.current}
+            audioPermission={audioPermission}
+            welcomeScript={welcomeScript}
+          />
+        </>
       )}
 
       {/* Start button (only shown before permission is granted) */}

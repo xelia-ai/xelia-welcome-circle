@@ -40,7 +40,7 @@ const TypingText: React.FC<TypingTextProps> = ({
   }, [audioPermission, audioElement, welcomeScript]);
 
   return (
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center w-full max-w-2xl px-6">
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center w-full max-w-2xl px-6 bg-transparent">
       <div className="text-white text-lg sm:text-xl md:text-2xl leading-relaxed font-light">
         {displayedText}
         <span className={`inline-block w-2 h-5 bg-white ml-1 ${animationComplete ? 'opacity-0' : 'animate-pulse'}`}></span>
