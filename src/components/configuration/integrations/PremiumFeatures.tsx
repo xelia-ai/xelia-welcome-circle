@@ -66,8 +66,8 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
           <Card 
             key={feature.id} 
             className={cn(
-              "bg-white cursor-pointer transition-all duration-300 flex flex-col h-full border",
-              isActive ? "border-[#3EF3B0]" : "border-xelia-gray-light",
+              "bg-gray-800/80 cursor-pointer transition-all duration-300 flex flex-col h-full border",
+              isActive ? "border-[#3EF3B0]" : "border-gray-700",
               "hover:shadow-md"
             )}
             onClick={() => onToggle(feature.id)}
@@ -76,12 +76,12 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
               <div className="flex gap-3 items-center">
                 <span className={cn(
                   "p-2 rounded-md w-10 h-10 flex items-center justify-center",
-                  isActive ? "bg-[#3EF3B0] text-white" : "bg-white text-xelia-gray-medium border border-xelia-gray-light"
+                  isActive ? "bg-[#3EF3B0] text-gray-900" : "bg-gray-700/50 text-gray-300 border border-gray-600"
                 )}>
                   {feature.icon}
                 </span>
                 <div>
-                  <CardTitle className="text-lg font-semibold text-xelia-gray-dark">{feature.name}</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-white">{feature.name}</CardTitle>
                 </div>
               </div>
               <div className="flex items-center shrink-0">
@@ -92,7 +92,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
               </div>
             </CardHeader>
             <CardContent className="flex-1">
-              <CardDescription className="text-xelia-gray-dark">{feature.description}</CardDescription>
+              <CardDescription className="text-gray-300">{feature.description}</CardDescription>
             </CardContent>
           </Card>
         );

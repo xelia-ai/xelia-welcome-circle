@@ -78,7 +78,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
         {/* Columna de opciones - Siempre primero en móvil */}
         <div className="w-full lg:flex-1 space-y-6 md:space-y-8">
           <div className="pb-2">
-            <p className="text-gray-400 text-sm md:text-base">
+            <p className="text-gray-300 text-sm md:text-base">
               Selecciona sólo las capacidades que quieres para tu negocio.
             </p>
           </div>
