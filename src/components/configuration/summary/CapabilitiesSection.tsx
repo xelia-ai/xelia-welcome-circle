@@ -73,7 +73,7 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
           <ul className="space-y-3">
             {getSelectedCapabilities().map(cap => (
               <li key={cap.id} className="flex items-center">
-                <div className="p-1.5 w-8 h-8 rounded-full bg-xelia-accent/10 text-xelia-accent mr-3 flex items-center justify-center">
+                <div className="p-1.5 w-8 h-8 rounded-full bg-[#3EF3B0]/10 text-[#3EF3B0] mr-3 flex items-center justify-center">
                   {cap.icon}
                 </div>
                 <span className="text-xelia-gray-dark">{cap.name}</span>

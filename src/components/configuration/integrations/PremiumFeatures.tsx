@@ -67,7 +67,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
             key={feature.id} 
             className={cn(
               "bg-white cursor-pointer transition-all duration-300 flex flex-col h-full border",
-              isActive ? "border-xelia-accent" : "border-xelia-gray-light",
+              isActive ? "border-[#3EF3B0]" : "border-xelia-gray-light",
               "hover:shadow-md"
             )}
             onClick={() => onToggle(feature.id)}
@@ -76,7 +76,7 @@ const PremiumFeatures: React.FC<PremiumFeaturesProps> = ({ selectedFeatures, onT
               <div className="flex gap-3 items-center">
                 <span className={cn(
                   "p-2 rounded-md w-10 h-10 flex items-center justify-center",
-                  isActive ? "bg-xelia-accent text-white" : "bg-white text-xelia-gray-medium border border-xelia-gray-light"
+                  isActive ? "bg-[#3EF3B0] text-white" : "bg-white text-xelia-gray-medium border border-xelia-gray-light"
                 )}>
                   {feature.icon}
                 </span>

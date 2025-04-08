@@ -35,7 +35,6 @@ const AvailableIntegrations: React.FC<AvailableIntegrationsProps> = ({
             </div>
             <Switch 
               id={`integration-${integration.id}`}
-              className="data-[state=checked]:bg-gray-500"
               checked={selectedIntegrations.includes(integration.id)}
               onCheckedChange={() => onIntegrationToggle(integration.id)}
             />
