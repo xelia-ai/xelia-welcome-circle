@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -36,7 +35,6 @@ const Index = () => {
     }
   ];
 
-  // Animation variants for staggered text animation
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -63,20 +61,13 @@ const Index = () => {
   if (showWelcomeExperience) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light relative overflow-hidden">
-        <WelcomeExperience />
-        <button 
-          onClick={handleSkipWelcome}
-          className="absolute bottom-8 right-8 text-white/60 hover:text-white font-light text-sm transition-all duration-300"
-        >
-          Saltar intro
-        </button>
+        <WelcomeExperience onSkip={handleSkipWelcome} />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light relative overflow-hidden">
-      {/* Background aesthetic elements */}
       <motion.div 
         className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none"
         initial={{ opacity: 0 }}

@@ -7,7 +7,11 @@ import WelcomeCircle from './WelcomeCircle';
 // The welcome text that will be typed out
 const welcomeScript = `Hola, soy Xelia, tu asistente virtual de inteligencia artificial. Estoy aquí para ayudarte a automatizar la atención y ventas de tu empresa con tecnología avanzada y personalizada.`;
 
-const WelcomeExperience: React.FC = () => {
+interface WelcomeExperienceProps {
+  onSkip?: () => void;
+}
+
+const WelcomeExperience: React.FC<WelcomeExperienceProps> = ({ onSkip }) => {
   const [audioPermission, setAudioPermission] = useState(false);
   const [audioLoaded, setAudioLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -46,8 +50,15 @@ const WelcomeExperience: React.FC = () => {
     }
   };
 
+  // Handle skip intro
+  const handleSkip = () => {
+    if (onSkip) {
+      onSkip();
+    }
+  };
+
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-xelia-dark to-xelia-dark/95">
+    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-xelia-dark to-xelia-dark/95 flex flex-col">
       {/* Audio element */}
       <audio 
         ref={audioRef}
@@ -55,22 +66,33 @@ const WelcomeExperience: React.FC = () => {
         preload="auto"
       />
 
-      {/* Text container - only visible after permission */}
-      {audioPermission && (
-        <>
-          <WelcomeCircle className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-          <TypingText 
-            audioElement={audioRef.current}
-            audioPermission={audioPermission}
-            welcomeScript={welcomeScript}
-          />
-        </>
-      )}
+      {/* Main content area */}
+      <div className="flex-1 flex flex-col items-center justify-center relative">
+        {/* Text container - only visible after permission */}
+        {audioPermission && (
+          <>
+            <WelcomeCircle className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            <TypingText 
+              audioElement={audioRef.current}
+              audioPermission={audioPermission}
+              welcomeScript={welcomeScript}
+            />
+          </>
+        )}
 
-      {/* Start button (only shown before permission is granted) */}
-      {!audioPermission && (
-        <StartButton onClick={startExperience} />
-      )}
+        {/* Start button (only shown before permission is granted) */}
+        {!audioPermission && (
+          <StartButton onClick={startExperience} />
+        )}
+      </div>
+      
+      {/* Skip button */}
+      <button 
+        onClick={handleSkip}
+        className="absolute bottom-8 right-8 text-white/60 hover:text-white font-light text-sm transition-all duration-300 z-50"
+      >
+        Saltar intro
+      </button>
     </div>
   );
 };
