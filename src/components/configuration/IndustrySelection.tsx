@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 
 // Agrupar industrias por categorías
 const industryCategories = {
-  'servicios': ['real-estate', 'insurance', 'healthcare', 'education', 'corporate', 'legal', 'custom'],
+  'servicios': ['real-estate', 'insurance', 'healthcare', 'education', 'corporate', 'legal', 'custom', 'nutrition'],
   'comercial': ['retail', 'hospitality', 'ecommerce', 'manufacturing'],
   'financiero': ['banking', 'fintech', 'investments', 'insurance-finance'],
   'otros': ['automotive', 'tech', 'agriculture', 'entertainment', 'media', 'construction', 'energy', 'logistics', 'nonprofit']

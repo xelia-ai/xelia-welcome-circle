@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils, Settings, Scale, Smartphone, Leaf, Music, Radio, Hammer, Zap, Truck, HeartHandshake } from 'lucide-react';
+import { Building2, Heart, Briefcase, Building, Home, GraduationCap, ShoppingBag, Landmark, Car, Utensils, Settings, Scale, Smartphone, Leaf, Music, Radio, Hammer, Zap, Truck, HeartHandshake, Apple } from 'lucide-react';
 import { Industry } from '@/types/industry';
 
 export const industries: Industry[] = [
@@ -279,6 +278,18 @@ export const industries: Industry[] = [
       "Mantiene informados a donantes sobre impacto de donaciones"
     ],
     detailedDescription: "Para organizaciones sin fines de lucro, Xelia puede gestionar consultas sobre programas, facilitar procesos de donación, coordinar actividades de voluntariado, y mantener comunicación constante con donantes sobre el impacto de sus contribuciones, mejorando la transparencia y efectividad organizacional."
+  },
+  {
+    id: 'nutrition',
+    name: 'Nutrición',
+    icon: <Apple className="h-6 w-6" />,
+    description: 'Gestiona planes nutricionales, consultas y seguimiento de pacientes de forma automatizada.',
+    valuePoints: [
+      "Ofrece recomendaciones nutricionales personalizadas",
+      "Realiza seguimiento de planes alimenticios",
+      "Programa recordatorios para controles y consultas"
+    ],
+    detailedDescription: "Para profesionales de la nutrición, Xelia puede gestionar planes alimenticios personalizados, programar consultas de seguimiento, enviar recordatorios a pacientes, proporcionar información sobre alimentos y dietas, y automatizar la recolección de datos de progreso, mejorando la adherencia a los planes y la eficiencia del servicio."
   },
   {
     id: 'custom',
