@@ -39,6 +39,22 @@ export const industryAliases: Record<string, string[]> = {
   'clinica': ['healthcare'],
   'salud': ['healthcare'],
   'doctor': ['healthcare'],
+  'dentista': ['healthcare'],
+  'dental': ['healthcare'],
+  'odontologia': ['healthcare'],
+  'odontologico': ['healthcare'],
+  'ortodoncia': ['healthcare'],
+  'pediatra': ['healthcare'],
+  'ginecologia': ['healthcare'],
+  'cardiologia': ['healthcare'],
+  'dermatologia': ['healthcare'],
+  'fisioterapia': ['healthcare'],
+  'psicologia': ['healthcare'],
+  'terapia': ['healthcare'],
+  'farmacia': ['healthcare'],
+  'medicina': ['healthcare'],
+  'enfermeria': ['healthcare'],
+  'consultorio': ['healthcare'],
   
   'escuela': ['education'],
   'universidad': ['education'],
@@ -65,6 +81,9 @@ export const industryAliases: Record<string, string[]> = {
   'restaurante': ['hospitality'],
   'turismo': ['hospitality'],
   'viajes': ['hospitality'],
+  'hospedaje': ['hospitality'],
+  'cafeteria': ['hospitality'],
+  'bar': ['hospitality'],
   
   'online': ['ecommerce'],
   'sitio web': ['ecommerce'],
@@ -146,3 +165,4 @@ export const industryAliases: Record<string, string[]> = {
   'personalizada': ['custom'],
   'a medida': ['custom']
 };
+
