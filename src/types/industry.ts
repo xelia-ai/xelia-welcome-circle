@@ -1,2 +1,2 @@
 
-export { Industry } from '@/data/industries/common';
+export type { Industry } from '@/data/industries/common';
