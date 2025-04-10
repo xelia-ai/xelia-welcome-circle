@@ -45,6 +45,26 @@ const SummaryStep: React.FC<SummaryStepProps> = ({ config, onEdit }) => {
     
     return config.integrations.map(id => integrationMap[id] || id);
   };
+
+  // Cálculo del costo adicional por múltiples industrias
+  const calculateIndustriesPrice = () => {
+    const basePrice = 499;
+    const industryCount = config.industries.length;
+    
+    // Precios adicionales por cada industria después de la primera
+    let additionalPrice = 0;
+    if (industryCount > 1) {
+      additionalPrice = (industryCount - 1) * 50; // $50 por cada industria adicional
+    }
+    
+    return {
+      basePrice,
+      additionalPrice,
+      totalPrice: basePrice + additionalPrice
+    };
+  };
+  
+  const priceInfo = calculateIndustriesPrice();
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -165,6 +185,30 @@ const SummaryStep: React.FC<SummaryStepProps> = ({ config, onEdit }) => {
               ) : (
                 <span className="text-gray-400 italic">No has seleccionado integraciones</span>
               )}
+            </div>
+          </div>
+          
+          {/* Resumen de precio */}
+          <div className="mb-8 bg-gray-700/30 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-white mb-3">Resumen de precios</h3>
+            <div className="space-y-2 text-gray-300">
+              <div className="flex justify-between">
+                <span>Plan base</span>
+                <span>${priceInfo.basePrice}</span>
+              </div>
+              {config.industries.length > 1 && (
+                <div className="flex justify-between">
+                  <span>Industrias adicionales ({config.industries.length - 1})</span>
+                  <span>+${priceInfo.additionalPrice}</span>
+                </div>
+              )}
+              <div className="flex justify-between font-medium pt-2 border-t border-gray-600">
+                <span>Total base</span>
+                <span>${priceInfo.totalPrice}</span>
+              </div>
+              <div className="text-xs text-gray-400 mt-1">
+                *Las capacidades adicionales se calculan en el siguiente paso
+              </div>
             </div>
           </div>
           

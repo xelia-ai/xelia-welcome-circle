@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 
 interface CapabilitiesCalculatorProps {
   selectedCapabilities: string[];
+  industryCount?: number; // Nuevo prop para la cantidad de industrias
 }
 
 interface CapabilityPrice {
@@ -15,11 +16,13 @@ interface CapabilityPrice {
 }
 
 const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({ 
-  selectedCapabilities 
+  selectedCapabilities,
+  industryCount = 1 // Por defecto, asumimos una industria
 }) => {
   const [calculatedPrice, setCalculatedPrice] = useState({
     basePrice: 499,
     capabilitiesPrice: 0,
+    industriesPrice: 0,
     totalPrice: 499
   });
   
@@ -38,10 +41,16 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     { id: 'database-search', price: 50 }
   ];
 
-  // Calculate prices based on selected capabilities
+  // Calculate prices based on selected capabilities and industry count
   useEffect(() => {
     const basePrice = 499; // Base platform fee
     const maxTotalPrice = 999; // Maximum price cap
+    
+    // Calculate industry price
+    let industriesPrice = 0;
+    if (industryCount > 1) {
+      industriesPrice = (industryCount - 1) * 50; // $50 por cada industria adicional
+    }
     
     // Calculate capability price through individual pricing
     let capabilitiesPrice = 0;
@@ -53,15 +62,16 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     });
     
     // Ensure the total price doesn't exceed the max
-    const totalPrice = Math.min(basePrice + capabilitiesPrice, maxTotalPrice);
+    const totalPrice = Math.min(basePrice + capabilitiesPrice + industriesPrice, maxTotalPrice);
     
     setCalculatedPrice({
       basePrice,
       capabilitiesPrice,
+      industriesPrice,
       totalPrice
     });
     
-  }, [selectedCapabilities]);
+  }, [selectedCapabilities, industryCount]);
 
   // Track capability changes for animations
   useEffect(() => {
@@ -83,7 +93,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     handleCapabilityChange();
   }, [selectedCapabilities]);
 
-  const isBaseTariffOnly = selectedCapabilities.length === 0;
+  const isBaseTariffOnly = selectedCapabilities.length === 0 && industryCount === 1;
 
   return (
     <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-6 shadow-[0_0_15px_rgba(0,0,0,0.2)]">
@@ -110,6 +120,23 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
             </span>
             <span className="text-white font-medium">${calculatedPrice.basePrice} USD</span>
           </div>
+          
+          {industryCount > 1 && (
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-400 flex items-center">
+                Industrias adicionales ({industryCount - 1})
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <AlertCircle className="w-3.5 h-3.5 ml-1 text-gray-500 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-[220px] text-xs">
+                    Costo adicional por cada industria seleccionada después de la primera
+                  </TooltipContent>
+                </Tooltip>
+              </span>
+              <span className="text-white font-medium">${calculatedPrice.industriesPrice} USD</span>
+            </div>
+          )}
           
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400 flex items-center">

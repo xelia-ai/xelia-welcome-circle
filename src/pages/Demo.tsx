@@ -13,6 +13,15 @@ const Demo = () => {
   ]);
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   
+  // Simulación de configuración (en una aplicación real, esto vendría del estado global o contexto)
+  const config = {
+    industryCount: 2, // Ejemplo: 2 industrias seleccionadas
+    capabilitiesPrice: 300,
+    basePrice: 499,
+    industryPrice: 50, // $50 por una industria adicional
+    totalPrice: 849 // 499 base + 300 capacidades + 50 industria adicional
+  };
+  
   const toggleListening = () => {
     if (!isListening) {
       // Start listening
@@ -162,15 +171,21 @@ const Demo = () => {
               <h4 className="font-medium text-white mb-2">Resumen de tu plan:</h4>
               <div className="flex justify-between mb-2">
                 <span className="text-gray-300">Plan base</span>
-                <span className="text-white">$499 USD</span>
+                <span className="text-white">${config.basePrice} USD</span>
               </div>
+              {config.industryCount > 1 && (
+                <div className="flex justify-between mb-2">
+                  <span className="text-gray-300">Industrias adicionales ({config.industryCount - 1})</span>
+                  <span className="text-white">${config.industryPrice} USD</span>
+                </div>
+              )}
               <div className="flex justify-between mb-2">
                 <span className="text-gray-300">Capacidades adicionales</span>
-                <span className="text-white">$300 USD</span>
+                <span className="text-white">${config.capabilitiesPrice} USD</span>
               </div>
               <div className="flex justify-between pt-2 border-t border-gray-700">
                 <span className="font-medium text-white">Total mensual</span>
-                <span className="font-bold text-white">$799 USD</span>
+                <span className="font-bold text-white">${config.totalPrice} USD</span>
               </div>
             </div>
             

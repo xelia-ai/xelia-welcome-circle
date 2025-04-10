@@ -9,6 +9,7 @@ interface PriceSummaryProps {
   selectedVolumeOption: string | null;
   volumePricing: Record<string, number>;
   calculateEstimatedPrice: () => number;
+  industryCount?: number; // Nuevo prop para la cantidad de industrias
 }
 
 const PriceSummary: React.FC<PriceSummaryProps> = ({
@@ -17,7 +18,8 @@ const PriceSummary: React.FC<PriceSummaryProps> = ({
   pricePerPremiumFeature,
   selectedVolumeOption,
   volumePricing,
-  calculateEstimatedPrice
+  calculateEstimatedPrice,
+  industryCount = 1 // Por defecto, asumimos una industria
 }) => {
   // Calculate total price for premium features
   const premiumFeatureTotal = premiumFeaturesCount * pricePerPremiumFeature;
@@ -27,8 +29,11 @@ const PriceSummary: React.FC<PriceSummaryProps> = ({
     ? volumePricing[selectedVolumeOption] || 0 
     : 0;
   
+  // Calculate industry pricing
+  const industryPrice = industryCount > 1 ? (industryCount - 1) * 50 : 0;
+  
   // Ensure total doesn't exceed $999
-  const totalPrice = calculateEstimatedPrice();
+  const totalPrice = calculateEstimatedPrice() + industryPrice;
   const maxPrice = 999;
   const finalPrice = Math.min(totalPrice, maxPrice);
 
@@ -38,6 +43,13 @@ const PriceSummary: React.FC<PriceSummaryProps> = ({
         <span className="text-gray-600">Precio base</span>
         <span className="font-medium">${basePrice}/mes</span>
       </div>
+      
+      {industryCount > 1 && (
+        <div className="flex justify-between mb-2">
+          <span className="text-gray-600">Industrias adicionales ({industryCount - 1})</span>
+          <span className="font-medium">+${industryPrice}/mes</span>
+        </div>
+      )}
       
       <div className="flex justify-between mb-2">
         <span className="text-gray-600">Funciones premium ({premiumFeaturesCount})</span>
