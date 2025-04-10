@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { serviceIndustries } from './services';
 import { commercialIndustries } from './commercial';
@@ -163,6 +162,13 @@ export const industryAliases: Record<string, string[]> = {
   
   'especifico': ['custom'],
   'personalizada': ['custom'],
-  'a medida': ['custom']
+  'a medida': ['custom'],
+  'customizado': ['custom'],
+  'adaptado': ['custom'],
+  'particular': ['custom'],
+  'exclusivo': ['custom'],
+  'unico': ['custom'],
+  'singular': ['custom'],
+  'individualizado': ['custom'],
+  'configurado': ['custom']
 };
-

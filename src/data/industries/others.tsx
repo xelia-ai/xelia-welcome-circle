@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Car, Smartphone, Leaf, Music, Radio, Hammer, Zap, Truck, HeartHandshake } from 'lucide-react';
+import { Car, Smartphone, Leaf, Music, Radio, Hammer, Zap, Truck, HeartHandshake, Settings } from 'lucide-react';
 import { Industry } from './common';
 
 export const otherIndustries: Industry[] = [
@@ -111,5 +111,17 @@ export const otherIndustries: Industry[] = [
       "Mantiene informados a donantes sobre impacto de donaciones"
     ],
     detailedDescription: "Para organizaciones sin fines de lucro, Xelia puede gestionar consultas sobre programas, facilitar procesos de donación, coordinar actividades de voluntariado, y mantener comunicación constante con donantes sobre el impacto de sus contribuciones, mejorando la transparencia y efectividad organizacional."
+  },
+  {
+    id: 'custom',
+    name: 'Personalizado',
+    icon: <Settings className="h-6 w-6" />,
+    description: 'Configuración a medida para las necesidades específicas de tu negocio.',
+    valuePoints: [
+      "Adaptado a los procesos específicos de tu negocio",
+      "Personalización completa de flujos de conversación",
+      "Optimizado para tus objetivos empresariales únicos"
+    ],
+    detailedDescription: "La opción personalizada permite configurar Xelia para satisfacer exactamente tus necesidades de negocio, independientemente de tu industria. Nuestros especialistas trabajarán contigo para entender tus procesos, objetivos y desafíos, y configurarán Xelia con flujos de trabajo específicos, conocimientos de dominio y capacidades que maximicen su valor para tu organización."
   }
 ];
