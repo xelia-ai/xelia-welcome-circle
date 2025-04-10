@@ -1,7 +1,7 @@
 
 import React, { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Check } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 interface SectionContainerProps {
   title: string;
@@ -21,14 +21,14 @@ const SectionContainer: React.FC<SectionContainerProps> = ({
         <Button 
           variant="outline" 
           size="sm" 
-          className="text-xs bg-transparent border-gray-600 hover:bg-gray-700"
+          className="text-xs bg-transparent border-gray-600 hover:bg-gray-700 hover:border-gray-500 transition-colors"
           onClick={onEdit}
         >
           <ArrowLeft className="w-3.5 h-3.5 mr-1" />
           Editar
         </Button>
       </div>
-      <div className="bg-gray-700/30 rounded-lg p-4">
+      <div className="bg-gray-700/30 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
         {children}
       </div>
     </div>
