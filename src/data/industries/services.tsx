@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home, Heart, Briefcase, GraduationCap, Building2, Scale, Settings, Apple } from 'lucide-react';
+import { Home, Heart, Briefcase, GraduationCap, Building2, Scale, Apple, Settings } from 'lucide-react';
 import { Industry } from './common';
 
 export const serviceIndustries: Industry[] = [
