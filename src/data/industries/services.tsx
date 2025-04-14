@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home, Heart, Briefcase, GraduationCap, Building2, Scale, Apple, Settings } from 'lucide-react';
+import { Home, Heart, Briefcase, GraduationCap, Building2, Scale, Apple } from 'lucide-react';
 import { Industry } from './common';
 
 export const serviceIndustries: Industry[] = [
@@ -87,17 +87,5 @@ export const serviceIndustries: Industry[] = [
       "Programa recordatorios para controles y consultas"
     ],
     detailedDescription: "Para profesionales de la nutrición, Xelia puede gestionar planes alimenticios personalizados, programar consultas de seguimiento, enviar recordatorios a pacientes, proporcionar información sobre alimentos y dietas, y automatizar la recolección de datos de progreso, mejorando la adherencia a los planes y la eficiencia del servicio."
-  },
-  {
-    id: 'custom',
-    name: 'Personalizado',
-    icon: <Settings className="h-6 w-6" />,
-    description: 'Crea una solución adaptada específicamente a tus necesidades con las opciones disponibles en nuestra plataforma.',
-    valuePoints: [
-      "Configura el asistente según tus procesos específicos",
-      "Integra con tus sistemas existentes",
-      "Personaliza el tono y estilo de comunicación"
-    ],
-    detailedDescription: "La solución personalizada de Xelia te permite crear un asistente virtual totalmente adaptado a tus necesidades específicas. Configura flujos de conversación, integra con tus sistemas existentes, personaliza respuestas y automatiza procesos únicos de tu negocio, todo con una implementación rápida y sin conocimientos técnicos."
   }
 ];

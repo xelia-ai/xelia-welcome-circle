@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { serviceIndustries } from './services';
 import { commercialIndustries } from './commercial';
@@ -21,7 +22,7 @@ export const industryCategories = {
   'otros': otherIndustries.map(industry => industry.id)
 };
 
-// Mapeo de términos alternativos a industrias existentes
+// Updated mapeo de términos alternativos a industrias existentes with removed duplicates
 export const industryAliases: Record<string, string[]> = {
   'bienes raices': ['real-estate'],
   'propiedades': ['real-estate'],
@@ -158,17 +159,5 @@ export const industryAliases: Record<string, string[]> = {
   'alimentacion': ['nutrition'],
   'dietetico': ['nutrition'],
   'nutricional': ['nutrition'],
-  'alimentos': ['nutrition'],
-  
-  'especifico': ['custom'],
-  'personalizada': ['custom'],
-  'a medida': ['custom'],
-  'customizado': ['custom'],
-  'adaptado': ['custom'],
-  'particular': ['custom'],
-  'exclusivo': ['custom'],
-  'unico': ['custom'],
-  'singular': ['custom'],
-  'individualizado': ['custom'],
-  'configurado': ['custom']
+  'alimentos': ['nutrition']
 };
