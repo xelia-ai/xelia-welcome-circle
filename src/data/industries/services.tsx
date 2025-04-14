@@ -12,7 +12,7 @@ export const serviceIndustries: Industry[] = [
     valuePoints: [
       "Automatiza consultas sobre propiedades disponibles",
       "Programa visitas a inmuebles sin intervención humana",
-      "Califica leads en base a su potencial de compra"
+      "Califica leads con base a su potencial de compra"
     ],
     detailedDescription: "El agente Xelia para Bienes Raíces puede contestar preguntas sobre propiedades las 24 horas, gestionar agendas para visitas, dar seguimiento a clientes potenciales y generar cotizaciones preliminares automáticamente. Reduce el tiempo de respuesta y mejora la experiencia de compradores y vendedores."
   },
@@ -99,5 +99,5 @@ export const serviceIndustries: Industry[] = [
       "Personaliza el tono y estilo de comunicación"
     ],
     detailedDescription: "La solución personalizada de Xelia te permite crear un asistente virtual totalmente adaptado a tus necesidades específicas. Configura flujos de conversación, integra con tus sistemas existentes, personaliza respuestas y automatiza procesos únicos de tu negocio, todo con una implementación rápida y sin conocimientos técnicos."
-  },
+  }
 ];
