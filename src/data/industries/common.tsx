@@ -9,3 +9,6 @@ export interface Industry {
   valuePoints: string[];
   detailedDescription: string;
 }
+
+// Special industry that will appear in all tabs when needed
+export const CUSTOM_INDUSTRY_ID = 'custom';

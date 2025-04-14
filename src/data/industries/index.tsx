@@ -1,28 +1,28 @@
-
 import React from 'react';
-import { serviceIndustries } from './services';
+import { serviceIndustries, customIndustry } from './services';
 import { commercialIndustries } from './commercial';
 import { financialIndustries } from './financial';
 import { otherIndustries } from './others';
-import { Industry } from './common';
+import { Industry, CUSTOM_INDUSTRY_ID } from './common';
 
-// Combine all industry categories into a single array
+// Combine all industry categories into a single array, making sure custom industry only appears once
 export const industries: Industry[] = [
   ...serviceIndustries,
   ...commercialIndustries,
   ...financialIndustries,
-  ...otherIndustries
+  ...otherIndustries,
+  customIndustry // Add the custom industry to the full list
 ];
 
 // Industry categories mapping for the tabs
 export const industryCategories = {
-  'servicios': serviceIndustries.map(industry => industry.id),
-  'comercial': commercialIndustries.map(industry => industry.id),
-  'financiero': financialIndustries.map(industry => industry.id),
-  'otros': otherIndustries.map(industry => industry.id)
+  'servicios': [...serviceIndustries.map(industry => industry.id), CUSTOM_INDUSTRY_ID],
+  'comercial': [...commercialIndustries.map(industry => industry.id), CUSTOM_INDUSTRY_ID],
+  'financiero': [...financialIndustries.map(industry => industry.id), CUSTOM_INDUSTRY_ID],
+  'otros': [...otherIndustries.map(industry => industry.id), CUSTOM_INDUSTRY_ID]
 };
 
-// Updated mapeo de términos alternativos a industrias existentes with removed duplicates
+// Updated mapeo de términos alternativos a industrias existentes
 export const industryAliases: Record<string, string[]> = {
   'bienes raices': ['real-estate'],
   'propiedades': ['real-estate'],
@@ -159,5 +159,17 @@ export const industryAliases: Record<string, string[]> = {
   'alimentacion': ['nutrition'],
   'dietetico': ['nutrition'],
   'nutricional': ['nutrition'],
-  'alimentos': ['nutrition']
+  'alimentos': ['nutrition'],
+  
+  'especifico': [CUSTOM_INDUSTRY_ID],
+  'personalizada': [CUSTOM_INDUSTRY_ID],
+  'a medida': [CUSTOM_INDUSTRY_ID],
+  'customizado': [CUSTOM_INDUSTRY_ID],
+  'adaptado': [CUSTOM_INDUSTRY_ID],
+  'particular': [CUSTOM_INDUSTRY_ID],
+  'exclusivo': [CUSTOM_INDUSTRY_ID],
+  'unico': [CUSTOM_INDUSTRY_ID],
+  'singular': [CUSTOM_INDUSTRY_ID],
+  'individualizado': [CUSTOM_INDUSTRY_ID],
+  'configurado': [CUSTOM_INDUSTRY_ID]
 };

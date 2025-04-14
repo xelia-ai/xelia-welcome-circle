@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Industry } from '@/types/industry';
 import { industries, industryCategories, industryAliases } from '@/data/industries';
+import { CUSTOM_INDUSTRY_ID } from '@/data/industries/common';
 import { toast } from "sonner";
 
 export const useIndustryFilter = (selectedIndustries: string[]) => {
@@ -54,12 +55,18 @@ export const useIndustryFilter = (selectedIndustries: string[]) => {
         });
       } else {
         setShowNoResults(true);
-        setSuggestedIndustries(['custom']);
+        setSuggestedIndustries([CUSTOM_INDUSTRY_ID]);
       }
     }
   }, [searchTerm]);
 
   const filteredIndustries = industries.filter(industry => {
+    // Custom industry should always show in the active tab
+    if (industry.id === CUSTOM_INDUSTRY_ID) {
+      return true;
+    }
+
+    // For suggested industries based on search
     if (suggestedIndustries.length > 0 && searchTerm.trim() !== '') {
       if (activeTab === 'todas') {
         return suggestedIndustries.includes(industry.id);
@@ -70,6 +77,7 @@ export const useIndustryFilter = (selectedIndustries: string[]) => {
       return matchesSearch && matchesCategory;
     }
     
+    // For regular filtering
     const matchesSearch = searchTerm === '' || 
       industry.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       industry.description.toLowerCase().includes(searchTerm.toLowerCase());
