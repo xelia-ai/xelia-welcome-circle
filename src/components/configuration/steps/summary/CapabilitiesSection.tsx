@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CAPABILITIES } from '@/data/industries/common';
-import SectionHeader from './SectionHeader';
+import SectionHeader from '@/components/configuration/summary/SectionHeader';
 
 interface CapabilitiesSectionProps {
   capabilities: string[];
