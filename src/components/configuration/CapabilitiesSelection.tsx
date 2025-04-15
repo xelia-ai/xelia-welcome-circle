@@ -6,7 +6,7 @@ import { CAPABILITY_CATEGORIES, CAPABILITIES } from '@/data/industries/common';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
 import ROICalculator from './roi/ROICalculator';
 import { useIsMobile } from '@/hooks/use-mobile';
-import CapabilityGroup, { Capability } from './capabilities/CapabilityGroup';
+import CapabilityGroup from './capabilities/CapabilityGroup';
 import TipsWidget from './roi/TipsWidget';
 
 interface CapabilitiesSelectionProps {
@@ -86,7 +86,9 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               icon={<MessageSquare className="w-5 h-5" />}
               capabilities={communicationCapabilities}
               selectedCapabilities={selectedCapabilities}
-              onToggle={toggleCapability}
+              selectedIntegrations={[]}
+              onToggleCapability={toggleCapability}
+              onToggleIntegration={() => {}}
             />
             
             <CapabilityGroup
@@ -94,7 +96,9 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               icon={<Bot className="w-5 h-5" />}
               capabilities={automationCapabilities}
               selectedCapabilities={selectedCapabilities}
-              onToggle={toggleCapability}
+              selectedIntegrations={[]}
+              onToggleCapability={toggleCapability}
+              onToggleIntegration={() => {}}
             />
             
             <CapabilityGroup
@@ -102,7 +106,9 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               icon={<Brain className="w-5 h-5" />}
               capabilities={intelligenceCapabilities}
               selectedCapabilities={selectedCapabilities}
-              onToggle={toggleCapability}
+              selectedIntegrations={[]}
+              onToggleCapability={toggleCapability}
+              onToggleIntegration={() => {}}
             />
             
             <CapabilityGroup
@@ -110,7 +116,9 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               icon={<ServerCog className="w-5 h-5" />}
               capabilities={integrationCapabilities}
               selectedCapabilities={selectedCapabilities}
-              onToggle={toggleCapability}
+              selectedIntegrations={[]}
+              onToggleCapability={toggleCapability}
+              onToggleIntegration={() => {}}
             />
           </div>
           

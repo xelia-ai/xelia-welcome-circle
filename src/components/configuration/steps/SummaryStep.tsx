@@ -22,6 +22,7 @@ interface SummaryStepProps {
     website: string;
     capabilities: string[];
     integrations: string[];
+    callsVolume: string;
   };
   onEdit: (step: ConfigStep) => void;
 }
@@ -52,6 +53,7 @@ const SummaryStep: React.FC<SummaryStepProps> = ({ config, onEdit }) => {
           <CapabilitiesSection 
             capabilities={config.capabilities} 
             capabilityNames={capabilityNames}
+            callsVolume={config.callsVolume}
             onEdit={() => onEdit('capabilities')} 
           />
           

@@ -2,7 +2,7 @@
 import React from 'react';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { IconBadge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { PhoneCall } from "lucide-react";
 
 interface CallsVolumeOption {

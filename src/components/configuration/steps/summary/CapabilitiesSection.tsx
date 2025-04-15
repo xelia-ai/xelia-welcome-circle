@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CAPABILITIES, VOLUME_PRICING } from '@/data/industries/common';
-import SectionHeader from '@/components/configuration/summary/SectionHeader';
+import SectionContainer from './SectionContainer';
 
 interface CapabilitiesSectionProps {
   capabilities: string[];
@@ -47,25 +47,17 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
     }
   };
 
-  // These are placeholder functions required by the SectionHeader component
-  const handleCancel = () => {
-    console.log('Cancel editing capabilities');
-  };
-
-  const handleSave = (section: 'industry' | 'website' | 'capabilities' | 'integrations') => {
-    console.log('Save capabilities', section);
-  };
-
   return (
     <div className="mb-6 border-b border-gray-700 pb-6">
-      <SectionHeader
-        title="Capacidades"
-        section="capabilities"
-        editingSection={null} // Not in editing mode by default
-        onEditClick={onEdit}
-        onCancel={handleCancel}
-        onSave={handleSave}
-      />
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-medium text-white">Capacidades</h3>
+        <button 
+          onClick={onEdit}
+          className="text-sm text-xelia-accent hover:underline"
+        >
+          Editar
+        </button>
+      </div>
       
       <div className="mb-4 mt-3 p-3 bg-gray-800/80 rounded-lg">
         <h4 className="text-white font-medium mb-1">📞 Volumen de llamadas</h4>
