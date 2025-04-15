@@ -132,7 +132,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           )}
         </div>
 
-        {/* Contenedor para calculadoras y tips - Después de las capacidades en móvil */}
+        {/* Container for calculators and tips - After capabilities on mobile */}
         <div className="w-full lg:w-auto lg:min-w-[350px] lg:max-w-[450px] flex flex-col gap-6 md:gap-8">
           {/* ROI Calculator */}
           <div className="w-full">
