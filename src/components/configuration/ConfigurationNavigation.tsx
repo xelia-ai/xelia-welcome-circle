@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ArrowLeft, ArrowRight, Check, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -60,7 +61,9 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
               : 'bg-xelia-accent/50 cursor-not-allowed'
           }`}
         >
-          Siguiente
+          {isCapabilitiesStep && !canProceed 
+            ? "Selecciona capacidades" 
+            : "Siguiente"}
           <ArrowRight size={isMobile ? 14 : 16} />
         </Button>
       </motion.div>

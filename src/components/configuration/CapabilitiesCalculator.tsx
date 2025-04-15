@@ -131,13 +131,13 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
           {/* Sección de capacidades adicionales */}
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400 flex items-center">
-              Capacidades adicionales ({selectedCapabilities.length})
+              Capacidades seleccionadas ({selectedCapabilities.length})
               <Tooltip>
                 <TooltipTrigger asChild>
                   <AlertCircle className="w-3.5 h-3.5 ml-1 text-gray-500 cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent side="top" className="max-w-[220px] text-xs">
-                  Costo adicional según las capacidades seleccionadas, con un máximo de $999 USD
+                  Costo según las capacidades seleccionadas, con un máximo de $999 USD
                 </TooltipContent>
               </Tooltip>
             </span>
@@ -173,11 +173,11 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
         </div>
 
         {/* Mensaje informativo cuando está en $0 */}
-        {isZeroAmount && !hasCapabilities && (
-          <div className="mt-3 bg-[#3EF3B0]/10 rounded-lg p-3 border border-[#3EF3B0]/30">
+        {!hasCapabilities && (
+          <div className="mt-3 bg-[#FF5470]/10 rounded-lg p-3 border border-[#FF5470]/30">
             <p className="text-sm text-white/90 flex items-center">
-              <Info className="mr-2 h-4 w-4 text-[#3EF3B0]" />
-              Selecciona capacidades para definir tu inversión
+              <AlertCircle className="mr-2 h-4 w-4 text-[#FF5470]" />
+              Selecciona al menos una capacidad para continuar
             </p>
           </div>
         )}

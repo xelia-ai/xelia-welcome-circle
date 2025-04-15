@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ConfigStep } from '@/utils/configStepInfo';
 
@@ -80,12 +79,9 @@ export const useConfigureState = () => {
       case 'industry':
         return config.industries.length > 0;
       case 'website':
-        // Permitir continuar sin validación del sitio web o documentos
         return true;
       case 'capabilities':
-        // Permitir continuar incluso si no seleccionan capacidades adicionales
-        // para que puedan proceder solo con la tarifa base
-        return true;
+        return config.capabilities.length > 0;
       case 'integrations':
         return true;
       case 'summary':

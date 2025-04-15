@@ -20,6 +20,8 @@ export interface CapabilityOption {
   description: string;
   price: number;
   category: 'communication' | 'automation' | 'intelligence' | 'integration';
+  hasConnection?: boolean;
+  connectionType?: 'whatsapp' | 'calendar' | 'other';
 }
 
 export const CAPABILITY_CATEGORIES = {
@@ -43,7 +45,9 @@ export const CAPABILITIES: CapabilityOption[] = [
     name: 'Integración WhatsApp',
     description: 'Conecta tu Xelia directamente con WhatsApp para atención automática a clientes',
     price: 75,
-    category: 'communication'
+    category: 'communication',
+    hasConnection: true,
+    connectionType: 'whatsapp'
   },
   {
     id: 'omnichannel',
@@ -59,7 +63,9 @@ export const CAPABILITIES: CapabilityOption[] = [
     name: 'Programación de citas',
     description: 'Gestiona automáticamente la programación de citas y reuniones',
     price: 65,
-    category: 'automation'
+    category: 'automation',
+    hasConnection: true,
+    connectionType: 'calendar'
   },
   {
     id: 'rescheduling',
@@ -80,7 +86,9 @@ export const CAPABILITIES: CapabilityOption[] = [
     name: 'Confirmación por WhatsApp',
     description: 'Envía confirmaciones automáticas de citas por WhatsApp',
     price: 55,
-    category: 'automation'
+    category: 'automation',
+    hasConnection: true,
+    connectionType: 'whatsapp'
   },
   {
     id: 'meeting-links',
@@ -140,20 +148,26 @@ export const CAPABILITIES: CapabilityOption[] = [
     name: 'Integración con Dashboard',
     description: 'Conecta Xelia con tu dashboard para visualización de datos y análisis',
     price: 65,
-    category: 'integration'
+    category: 'integration',
+    hasConnection: true,
+    connectionType: 'other'
   },
   {
     id: 'crm-integration',
     name: 'Integración con CRM',
     description: 'Conecta con GoHighLevel, HubSpot y otros CRMs populares',
     price: 75,
-    category: 'integration'
+    category: 'integration',
+    hasConnection: true,
+    connectionType: 'other'
   },
   {
     id: 'google-calendar',
     name: 'Integración con Google Calendar',
     description: 'Sincroniza citas y eventos directamente con Google Calendar',
     price: 55,
-    category: 'integration'
+    category: 'integration',
+    hasConnection: true,
+    connectionType: 'calendar'
   }
 ];
