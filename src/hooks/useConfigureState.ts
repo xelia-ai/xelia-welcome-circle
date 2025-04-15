@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { ConfigStep } from '@/utils/configStepInfo';
 
@@ -9,6 +10,7 @@ export interface ConfigState {
   websiteValidated: boolean;
   capabilities: string[];
   integrations: string[];
+  callsVolume: string;
   skipTraining: boolean;
 }
 
@@ -22,6 +24,7 @@ export const useConfigureState = () => {
     websiteValidated: false,
     capabilities: [],
     integrations: [],
+    callsVolume: '500', // Default value
     skipTraining: false
   });
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
@@ -43,11 +46,9 @@ export const useConfigureState = () => {
         setCurrentStep('capabilities');
         break;
       case 'capabilities':
-        setCurrentStep('integrations');
-        break;
-      case 'integrations':
         setCurrentStep('summary');
         break;
+      // Removed integrations step as it's now merged with capabilities
     }
   };
 
@@ -63,12 +64,10 @@ export const useConfigureState = () => {
       case 'capabilities':
         setCurrentStep('website');
         break;
-      case 'integrations':
+      case 'summary':
         setCurrentStep('capabilities');
         break;
-      case 'summary':
-        setCurrentStep('integrations');
-        break;
+      // Removed integrations step as it's now merged with capabilities
     }
   };
 
@@ -82,8 +81,6 @@ export const useConfigureState = () => {
         return true;
       case 'capabilities':
         return config.capabilities.length > 0;
-      case 'integrations':
-        return true;
       case 'summary':
         return true;
       default:

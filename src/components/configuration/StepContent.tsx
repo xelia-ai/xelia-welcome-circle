@@ -3,8 +3,7 @@ import React from 'react';
 import { ConfigStep } from '@/utils/configStepInfo';
 import { AgentTypeStep, IndustryStep, SummaryStep } from './steps';
 import TrainingDocsUpload from './TrainingDocsUpload';
-import CapabilitiesSelection from './CapabilitiesSelection';
-import IntegrationsSelection from './IntegrationsSelection';
+import UnifiedCapabilitiesSelection from './UnifiedCapabilitiesSelection';
 
 interface StepContentProps {
   currentStep: ConfigStep;
@@ -16,6 +15,7 @@ interface StepContentProps {
     websiteValidated: boolean;
     capabilities: string[];
     integrations: string[];
+    callsVolume: string;
     skipTraining?: boolean;
   };
   updateConfig: (key: string, value: any) => void;
@@ -54,8 +54,8 @@ const StepContent: React.FC<StepContentProps> = ({
             updateConfig('website', url);
           }}
           onFilesSelected={(files) => {
-            // En un caso real, aquí se procesarían los archivos
-            // Por ahora, sólo guardamos que se han cargado documentos
+            // In a real case, files would be processed here
+            // For now, we just record that documents have been uploaded
             updateConfig('website', `${files.length} documento(s) cargado(s)`);
           }}
           onSkipTraining={(skip) => {
@@ -65,16 +65,15 @@ const StepContent: React.FC<StepContentProps> = ({
       );
     case 'capabilities':
       return (
-        <CapabilitiesSelection
+        <UnifiedCapabilitiesSelection
           selectedCapabilities={config.capabilities}
-          onChange={(capabilities) => updateConfig('capabilities', capabilities)}
-        />
-      );
-    case 'integrations':
-      return (
-        <IntegrationsSelection
           selectedIntegrations={config.integrations}
-          onChange={(integrations) => updateConfig('integrations', integrations)}
+          selectedCallsVolume={config.callsVolume}
+          onChangeCapabilities={(capabilities) => updateConfig('capabilities', capabilities)}
+          onChangeIntegrations={(integrations) => updateConfig('integrations', integrations)}
+          onChangeCallsVolume={(volume) => updateConfig('callsVolume', volume)}
+          website={config.website}
+          industryCount={config.industries.length}
         />
       );
     case 'summary':

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 import SectionContainer from './SectionContainer';
+import { integrations, getIntegrationNameMap } from '../../integrations/integrationsData';
 
 interface IntegrationsSectionProps {
   integrations: string[];
@@ -10,23 +11,26 @@ interface IntegrationsSectionProps {
 }
 
 const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
-  integrations,
+  integrations: selectedIntegrations,
   integrationNames,
   onEdit
 }) => {
+  // Get the actual integration data to display icons/logos
+  const integrationData = integrations.filter(i => selectedIntegrations.includes(i.id));
+  
   return (
-    <SectionContainer title="Integraciones" onEdit={onEdit}>
-      {integrations.length > 0 ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {integrationNames.map((name, index) => (
-            <li key={index} className="flex items-center text-gray-300">
-              <Check className="w-4 h-4 text-xelia-accent mr-2 flex-shrink-0" />
-              {name}
-            </li>
+    <SectionContainer title="Integraciones conectadas" onEdit={onEdit}>
+      {selectedIntegrations.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {integrationData.map((integration) => (
+            <div key={integration.id} className="flex items-center">
+              <span className="text-lg mr-2">{integration.logo}</span>
+              <span className="text-gray-300">{integration.name}</span>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
-        <span className="text-gray-400 italic">No has seleccionado integraciones</span>
+        <span className="text-gray-400 italic">No has conectado integraciones</span>
       )}
     </SectionContainer>
   );

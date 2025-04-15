@@ -25,12 +25,20 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
   const isMobile = useIsMobile();
   
   const getStepNumber = () => {
-    const steps: ConfigStep[] = ['agent-type', 'industry', 'website', 'capabilities', 'integrations', 'summary'];
+    const steps: ConfigStep[] = ['agent-type', 'industry', 'website', 'capabilities', 'summary'];
     return steps.indexOf(currentStep) + 1;
   };
 
   const isFirstStep = currentStep === 'agent-type';
   const isCapabilitiesStep = currentStep === 'capabilities';
+
+  // Get the appropriate button text based on step and canProceed state
+  const getNextButtonText = () => {
+    if (isCapabilitiesStep && !canProceed) {
+      return "Selecciona capacidades";
+    } 
+    return "Siguiente";
+  };
 
   return (
     <div className={`flex justify-between items-center w-full ${isMobile ? 'fixed bottom-0 left-0 right-0 z-50 bg-xelia-dark/95 border-t border-gray-700 p-3 backdrop-blur-md' : ''}`}>
@@ -61,9 +69,7 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
               : 'bg-xelia-accent/50 cursor-not-allowed'
           }`}
         >
-          {isCapabilitiesStep && !canProceed 
-            ? "Selecciona capacidades" 
-            : "Siguiente"}
+          {getNextButtonText()}
           <ArrowRight size={isMobile ? 14 : 16} />
         </Button>
       </motion.div>

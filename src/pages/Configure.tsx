@@ -40,12 +40,13 @@ const Configure = () => {
     }
   };
 
-  // Empty function for backward compatibility
+  // Function for editing in summary view
   const handleEditInSummary = (step: any) => {
-    // Esta función se usará en el futuro para editar secciones en la vista resumen
+    // This will be used in the future to edit sections in the summary view
   };
 
-  const totalSteps = 6;
+  // Updated total steps from 6 to 5 since we merged capabilities and integrations
+  const totalSteps = 5;
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light py-4 md:py-8 px-3 md:px-4 sm:px-6">

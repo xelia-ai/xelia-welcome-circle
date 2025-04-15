@@ -8,17 +8,20 @@ import { CAPABILITIES } from '@/data/industries/common';
 interface CapabilitiesCalculatorProps {
   selectedCapabilities: string[];
   industryCount?: number;
+  volumePrice?: number;
 }
 
 const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({ 
   selectedCapabilities,
-  industryCount = 1
+  industryCount = 1,
+  volumePrice = 0
 }) => {
   const MAX_PRICE = 999;
   
   const [calculatedPrice, setCalculatedPrice] = useState({
     capabilitiesPrice: 0,
     industriesPrice: 0,
+    volumePrice: 0,
     totalPrice: 0
   });
   
@@ -26,12 +29,12 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
   const [removedCapability, setRemovedCapability] = useState<string | null>(null);
   const [lastAddedName, setLastAddedName] = useState<string | null>(null);
 
-  // Calcular precios basados en capacidades seleccionadas y cantidad de industrias
+  // Calculate prices based on selected capabilities and number of industries
   useEffect(() => {
-    // Calcular precio de industrias
+    // Calculate industry price
     const industriesPrice = industryCount > 1 ? (industryCount - 1) * 50 : 0;
     
-    // Calcular precio de capacidades a través de precios individuales
+    // Calculate capabilities price through individual prices
     let capabilitiesPrice = 0;
     selectedCapabilities.forEach(capId => {
       const capability = CAPABILITIES.find(c => c.id === capId);
@@ -40,24 +43,26 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
       }
     });
     
-    // Asegurar que el precio total no exceda el máximo
-    const totalPrice = Math.min(capabilitiesPrice + industriesPrice, MAX_PRICE);
+    // Ensure total price does not exceed maximum
+    const subtotal = capabilitiesPrice + industriesPrice + volumePrice;
+    const totalPrice = Math.min(subtotal, MAX_PRICE);
     
     setCalculatedPrice({
       capabilitiesPrice,
       industriesPrice,
+      volumePrice,
       totalPrice
     });
     
-  }, [selectedCapabilities, industryCount]);
+  }, [selectedCapabilities, industryCount, volumePrice]);
 
-  // Rastrear cambios en capacidades para animaciones
+  // Track changes in capabilities for animations
   useEffect(() => {
     const currentSet = new Set(selectedCapabilities);
     
-    // Determinar qué capacidad se agregó o eliminó
+    // Determine which capability was added or removed
     const handleCapabilityChange = () => {
-      // Para adiciones nuevas
+      // For new additions
       if (addedCapability !== null) {
         if (!currentSet.has(addedCapability)) {
           setRemovedCapability(addedCapability);
@@ -68,7 +73,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
         if (currentSet.has(removedCapability)) {
           setAddedCapability(removedCapability);
           
-          // Obtener el nombre para mostrarlo en la animación
+          // Get name to display in animation
           const capability = CAPABILITIES.find(c => c.id === removedCapability);
           if (capability) {
             setLastAddedName(capability.name);
@@ -77,13 +82,13 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
           setRemovedCapability(null);
         }
       } else {
-        // Detectar nueva capacidad agregada
+        // Detect newly added capability
         const prevCount = selectedCapabilities.length - 1;
         if (prevCount >= 0 && selectedCapabilities.length > prevCount) {
           const lastAddedId = selectedCapabilities[selectedCapabilities.length - 1];
           setAddedCapability(lastAddedId);
           
-          // Obtener el nombre para mostrarlo en la animación
+          // Get name to display in animation
           const capability = CAPABILITIES.find(c => c.id === lastAddedId);
           if (capability) {
             setLastAddedName(capability.name);
@@ -95,7 +100,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     handleCapabilityChange();
   }, [selectedCapabilities]);
 
-  // Determinar estado de la tarifa
+  // Determine fee status
   const isZeroAmount = calculatedPrice.totalPrice === 0;
   const hasCapabilities = selectedCapabilities.length > 0;
 
@@ -110,7 +115,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
       
       <div className="space-y-4">
         <div className="bg-gray-700/50 rounded-lg p-4 space-y-3">
-          {/* Sección de industrias adicionales */}
+          {/* Additional industries section */}
           {industryCount > 1 && (
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-400 flex items-center">
@@ -128,7 +133,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
             </div>
           )}
           
-          {/* Sección de capacidades adicionales */}
+          {/* Selected capabilities section */}
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400 flex items-center">
               Capacidades seleccionadas ({selectedCapabilities.length})
@@ -137,7 +142,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
                   <AlertCircle className="w-3.5 h-3.5 ml-1 text-gray-500 cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent side="top" className="max-w-[220px] text-xs">
-                  Costo según las capacidades seleccionadas, con un máximo de $999 USD
+                  Costo según las capacidades seleccionadas
                 </TooltipContent>
               </Tooltip>
             </span>
@@ -165,6 +170,24 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
             </div>
           </div>
           
+          {/* Volume calls section */}
+          {volumePrice > 0 && (
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-400 flex items-center">
+                Volumen de llamadas
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <AlertCircle className="w-3.5 h-3.5 ml-1 text-gray-500 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-[220px] text-xs">
+                    Costo adicional por el volumen de llamadas seleccionado
+                  </TooltipContent>
+                </Tooltip>
+              </span>
+              <span className="text-white font-medium">${calculatedPrice.volumePrice} USD</span>
+            </div>
+          )}
+          
           {/* Total */}
           <div className="pt-2 border-t border-white/10 flex justify-between items-center">
             <span className="text-gray-300 font-medium">Precio mensual</span>
@@ -172,7 +195,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
           </div>
         </div>
 
-        {/* Mensaje informativo cuando está en $0 */}
+        {/* Information message when at $0 */}
         {!hasCapabilities && (
           <div className="mt-3 bg-[#FF5470]/10 rounded-lg p-3 border border-[#FF5470]/30">
             <p className="text-sm text-white/90 flex items-center">

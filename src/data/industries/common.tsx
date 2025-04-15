@@ -22,6 +22,7 @@ export interface CapabilityOption {
   category: 'communication' | 'automation' | 'intelligence' | 'integration';
   hasConnection?: boolean;
   connectionType?: 'whatsapp' | 'calendar' | 'other';
+  integrationOptions?: Array<{ id: string; name: string; }>;
 }
 
 export const CAPABILITY_CATEGORIES = {
@@ -29,6 +30,14 @@ export const CAPABILITY_CATEGORIES = {
   automation: 'Automatización',
   intelligence: 'Inteligencia',
   integration: 'Integraciones'
+};
+
+// Volume pricing configuration
+export const VOLUME_PRICING = {
+  '500': 0,
+  '1000': 75,
+  '5000': 150,
+  'unlimited': 250
 };
 
 export const CAPABILITIES: CapabilityOption[] = [
@@ -65,7 +74,13 @@ export const CAPABILITIES: CapabilityOption[] = [
     price: 65,
     category: 'automation',
     hasConnection: true,
-    connectionType: 'calendar'
+    connectionType: 'calendar',
+    integrationOptions: [
+      { id: 'google-calendar', name: 'Google Calendar' },
+      { id: 'outlook', name: 'Outlook' },
+      { id: 'calendly', name: 'Calendly' },
+      { id: 'flireo', name: 'Flireo' }
+    ]
   },
   {
     id: 'rescheduling',
