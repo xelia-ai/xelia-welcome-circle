@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowLeft, ArrowRight, Check, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -56,17 +55,13 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
           onClick={onNext}
           disabled={!canProceed}
           className={`flex items-center gap-1 md:gap-2 transition-all duration-300 h-10 md:h-auto px-3 md:px-4 text-sm md:text-base ${
-            isCapabilitiesStep 
-              ? 'bg-[#3EF3B0] hover:bg-[#35D39B] text-black shadow-accent transform hover:-translate-y-0.5'
-              : canProceed 
-                ? 'bg-xelia-accent hover:bg-xelia-accent-dark shadow-accent transform hover:-translate-y-0.5' 
-                : 'bg-xelia-accent/50 cursor-not-allowed'
+            canProceed 
+              ? 'bg-xelia-accent hover:bg-xelia-accent-dark shadow-accent transform hover:-translate-y-0.5' 
+              : 'bg-xelia-accent/50 cursor-not-allowed'
           }`}
         >
-          {currentStep === 'summary' ? 'Finalizar' : (
-            isCapabilitiesStep ? 'Continuar con tarifa base' : 'Siguiente'
-          )}
-          {currentStep === 'summary' ? <Check size={isMobile ? 14 : 16} /> : <ArrowRight size={isMobile ? 14 : 16} />}
+          Siguiente
+          <ArrowRight size={isMobile ? 14 : 16} />
         </Button>
       </motion.div>
     </div>

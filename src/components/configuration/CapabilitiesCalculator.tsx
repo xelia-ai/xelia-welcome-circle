@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { CreditCard, AlertCircle, ArrowRight, Info } from 'lucide-react';
+import { CreditCard, AlertCircle, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { Button } from "@/components/ui/button";
 import { CAPABILITIES } from '@/data/industries/common';
 
 interface CapabilitiesCalculatorProps {
@@ -15,16 +14,9 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
   selectedCapabilities,
   industryCount = 1
 }) => {
-  // Precios configurables
-  const BASE_PRICE = 499;
-  const INDUSTRY_PRICE = 50;
   const MAX_PRICE = 999;
   
-  // Estado inicial con tarifa base desactivada ($0)
-  const [activateBase, setActivateBase] = useState(false);
-  
   const [calculatedPrice, setCalculatedPrice] = useState({
-    basePrice: 0,
     capabilitiesPrice: 0,
     industriesPrice: 0,
     totalPrice: 0
@@ -36,14 +28,8 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
 
   // Calcular precios basados en capacidades seleccionadas y cantidad de industrias
   useEffect(() => {
-    // La tarifa base solo se aplica si está activada
-    const basePrice = activateBase ? BASE_PRICE : 0;
-    
     // Calcular precio de industrias
-    let industriesPrice = 0;
-    if (activateBase && industryCount > 1) {
-      industriesPrice = (industryCount - 1) * INDUSTRY_PRICE;
-    }
+    const industriesPrice = industryCount > 1 ? (industryCount - 1) * 50 : 0;
     
     // Calcular precio de capacidades a través de precios individuales
     let capabilitiesPrice = 0;
@@ -54,23 +40,16 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
       }
     });
     
-    // Si hay capacidades seleccionadas pero no está activa la tarifa base, activarla automáticamente
-    if (selectedCapabilities.length > 0 && !activateBase) {
-      setActivateBase(true);
-    }
-    
     // Asegurar que el precio total no exceda el máximo
-    const subtotal = basePrice + capabilitiesPrice + industriesPrice;
-    const totalPrice = Math.min(subtotal, MAX_PRICE);
+    const totalPrice = Math.min(capabilitiesPrice + industriesPrice, MAX_PRICE);
     
     setCalculatedPrice({
-      basePrice,
       capabilitiesPrice,
       industriesPrice,
       totalPrice
     });
     
-  }, [selectedCapabilities, industryCount, activateBase]);
+  }, [selectedCapabilities, industryCount]);
 
   // Rastrear cambios en capacidades para animaciones
   useEffect(() => {
@@ -131,26 +110,8 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
       
       <div className="space-y-4">
         <div className="bg-gray-700/50 rounded-lg p-4 space-y-3">
-          {/* Sección de tarifa base */}
-          <div className="flex justify-between items-center text-sm">
-            <span className="text-gray-400 flex items-center">
-              Tarifa base
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <AlertCircle className="w-3.5 h-3.5 ml-1 text-gray-500 cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-[220px] text-xs">
-                  Tarifa mensual base que incluye las funcionalidades esenciales de Xelia
-                </TooltipContent>
-              </Tooltip>
-            </span>
-            <span className="text-white font-medium">
-              ${calculatedPrice.basePrice} USD
-            </span>
-          </div>
-          
           {/* Sección de industrias adicionales */}
-          {activateBase && industryCount > 1 && (
+          {industryCount > 1 && (
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-400 flex items-center">
                 Industrias adicionales ({industryCount - 1})
@@ -211,17 +172,17 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
           </div>
         </div>
 
-        {/* Mensaje informativo cuando está en $0 o solo con tarifa base */}
+        {/* Mensaje informativo cuando está en $0 */}
         {isZeroAmount && !hasCapabilities && (
           <div className="mt-3 bg-[#3EF3B0]/10 rounded-lg p-3 border border-[#3EF3B0]/30">
             <p className="text-sm text-white/90 flex items-center">
               <Info className="mr-2 h-4 w-4 text-[#3EF3B0]" />
-              Selecciona capacidades para activar tu plan de Xelia
+              Selecciona capacidades para definir tu inversión
             </p>
           </div>
         )}
         
-        {!isZeroAmount && calculatedPrice.totalPrice === MAX_PRICE && (
+        {calculatedPrice.totalPrice === MAX_PRICE && (
           <div className="mt-2 text-xs text-gray-400 italic text-right">
             *Precio máximo limitado a $999/mes
           </div>
