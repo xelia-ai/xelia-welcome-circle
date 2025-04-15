@@ -1,7 +1,5 @@
 
 import React from 'react';
-import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch, Mail } from 'lucide-react';
-import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
@@ -46,15 +44,19 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
             <div 
               key={capability.id}
               className={cn(
-                "bg-gray-800/80 rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:shadow-md border",
-                isSelected ? "border-[#3EF3B0]" : "border-gray-700"
+                "bg-gray-800/80 rounded-lg p-4 flex items-start transition-all duration-300 cursor-pointer hover:shadow-[0_0_10px_rgba(62,243,176,0.1)]",
+                isSelected 
+                  ? "border border-[#3EF3B0]" 
+                  : "border border-gray-700 hover:border-gray-600"
               )}
               onClick={() => onToggle(capability.id)}
             >
               <div className="mr-4 mt-0.5">
                 <div className={cn(
-                  "p-2 rounded-full w-10 h-10 flex items-center justify-center",
-                  isSelected ? "bg-[#3EF3B0] text-gray-900" : "bg-gray-700/50 border border-gray-600 text-gray-300"
+                  "p-2 rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300",
+                  isSelected 
+                    ? "bg-[#3EF3B0] text-gray-900 shadow-[0_0_10px_rgba(62,243,176,0.3)]" 
+                    : "bg-gray-700/50 border border-gray-600 text-gray-300"
                 )}>
                   {capability.icon}
                 </div>
@@ -76,6 +78,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                         id={`capability-${capability.id}`}
                         checked={isSelected}
                         onCheckedChange={() => onToggle(capability.id)}
+                        className="data-[state=checked]:bg-[#3EF3B0] data-[state=checked]:text-black"
                       />
                     </TooltipTrigger>
                     <TooltipContent side="top">
@@ -89,11 +92,14 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                 {capability.price > 0 && (
                   <div className="mt-2 flex justify-between items-center">
                     <div></div>
-                    {isSelected && (
-                      <Badge variant="outline" className="bg-gray-700/50 text-gray-200 border-gray-600 text-xs">
-                        +${capability.price} USD
-                      </Badge>
-                    )}
+                    <Badge variant="outline" className={cn(
+                      "text-xs transition-all duration-300",
+                      isSelected 
+                        ? "bg-[#3EF3B0]/10 text-[#3EF3B0] border-[#3EF3B0]/30" 
+                        : "bg-gray-700/50 text-gray-400 border-gray-600"
+                    )}>
+                      +${capability.price} USD
+                    </Badge>
                   </div>
                 )}
               </div>

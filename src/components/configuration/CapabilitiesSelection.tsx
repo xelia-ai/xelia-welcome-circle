@@ -1,23 +1,26 @@
+
 import React from 'react';
-import { MessageSquare, Bot } from 'lucide-react';
+import { MessageSquare, Bot, Brain, ServerCog } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { CAPABILITY_CATEGORIES, CAPABILITIES } from '@/data/industries/common';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
 import ROICalculator from './roi/ROICalculator';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CapabilityGroup, { Capability } from './capabilities/CapabilityGroup';
-import { Globe, Brain, Calendar, Database, Clock, RefreshCw, FileSearch, Mail } from 'lucide-react';
 import TipsWidget from './roi/TipsWidget';
 
 interface CapabilitiesSelectionProps {
   selectedCapabilities: string[];
   onChange: (capabilities: string[]) => void;
   website?: string;
+  industryCount?: number;
 }
 
 const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({ 
   selectedCapabilities, 
   onChange,
-  website = ''
+  website = '',
+  industryCount = 1
 }) => {
   const isMobile = useIsMobile();
   
@@ -29,40 +32,42 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
     }
   };
 
-  // Group capabilities by category
-  const communicationCapabilities: Capability[] = [
-    {
-      id: 'multi-language',
-      name: 'Multilingüe',
-      description: 'Responde a tus clientes en varios idiomas (español, inglés, etc.)',
-      icon: <Globe className="w-5 h-5" />,
-      price: 60
-    }
-  ];
+  // Agrupar capacidades por categoría
+  const getCapabilitiesByCategory = (category: string) => {
+    return CAPABILITIES
+      .filter(cap => cap.category === category)
+      .map(cap => ({
+        id: cap.id,
+        name: cap.name,
+        description: cap.description,
+        icon: getIconForCapability(cap.id),
+        price: cap.price
+      }));
+  };
 
-  const automationCapabilities: Capability[] = [
-    {
-      id: 'appointment-scheduling',
-      name: 'Programación de citas',
-      description: 'Gestiona automáticamente la programación de citas y reuniones',
-      icon: <Calendar className="w-5 h-5" />,
-      price: 65
-    },
-    {
-      id: 'follow-ups',
-      name: 'Seguimiento automático',
-      description: 'Envía recordatorios y seguimientos automáticos a tus clientes',
-      icon: <Clock className="w-5 h-5" />,
-      price: 60
-    },
-    {
-      id: 'email-notes',
-      name: 'Notas por correo al cliente',
-      description: 'Envía una nota interna con el resumen de cada llamada al correo del responsable. Si lo deseas, también puedes programar una respuesta automática para el cliente.',
-      icon: <Mail className="w-5 h-5" />,
-      price: 55
+  const getIconForCapability = (id: string): React.ReactNode => {
+    // Asignar iconos específicos según el ID de la capacidad
+    switch (id) {
+      case 'multi-language':
+        return <MessageSquare className="w-5 h-5" />;
+      case 'whatsapp-integration':
+      case 'confirmation-whatsapp':
+        return <IconBrandWhatsapp size={20} />;
+      case 'elite-memory':
+      case 'conversation-memory':
+      case 'database-search':
+      case 'voice-assistant':
+      case 'real-time-data':
+        return <Brain className="w-5 h-5" />;
+      default:
+        return <Bot className="w-5 h-5" />;
     }
-  ];
+  };
+
+  const communicationCapabilities = getCapabilitiesByCategory('communication');
+  const automationCapabilities = getCapabilitiesByCategory('automation');
+  const intelligenceCapabilities = getCapabilitiesByCategory('intelligence');
+  const integrationCapabilities = getCapabilitiesByCategory('integration');
 
   return (
     <div className="w-full mx-auto px-2 md:px-4">
@@ -77,7 +82,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           
           <div className="space-y-6 md:space-y-8">
             <CapabilityGroup
-              title="Comunicación"
+              title={CAPABILITY_CATEGORIES.communication}
               icon={<MessageSquare className="w-5 h-5" />}
               capabilities={communicationCapabilities}
               selectedCapabilities={selectedCapabilities}
@@ -85,9 +90,25 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
             />
             
             <CapabilityGroup
-              title="Automatización"
+              title={CAPABILITY_CATEGORIES.automation}
               icon={<Bot className="w-5 h-5" />}
               capabilities={automationCapabilities}
+              selectedCapabilities={selectedCapabilities}
+              onToggle={toggleCapability}
+            />
+            
+            <CapabilityGroup
+              title={CAPABILITY_CATEGORIES.intelligence}
+              icon={<Brain className="w-5 h-5" />}
+              capabilities={intelligenceCapabilities}
+              selectedCapabilities={selectedCapabilities}
+              onToggle={toggleCapability}
+            />
+            
+            <CapabilityGroup
+              title={CAPABILITY_CATEGORIES.integration}
+              icon={<ServerCog className="w-5 h-5" />}
+              capabilities={integrationCapabilities}
               selectedCapabilities={selectedCapabilities}
               onToggle={toggleCapability}
             />
@@ -95,7 +116,10 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           
           {isMobile && (
             <div className="mt-6 md:mt-8">
-              <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
+              <CapabilitiesCalculator 
+                selectedCapabilities={selectedCapabilities} 
+                industryCount={industryCount}
+              />
             </div>
           )}
         </div>
@@ -119,7 +143,10 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
           {/* Capabilities Calculator only on desktop */}
           {!isMobile && (
             <div className="w-full">
-              <CapabilitiesCalculator selectedCapabilities={selectedCapabilities} />
+              <CapabilitiesCalculator 
+                selectedCapabilities={selectedCapabilities} 
+                industryCount={industryCount}
+              />
             </div>
           )}
         </div>

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Separator } from "@/components/ui/separator";
+import { CAPABILITIES } from '@/data/industries/common';
 
 interface PriceSummaryProps {
   basePrice: number;
@@ -9,7 +10,7 @@ interface PriceSummaryProps {
   selectedVolumeOption: string | null;
   volumePricing: Record<string, number>;
   calculateEstimatedPrice: () => number;
-  industryCount?: number; // Nuevo prop para la cantidad de industrias
+  industryCount?: number;
 }
 
 const PriceSummary: React.FC<PriceSummaryProps> = ({
@@ -19,7 +20,7 @@ const PriceSummary: React.FC<PriceSummaryProps> = ({
   selectedVolumeOption,
   volumePricing,
   calculateEstimatedPrice,
-  industryCount = 1 // Por defecto, asumimos una industria
+  industryCount = 1
 }) => {
   // Calculate total price for premium features
   const premiumFeatureTotal = premiumFeaturesCount * pricePerPremiumFeature;

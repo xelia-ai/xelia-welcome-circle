@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Check } from 'lucide-react';
-import SectionContainer from './SectionContainer';
+import { CAPABILITIES } from '@/data/industries/common';
+import SectionHeader from './SectionHeader';
 
 interface CapabilitiesSectionProps {
   capabilities: string[];
@@ -14,23 +14,50 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
   capabilityNames,
   onEdit
 }) => {
+  const getCapabilityIcon = (capabilityId: string): string => {
+    // Mapeo simple de iconos emojis según la categoría o ID específico
+    const capabilityData = CAPABILITIES.find(cap => cap.id === capabilityId);
+    
+    if (!capabilityData) return '💡';
+    
+    // Asignar emoji según la categoría
+    switch (capabilityData.category) {
+      case 'communication':
+        return '💬';
+      case 'automation':
+        return '⚙️';
+      case 'intelligence':
+        return '🧠';
+      case 'integration':
+        return '🔄';
+      default:
+        return '💡';
+    }
+  };
+
   return (
-    <SectionContainer title="Capacidades" onEdit={onEdit}>
+    <div className="mb-6 border-b border-gray-700 pb-6">
+      <SectionHeader
+        title="Capacidades"
+        onEditClick={onEdit}
+      />
+      
       {capabilities.length > 0 ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {capabilityNames.map((name, index) => (
-            <li key={index} className="flex items-center text-gray-300 group hover:text-white transition-colors duration-300">
-              <div className="w-5 h-5 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 flex items-center justify-center mr-2 flex-shrink-0 group-hover:from-indigo-500/30 group-hover:to-purple-500/30 transition-all duration-300">
-                <Check className="w-3 h-3 text-purple-400 group-hover:text-purple-300" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+          {capabilities.map((capId) => {
+            const capability = CAPABILITIES.find(c => c.id === capId);
+            return (
+              <div key={capId} className="flex items-center">
+                <span className="text-lg mr-2">{getCapabilityIcon(capId)}</span>
+                <span className="text-gray-300">{capability?.name || capId}</span>
               </div>
-              {name}
-            </li>
-          ))}
-        </ul>
+            );
+          })}
+        </div>
       ) : (
-        <span className="text-gray-400 italic">No has seleccionado capacidades</span>
+        <p className="text-gray-400 italic mt-2">No se seleccionaron capacidades adicionales</p>
       )}
-    </SectionContainer>
+    </div>
   );
 };
 

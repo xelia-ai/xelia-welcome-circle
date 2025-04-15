@@ -41,7 +41,9 @@ const Configure = () => {
   };
 
   // Empty function for backward compatibility
-  const handleEditInSummary = () => {};
+  const handleEditInSummary = (step: any) => {
+    // Esta función se usará en el futuro para editar secciones en la vista resumen
+  };
 
   const totalSteps = 6;
 

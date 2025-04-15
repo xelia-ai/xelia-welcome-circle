@@ -1,68 +1,67 @@
 
 import React, { useState, useEffect } from 'react';
-import { CreditCard, AlertCircle, ArrowRight } from 'lucide-react';
+import { CreditCard, AlertCircle, ArrowRight, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from "@/components/ui/button";
+import { CAPABILITIES } from '@/data/industries/common';
 
 interface CapabilitiesCalculatorProps {
   selectedCapabilities: string[];
-  industryCount?: number; // Nuevo prop para la cantidad de industrias
-}
-
-interface CapabilityPrice {
-  id: string;
-  price: number;
+  industryCount?: number;
 }
 
 const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({ 
   selectedCapabilities,
-  industryCount = 1 // Por defecto, asumimos una industria
+  industryCount = 1
 }) => {
+  // Precios configurables
+  const BASE_PRICE = 499;
+  const INDUSTRY_PRICE = 50;
+  const MAX_PRICE = 999;
+  
+  // Estado inicial con tarifa base desactivada ($0)
+  const [activateBase, setActivateBase] = useState(false);
+  
   const [calculatedPrice, setCalculatedPrice] = useState({
-    basePrice: 499,
+    basePrice: 0,
     capabilitiesPrice: 0,
     industriesPrice: 0,
-    totalPrice: 499
+    totalPrice: 0
   });
   
   const [addedCapability, setAddedCapability] = useState<string | null>(null);
   const [removedCapability, setRemovedCapability] = useState<string | null>(null);
+  const [lastAddedName, setLastAddedName] = useState<string | null>(null);
 
-  // Define capability prices
-  const capabilityPrices: CapabilityPrice[] = [
-    { id: 'multi-language', price: 60 },
-    { id: 'conversation-memory', price: 55 },
-    { id: 'appointment-scheduling', price: 65 },
-    { id: 'real-time-data', price: 70 },
-    { id: 'whatsapp-integration', price: 75 },
-    { id: 'follow-ups', price: 60 },
-    { id: 'rescheduling', price: 65 },
-    { id: 'database-search', price: 50 }
-  ];
-
-  // Calculate prices based on selected capabilities and industry count
+  // Calcular precios basados en capacidades seleccionadas y cantidad de industrias
   useEffect(() => {
-    const basePrice = 499; // Base platform fee
-    const maxTotalPrice = 999; // Maximum price cap
+    // La tarifa base solo se aplica si está activada
+    const basePrice = activateBase ? BASE_PRICE : 0;
     
-    // Calculate industry price
+    // Calcular precio de industrias
     let industriesPrice = 0;
-    if (industryCount > 1) {
-      industriesPrice = (industryCount - 1) * 50; // $50 por cada industria adicional
+    if (activateBase && industryCount > 1) {
+      industriesPrice = (industryCount - 1) * INDUSTRY_PRICE;
     }
     
-    // Calculate capability price through individual pricing
+    // Calcular precio de capacidades a través de precios individuales
     let capabilitiesPrice = 0;
     selectedCapabilities.forEach(capId => {
-      const capability = capabilityPrices.find(c => c.id === capId);
+      const capability = CAPABILITIES.find(c => c.id === capId);
       if (capability) {
         capabilitiesPrice += capability.price;
       }
     });
     
-    // Ensure the total price doesn't exceed the max
-    const totalPrice = Math.min(basePrice + capabilitiesPrice + industriesPrice, maxTotalPrice);
+    // Si hay capacidades seleccionadas pero no está activa la tarifa base, activarla automáticamente
+    if (selectedCapabilities.length > 0 && !activateBase) {
+      setActivateBase(true);
+    }
+    
+    // Asegurar que el precio total no exceda el máximo
+    const subtotal = basePrice + capabilitiesPrice + industriesPrice;
+    const totalPrice = Math.min(subtotal, MAX_PRICE);
     
     setCalculatedPrice({
       basePrice,
@@ -71,21 +70,45 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
       totalPrice
     });
     
-  }, [selectedCapabilities, industryCount]);
+  }, [selectedCapabilities, industryCount, activateBase]);
 
-  // Track capability changes for animations
+  // Rastrear cambios en capacidades para animaciones
   useEffect(() => {
+    const currentSet = new Set(selectedCapabilities);
+    
+    // Determinar qué capacidad se agregó o eliminó
     const handleCapabilityChange = () => {
-      const currentSet = new Set(selectedCapabilities);
-      
-      // Check for previous values to detect what changed
-      if (addedCapability !== null || removedCapability !== null) {
-        if (addedCapability && !currentSet.has(addedCapability)) {
+      // Para adiciones nuevas
+      if (addedCapability !== null) {
+        if (!currentSet.has(addedCapability)) {
           setRemovedCapability(addedCapability);
           setAddedCapability(null);
-        } else if (removedCapability && currentSet.has(removedCapability)) {
+          setLastAddedName(null);
+        }
+      } else if (removedCapability !== null) {
+        if (currentSet.has(removedCapability)) {
           setAddedCapability(removedCapability);
+          
+          // Obtener el nombre para mostrarlo en la animación
+          const capability = CAPABILITIES.find(c => c.id === removedCapability);
+          if (capability) {
+            setLastAddedName(capability.name);
+          }
+          
           setRemovedCapability(null);
+        }
+      } else {
+        // Detectar nueva capacidad agregada
+        const prevCount = selectedCapabilities.length - 1;
+        if (prevCount >= 0 && selectedCapabilities.length > prevCount) {
+          const lastAddedId = selectedCapabilities[selectedCapabilities.length - 1];
+          setAddedCapability(lastAddedId);
+          
+          // Obtener el nombre para mostrarlo en la animación
+          const capability = CAPABILITIES.find(c => c.id === lastAddedId);
+          if (capability) {
+            setLastAddedName(capability.name);
+          }
         }
       }
     };
@@ -93,7 +116,9 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
     handleCapabilityChange();
   }, [selectedCapabilities]);
 
-  const isBaseTariffOnly = selectedCapabilities.length === 0 && industryCount === 1;
+  // Determinar estado de la tarifa
+  const isZeroAmount = calculatedPrice.totalPrice === 0;
+  const hasCapabilities = selectedCapabilities.length > 0;
 
   return (
     <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-6 shadow-[0_0_15px_rgba(0,0,0,0.2)]">
@@ -106,6 +131,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
       
       <div className="space-y-4">
         <div className="bg-gray-700/50 rounded-lg p-4 space-y-3">
+          {/* Sección de tarifa base */}
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400 flex items-center">
               Tarifa base
@@ -118,10 +144,13 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
                 </TooltipContent>
               </Tooltip>
             </span>
-            <span className="text-white font-medium">${calculatedPrice.basePrice} USD</span>
+            <span className="text-white font-medium">
+              ${calculatedPrice.basePrice} USD
+            </span>
           </div>
           
-          {industryCount > 1 && (
+          {/* Sección de industrias adicionales */}
+          {activateBase && industryCount > 1 && (
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-400 flex items-center">
                 Industrias adicionales ({industryCount - 1})
@@ -138,6 +167,7 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
             </div>
           )}
           
+          {/* Sección de capacidades adicionales */}
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-400 flex items-center">
               Capacidades adicionales ({selectedCapabilities.length})
@@ -154,33 +184,46 @@ const CapabilitiesCalculator: React.FC<CapabilitiesCalculatorProps> = ({
             <div className="flex items-center">
               <AnimatePresence mode="wait">
                 {addedCapability && (
-                  <motion.span
-                    key="added"
+                  <motion.div 
+                    key="added-animation"
+                    className="flex flex-col items-end mr-3"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="text-xelia-accent font-medium text-xs absolute mr-12"
                   >
-                    +${capabilityPrices.find(c => c.id === addedCapability)?.price || 0}
-                  </motion.span>
+                    <motion.span className="text-xelia-accent font-medium text-xs whitespace-nowrap">
+                      + {lastAddedName}
+                    </motion.span>
+                    <motion.span className="text-xelia-accent font-medium text-xs">
+                      +${CAPABILITIES.find(c => c.id === addedCapability)?.price || 0}
+                    </motion.span>
+                  </motion.div>
                 )}
               </AnimatePresence>
               <span className="text-white font-medium">${calculatedPrice.capabilitiesPrice} USD</span>
             </div>
           </div>
           
+          {/* Total */}
           <div className="pt-2 border-t border-white/10 flex justify-between items-center">
             <span className="text-gray-300 font-medium">Precio mensual</span>
             <span className="text-white font-semibold text-xl">${calculatedPrice.totalPrice} USD</span>
           </div>
         </div>
 
-        {isBaseTariffOnly && (
+        {/* Mensaje informativo cuando está en $0 o solo con tarifa base */}
+        {isZeroAmount && !hasCapabilities && (
           <div className="mt-3 bg-[#3EF3B0]/10 rounded-lg p-3 border border-[#3EF3B0]/30">
             <p className="text-sm text-white/90 flex items-center">
-              <span className="mr-2">✓</span>
-              Puedes continuar solo con la tarifa base y agregar capacidades en el futuro
+              <Info className="mr-2 h-4 w-4 text-[#3EF3B0]" />
+              Selecciona capacidades para activar tu plan de Xelia
             </p>
+          </div>
+        )}
+        
+        {!isZeroAmount && calculatedPrice.totalPrice === MAX_PRICE && (
+          <div className="mt-2 text-xs text-gray-400 italic text-right">
+            *Precio máximo limitado a $999/mes
           </div>
         )}
       </div>
