@@ -35,11 +35,27 @@ const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({
     }
   };
 
+  // These are placeholder functions since they're required by the SectionHeader component
+  // In a real implementation, you would need to implement proper functionality for these
+  const handleCancel = () => {
+    // Placeholder function for cancel action
+    console.log('Cancel editing capabilities');
+  };
+
+  const handleSave = (section: 'industry' | 'website' | 'capabilities' | 'integrations') => {
+    // Placeholder function for save action
+    console.log('Save capabilities', section);
+  };
+
   return (
     <div className="mb-6 border-b border-gray-700 pb-6">
       <SectionHeader
         title="Capacidades"
+        section="capabilities"
+        editingSection={null} // Not in editing mode by default
         onEditClick={onEdit}
+        onCancel={handleCancel}
+        onSave={handleSave}
       />
       
       {capabilities.length > 0 ? (
