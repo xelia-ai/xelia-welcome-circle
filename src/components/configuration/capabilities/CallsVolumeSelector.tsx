@@ -2,7 +2,6 @@
 import React from 'react';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { PhoneCall } from "lucide-react";
 
 interface CallsVolumeOption {
@@ -50,12 +49,12 @@ const CallsVolumeSelector: React.FC<CallsVolumeSelectorProps> = ({
             />
             <Label
               htmlFor={`volume-${option.value}`}
-              className="flex flex-col items-center justify-between p-4 border border-gray-700 rounded-lg cursor-pointer transition-all hover:border-xelia-accent peer-data-[state=checked]:border-xelia-accent peer-data-[state=checked]:bg-xelia-accent/10"
+              className="flex flex-col items-center justify-center p-4 h-[100px] border border-gray-700 rounded-lg cursor-pointer transition-all hover:border-xelia-accent peer-data-[state=checked]:border-xelia-accent peer-data-[state=checked]:bg-xelia-accent/10 group"
             >
               <div className="text-center">
                 <span className="block text-sm font-medium text-gray-200">{option.label}</span>
                 {option.price > 0 && (
-                  <span className="mt-2 block text-xelia-accent font-semibold">
+                  <span className="mt-2 block text-xelia-accent font-semibold opacity-0 group-hover:opacity-100 peer-data-[state=checked]:opacity-100 transition-opacity">
                     +${option.price} USD
                   </span>
                 )}

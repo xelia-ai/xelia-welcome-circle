@@ -35,7 +35,10 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
           : "border border-gray-700 hover:border-gray-600"
       )}
     >
-      <div className="flex items-start">
+      <div 
+        className="flex items-start cursor-pointer"
+        onClick={() => onToggle(capability.id)}
+      >
         <div className="mr-4 mt-0.5">
           <div className={cn(
             "p-2 rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300",
@@ -52,25 +55,26 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
               <Label 
                 htmlFor={`capability-${capability.id}`}
                 className="text-white font-medium cursor-pointer"
-                onClick={() => onToggle(capability.id)}
               >
                 {capability.name}
               </Label>
             </div>
             
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Switch
-                  id={`capability-${capability.id}`}
-                  checked={isSelected}
-                  onCheckedChange={() => onToggle(capability.id)}
-                  className="data-[state=checked]:bg-[#3EF3B0] data-[state=checked]:text-black"
-                />
-              </TooltipTrigger>
-              <TooltipContent side="top">
-                {isSelected ? 'Desactivar capacidad' : 'Activar capacidad'}
-              </TooltipContent>
-            </Tooltip>
+            <div className="ml-3">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Switch
+                    id={`capability-${capability.id}`}
+                    checked={isSelected}
+                    onCheckedChange={() => onToggle(capability.id)}
+                    className="data-[state=checked]:bg-[#3EF3B0] data-[state=checked]:text-black"
+                  />
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  {isSelected ? 'Desactivar capacidad' : 'Activar capacidad'}
+                </TooltipContent>
+              </Tooltip>
+            </div>
           </div>
           
           <p className="text-sm text-gray-300">{capability.description}</p>
@@ -92,10 +96,12 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
       
       {/* Connection interface - only show when capability is selected */}
       {isSelected && (
-        <ConnectionInterface
-          capability={capability}
-          onIntegrationSelect={onIntegrationSelect}
-        />
+        <div className="mt-4 pt-4 border-t border-gray-700/50">
+          <ConnectionInterface
+            capability={capability}
+            onIntegrationSelect={onIntegrationSelect}
+          />
+        </div>
       )}
     </div>
   );
