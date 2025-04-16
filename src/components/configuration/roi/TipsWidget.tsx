@@ -43,7 +43,7 @@ const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
           {filteredTips.length > 0 ? (
             <>
               <div className="flex items-center mb-1">
-                <TipIcon iconName={currentTip.iconName} />
+                <TipIcon currentTip={currentTip} />
                 <div className="flex-1"></div>
                 {showNavigation && (
                   <div className="flex space-x-2">
