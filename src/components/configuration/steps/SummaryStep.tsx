@@ -60,7 +60,7 @@ const SummaryStep: React.FC<SummaryStepProps> = ({ config, onEdit }) => {
           <IntegrationsSection 
             integrations={config.integrations} 
             integrationNames={integrationNames}
-            onEdit={() => onEdit('integrations')} 
+            onEdit={() => onEdit('capabilities')} // Changed from 'integrations' to 'capabilities'
           />
           
           <SummaryPriceCard 
