@@ -31,10 +31,10 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
   return (
     <div 
       className={cn(
-        "bg-white dark:bg-gray-800/80 rounded-xl p-4 flex flex-col transition-all duration-200 h-full w-full",
+        "backdrop-blur-sm bg-gray-800/70 rounded-xl p-4 flex flex-col transition-all duration-300 h-full w-full",
         isSelected 
-          ? "border-2 border-[#3EF3B0] shadow-md" 
-          : "border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+          ? "border-2 border-[#3EF3B0] shadow-[0_0_15px_rgba(62,243,176,0.15)]" 
+          : "border border-gray-700 hover:border-gray-600"
       )}
     >
       <div className="flex items-start justify-between mb-3">
@@ -43,20 +43,20 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
             "p-2 rounded-full w-10 h-10 flex items-center justify-center transition-colors",
             isSelected 
               ? "bg-[#3EF3B0]/20 text-[#3EF3B0] border border-[#3EF3B0]/50" 
-              : "bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300"
+              : "bg-gray-700/50 text-gray-300 border border-gray-600"
           )}>
             {capability.icon}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-gray-900 dark:text-white font-medium">
+              <h3 className="text-white font-medium">
                 {capability.name}
               </h3>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <InfoIcon className="h-4 w-4 text-gray-400" />
                 </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-[250px]">
+                <TooltipContent side="top" className="max-w-[250px] bg-gray-700 border-gray-600">
                   {capability.description}
                 </TooltipContent>
               </Tooltip>
@@ -65,7 +65,7 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
         </div>
       </div>
       
-      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+      <p className="text-sm text-gray-400 mb-4">
         {capability.description}
       </p>
       
@@ -76,8 +76,8 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
             className={cn(
               "text-xs font-medium",
               isSelected 
-                ? "bg-[#3EF3B0]/10 text-emerald-600 dark:text-[#3EF3B0] border-[#3EF3B0]/30" 
-                : "bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-600"
+                ? "bg-[#3EF3B0]/10 text-[#3EF3B0] border-[#3EF3B0]/30" 
+                : "bg-gray-700/50 text-gray-400 border-gray-600"
             )}
           >
             +${capability.price} USD
@@ -89,10 +89,10 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
           onClick={() => onToggle(capability.id)}
           variant={isSelected ? "outline" : "default"}
           className={cn(
-            "ml-auto min-w-[100px]",
+            "ml-auto min-w-[100px] transition-all duration-300",
             isSelected 
               ? "bg-[#3EF3B0]/20 border-[#3EF3B0]/50 text-[#3EF3B0] hover:bg-[#3EF3B0]/30 hover:text-[#3EF3B0]" 
-              : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+              : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
           )}
         >
           {isSelected ? (
@@ -106,7 +106,7 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
       {/* Connection interface - only show when capability is selected */}
       {isSelected && capability.hasConnection && (
         <div 
-          className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+          className="mt-4 pt-4 border-t border-gray-700"
         >
           <ConnectionInterface
             capability={capability}
