@@ -5,9 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { estimateBaseMetrics, BaseMetrics } from '@/utils/metricsEstimation';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import CompetitiveAdvantage from './CompetitiveAdvantage';
-import { useROICalculations } from './useROICalculations';
+import { useROICalculations } from './hooks/useROICalculations';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { CAPABILITIES } from '@/data/industries/common';
+import ROIMetrics from './components/ROIMetrics';
+import NoCapabilitiesMessage from './components/NoCapabilitiesMessage';
 
 interface ROICalculatorProps {
   selectedCapabilities: string[];
@@ -44,7 +46,7 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
   const totalCapabilities = CAPABILITIES.length;
   const capabilitiesCount = selectedCapabilities.length;
   
-  // Calcular métricas dinámicas basadas en capacidades seleccionadas
+  // Calculate metrics based on selected capabilities
   const efficiencyBoost = 20 + capabilitiesCount * 3;
   const satisfactionBoost = 15 + capabilitiesCount * 4;
   const conversionBoost = 10 + capabilitiesCount * 2;
@@ -76,29 +78,14 @@ const ROICalculator: React.FC<ROICalculatorProps> = ({
         
         {/* Only show ROI message when capabilities are selected */}
         {capabilitiesCount > 0 ? (
-          <div className="mt-3 bg-gray-700/30 rounded-lg p-4">
-            <p className="text-sm text-gray-200 leading-relaxed">
-              Con {capabilitiesCount} capacidades activadas, tu negocio puede:
-            </p>
-            <ul className="mt-2 text-sm space-y-1.5 text-gray-200">
-              <li className="flex items-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent mr-2"></div>
-                Aumentar la eficiencia operativa hasta un <span className="text-xelia-accent font-medium">{efficiencyBoost}%</span>
-              </li>
-              <li className="flex items-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent mr-2"></div>
-                Mejorar la satisfacción del cliente hasta un <span className="text-xelia-accent font-medium">{satisfactionBoost}%</span>
-              </li>
-              <li className="flex items-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-xelia-accent mr-2"></div>
-                Incrementar las conversiones hasta un <span className="text-xelia-accent font-medium">{conversionBoost}%</span>
-              </li>
-            </ul>
-          </div>
+          <ROIMetrics
+            efficiencyBoost={efficiencyBoost}
+            satisfactionBoost={satisfactionBoost}
+            conversionBoost={conversionBoost}
+            capabilitiesCount={capabilitiesCount}
+          />
         ) : (
-          <div className="text-center text-gray-400 text-sm italic my-3">
-            Selecciona capacidades para ver una estimación de ROI
-          </div>
+          <NoCapabilitiesMessage />
         )}
       </CardContent>
     </Card>

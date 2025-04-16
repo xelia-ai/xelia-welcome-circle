@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import CompetitiveProgressBar from './components/CompetitiveProgressBar';
 
 interface CompetitiveAdvantageProps {
   capabilitiesCount: number;
@@ -99,18 +100,11 @@ const CompetitiveAdvantage: React.FC<CompetitiveAdvantageProps> = ({
         </AnimatePresence>
       )}
       
-      {/* Progress bar with enhanced animation */}
-      <div className="h-2.5 w-full bg-gray-700/80 rounded-full overflow-hidden shadow-inner">
-        <motion.div 
-          className="h-full bg-gradient-to-r from-xelia-accent to-xelia-accent-light"
-          initial={{ width: 0 }}
-          animate={controls}
-          style={{ 
-            boxShadow: '0 0 8px rgba(92, 106, 255, 0.5)',
-            borderRadius: 'inherit'
-          }}
-        />
-      </div>
+      {/* Progress bar component */}
+      <CompetitiveProgressBar 
+        progressValue={progressValue} 
+        controls={controls} 
+      />
     </div>
   );
 };
