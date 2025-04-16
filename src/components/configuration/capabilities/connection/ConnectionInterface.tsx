@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Loader2, Link, Calendar, Phone, Check, AlertCircle } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
@@ -16,21 +16,56 @@ import { Badge } from '@/components/ui/badge';
 
 interface ConnectionInterfaceProps {
   capability: Capability;
+  selectedIntegrations: string[];
   onIntegrationSelect: (integrationId: string) => void;
 }
 
 export const ConnectionInterface: React.FC<ConnectionInterfaceProps> = ({
   capability,
+  selectedIntegrations,
   onIntegrationSelect
 }) => {
   const [connecting, setConnecting] = useState<boolean>(false);
-  const [connected, setConnected] = useState<boolean>(false);
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [selectedIntegration, setSelectedIntegration] = useState<string>('');
 
+  // Check if this integration is already connected
+  const isConnected = () => {
+    if (capability.connectionType === 'whatsapp') {
+      return selectedIntegrations.includes('whatsapp');
+    } else if (capability.connectionType === 'calendar') {
+      return selectedIntegrations.some(int => 
+        ['google-calendar', 'outlook', 'calendly', 'flireo'].includes(int)
+      );
+    } else if (selectedIntegration) {
+      return selectedIntegrations.includes(selectedIntegration);
+    }
+    return false;
+  };
+
+  // Set initial selected integration based on what's already selected
+  useEffect(() => {
+    if (capability.connectionType === 'calendar') {
+      const calendarIntegrations = ['google-calendar', 'outlook', 'calendly', 'flireo'];
+      const found = selectedIntegrations.find(int => calendarIntegrations.includes(int));
+      if (found) {
+        setSelectedIntegration(found);
+      }
+    }
+  }, [capability.connectionType, selectedIntegrations]);
+
   const handleConnect = () => {
+    const connected = isConnected();
+    
     if (connected) {
-      setConnected(false);
+      // Disconnect logic
+      if (capability.connectionType === 'whatsapp') {
+        onIntegrationSelect('whatsapp'); // This will toggle it off
+        setPhoneNumber('');
+      } else if (selectedIntegration) {
+        onIntegrationSelect(selectedIntegration); // This will toggle it off
+        setSelectedIntegration('');
+      }
       return;
     }
     
@@ -38,21 +73,34 @@ export const ConnectionInterface: React.FC<ConnectionInterfaceProps> = ({
     
     // Simulate connection
     setTimeout(() => {
-      setConnected(true);
       setConnecting(false);
       
-      if (selectedIntegration) {
+      if (capability.connectionType === 'whatsapp') {
+        onIntegrationSelect('whatsapp');
+      } else if (selectedIntegration) {
         onIntegrationSelect(selectedIntegration);
       }
-    }, 1500);
+    }, 1000);
   };
 
   const handleSelectIntegration = (value: string) => {
+    // Remove any existing calendar integration
+    if (capability.connectionType === 'calendar') {
+      const calendarIntegrations = ['google-calendar', 'outlook', 'calendly', 'flireo'];
+      calendarIntegrations.forEach(int => {
+        if (selectedIntegrations.includes(int)) {
+          onIntegrationSelect(int); // Toggle off
+        }
+      });
+    }
+    
     setSelectedIntegration(value);
-    onIntegrationSelect(value);
+    // Don't immediately select it - wait for connect button
   };
 
   if (!capability.hasConnection) return null;
+  
+  const connected = isConnected();
   
   return (
     <div className="space-y-3">
@@ -74,7 +122,7 @@ export const ConnectionInterface: React.FC<ConnectionInterfaceProps> = ({
           {connected ? (
             <div className="flex items-center text-emerald-600 dark:text-[#3EF3B0] text-sm">
               <IconBrandWhatsapp size={16} className="mr-2" />
-              <span>WhatsApp Business conectado: {phoneNumber}</span>
+              <span>WhatsApp Business conectado{phoneNumber ? `: ${phoneNumber}` : ''}</span>
             </div>
           ) : (
             <div className="space-y-2">
@@ -141,6 +189,25 @@ export const ConnectionInterface: React.FC<ConnectionInterfaceProps> = ({
               {connecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Calendar className="w-4 h-4 mr-2" />}
               {connecting ? "Conectando..." : "Conectar calendario"}
             </Button>
+          )}
+          
+          {connected && (
+            <div className="flex items-center justify-between">
+              <div className="text-emerald-600 dark:text-[#3EF3B0] text-sm flex items-center">
+                <Calendar className="w-4 h-4 mr-2" />
+                <span>{selectedIntegration === 'google-calendar' ? 'Google Calendar' : 
+                       selectedIntegration === 'outlook' ? 'Outlook' : 
+                       selectedIntegration === 'calendly' ? 'Calendly' : 'Flireo'} conectado</span>
+              </div>
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={handleConnect}
+                className="border-[#3EF3B0]/30 text-emerald-600 dark:text-[#3EF3B0] hover:bg-[#3EF3B0]/10"
+              >
+                Desconectar
+              </Button>
+            </div>
           )}
         </div>
       )}

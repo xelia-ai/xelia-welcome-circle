@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { MessageSquare, Bot, Brain, ServerCog } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { CAPABILITY_CATEGORIES, CAPABILITIES, VOLUME_PRICING } from '@/data/industries/common';
@@ -49,7 +49,7 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
     }
   };
 
-  // Agrupar capacidades por categoría
+  // Group capabilities by category
   const getCapabilitiesByCategory = (category: string) => {
     return CAPABILITIES
       .filter(cap => cap.category === category)
@@ -111,7 +111,7 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
             onChange={onChangeCallsVolume}
           />
           
-          <div className="space-y-1 md:space-y-2">
+          <div className="space-y-3 md:space-y-4">
             <CapabilityGroup
               title={CAPABILITY_CATEGORIES.communication}
               icon={<MessageSquare className="w-5 h-5" />}
@@ -120,6 +120,7 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
               selectedIntegrations={selectedIntegrations}
               onToggleCapability={toggleCapability}
               onToggleIntegration={toggleIntegration}
+              isDefault={true} // Make Communication section open by default
             />
             
             <CapabilityGroup

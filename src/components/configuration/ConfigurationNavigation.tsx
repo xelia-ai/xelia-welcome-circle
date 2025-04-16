@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'integrations' | 'summary';
+type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'summary';
 
 interface ConfigurationNavigationProps {
   currentStep: ConfigStep;
@@ -31,12 +31,16 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
 
   const isFirstStep = currentStep === 'agent-type';
   const isCapabilitiesStep = currentStep === 'capabilities';
+  const isFinalStep = currentStep === 'summary';
 
   // Get the appropriate button text based on step and canProceed state
   const getNextButtonText = () => {
     if (isCapabilitiesStep && !canProceed) {
       return "Selecciona capacidades";
-    } 
+    }
+    if (isFinalStep) {
+      return "Finalizar configuración";
+    }
     return "Siguiente";
   };
 
@@ -70,7 +74,7 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
           }`}
         >
           {getNextButtonText()}
-          <ArrowRight size={isMobile ? 14 : 16} />
+          {isFinalStep ? <Check size={isMobile ? 14 : 16} /> : <ArrowRight size={isMobile ? 14 : 16} />}
         </Button>
       </motion.div>
     </div>

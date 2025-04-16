@@ -57,10 +57,10 @@ const CallsVolumeSelector: React.FC<CallsVolumeSelectorProps> = ({
                 <Badge 
                   variant="outline" 
                   className={`
-                    mt-2 opacity-0 group-hover:opacity-100 peer-data-[state=checked]:opacity-100 transition-opacity duration-200
+                    mt-2 group-hover:opacity-100 transition-opacity duration-200
                     ${selectedVolume === option.value 
-                      ? 'bg-[#3EF3B0]/10 text-emerald-600 dark:text-[#3EF3B0] border-[#3EF3B0]/30' 
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                      ? 'opacity-100 bg-[#3EF3B0]/10 text-emerald-600 dark:text-[#3EF3B0] border-[#3EF3B0]/30' 
+                      : 'opacity-0 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                     }
                   `}
                 >
