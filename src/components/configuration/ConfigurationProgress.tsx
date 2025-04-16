@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 
-type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'integrations' | 'summary';
+type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'summary';
 
 interface ConfigurationProgressProps {
   currentStep: ConfigStep;
@@ -15,7 +15,7 @@ const ConfigurationProgress: React.FC<ConfigurationProgressProps> = ({
   totalSteps 
 }) => {
   const getStepNumber = () => {
-    const steps: ConfigStep[] = ['agent-type', 'industry', 'website', 'capabilities', 'integrations', 'summary'];
+    const steps: ConfigStep[] = ['agent-type', 'industry', 'website', 'capabilities', 'summary'];
     return steps.indexOf(currentStep) + 1;
   };
 
@@ -25,8 +25,7 @@ const ConfigurationProgress: React.FC<ConfigurationProgressProps> = ({
     { key: 'industry', label: 'Industria' },
     { key: 'website', label: 'Entrenar' },
     { key: 'capabilities', label: 'Capacidades' },
-    { key: 'integrations', label: 'Integraciones' }, 
-    { key: 'summary', label: 'Demo' }
+    { key: 'summary', label: 'Resumen' }
   ];
   const currentStepNumber = getStepNumber();
 

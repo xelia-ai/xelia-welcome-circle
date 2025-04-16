@@ -48,7 +48,6 @@ export const useConfigureState = () => {
       case 'capabilities':
         setCurrentStep('summary');
         break;
-      // Removed integrations step as it's now merged with capabilities
     }
   };
 
@@ -67,7 +66,6 @@ export const useConfigureState = () => {
       case 'summary':
         setCurrentStep('capabilities');
         break;
-      // Removed integrations step as it's now merged with capabilities
     }
   };
 

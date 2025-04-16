@@ -2,7 +2,7 @@
 import React from 'react';
 import { Bot, Building2, FileText, Zap, Link, Settings, Sparkles } from 'lucide-react';
 
-export type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'integrations' | 'summary';
+export type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'summary';
 
 export interface StepInfo {
   title: string;
@@ -30,11 +30,6 @@ export const stepInfo: Record<ConfigStep, StepInfo> = {
     title: 'Selecciona las capacidades',
     description: 'Elige las funcionalidades que necesita tu Xelia para potenciar tu negocio.',
     icon: React.createElement(Zap, { className: "w-5 h-5" })
-  },
-  'integrations': {
-    title: 'Configura integraciones',
-    description: 'Conecta Xelia con tus herramientas y sistemas existentes.',
-    icon: React.createElement(Link, { className: "w-5 h-5" })
   },
   'summary': {
     title: 'Resumen de configuración',
