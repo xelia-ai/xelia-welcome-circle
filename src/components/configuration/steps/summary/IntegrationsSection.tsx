@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface IntegrationsSectionProps {
   integrations: string[];
@@ -24,6 +25,7 @@ const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   // Get the actual integration data to display icons/logos
   const integrationData = integrations.filter(i => selectedIntegrations.includes(i.id));
@@ -47,17 +49,19 @@ const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // You would call an API or filter the integrations based on the search term
-    toast({
-      title: "Buscando integraciones",
-      description: `Buscando "${searchTerm}"`,
-    });
+    // Navigate to capabilities section to search for integrations
+    navigate('/configure?step=capabilities');
+  };
+
+  const handleEditClick = () => {
+    // Navigate to the capabilities page to edit integrations
+    navigate('/configure?step=capabilities');
   };
   
   return (
     <SectionContainer 
       title="Integraciones conectadas" 
-      onEdit={onEdit}
+      onEdit={handleEditClick}
       customButtons={
         <div className="flex space-x-2">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -112,7 +116,7 @@ const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
             variant="outline" 
             size="sm" 
             className="text-xs bg-transparent border-gray-600 hover:bg-gray-700 hover:border-gray-500 transition-colors"
-            onClick={onEdit}
+            onClick={handleEditClick}
           >
             Editar
           </Button>

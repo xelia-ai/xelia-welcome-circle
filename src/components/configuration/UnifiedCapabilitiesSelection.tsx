@@ -9,6 +9,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import CapabilityGroup from './capabilities/CapabilityGroup';
 import TipsWidget from './roi/TipsWidget';
 import CallsVolumeSelector from './capabilities/CallsVolumeSelector';
+import { getCommunicationCapabilities } from './capabilities/CommunicationCards';
 
 interface UnifiedCapabilitiesSelectionProps {
   selectedCapabilities: string[];
@@ -49,10 +50,13 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
     }
   };
 
-  // Group capabilities by category
+  // Get communication capabilities (including the new one)
+  const communicationCapabilities = getCommunicationCapabilities();
+
+  // Group other capabilities by category
   const getCapabilitiesByCategory = (category: string) => {
     return CAPABILITIES
-      .filter(cap => cap.category === category)
+      .filter(cap => cap.category === category && category !== 'communication')
       .map(cap => ({
         id: cap.id,
         name: cap.name,
@@ -84,7 +88,6 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
     }
   };
 
-  const communicationCapabilities = getCapabilitiesByCategory('communication');
   const automationCapabilities = getCapabilitiesByCategory('automation');
   const intelligenceCapabilities = getCapabilitiesByCategory('intelligence');
   const integrationCapabilities = getCapabilitiesByCategory('integration');
@@ -111,7 +114,7 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
             onChange={onChangeCallsVolume}
           />
           
-          <div className="space-y-3 md:space-y-4">
+          <div className="space-y-5 md:space-y-6">
             <CapabilityGroup
               title={CAPABILITY_CATEGORIES.communication}
               icon={<MessageSquare className="w-5 h-5" />}

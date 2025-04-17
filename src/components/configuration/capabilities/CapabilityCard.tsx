@@ -31,13 +31,13 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
   return (
     <div 
       className={cn(
-        "backdrop-blur-sm bg-gray-800/70 rounded-xl p-4 flex flex-col transition-all duration-300 h-full w-full",
+        "backdrop-blur-sm bg-gray-800/70 rounded-xl p-5 flex flex-col transition-all duration-300 h-full w-full",
         isSelected 
           ? "border-2 border-[#3EF3B0] shadow-[0_0_15px_rgba(62,243,176,0.15)]" 
           : "border border-gray-700 hover:border-gray-600"
       )}
     >
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className={cn(
             "p-2 rounded-full w-10 h-10 flex items-center justify-center transition-colors",
@@ -56,8 +56,11 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
                 <TooltipTrigger asChild>
                   <InfoIcon className="h-4 w-4 text-gray-400" />
                 </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-[250px] bg-gray-700 border-gray-600">
-                  {capability.description}
+                <TooltipContent side="top" className="max-w-[300px] bg-gray-700 border-gray-600">
+                  <p className="text-sm">{capability.description}</p>
+                  <p className="text-xs text-[#3EF3B0] mt-2">
+                    Esta capacidad mejora la experiencia de tus clientes y aumenta la eficiencia de tu negocio.
+                  </p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -65,7 +68,7 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
         </div>
       </div>
       
-      <p className="text-sm text-gray-400 mb-4">
+      <p className="text-sm text-gray-400 mb-5">
         {capability.description}
       </p>
       

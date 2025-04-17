@@ -45,7 +45,7 @@ const Demo = () => {
 
         {/* Conversation demo area */}
         <ConversationDemo 
-          initialMessage="¡Hola! Soy tu asistente Xelia. ¿En qué puedo ayudarte hoy?" 
+          initialMessage="¡Hola! Soy tu asistente Xelia especializado en tu negocio. ¿En qué puedo ayudarte hoy?" 
         />
 
         <ActivationCard onActivate={handleContinueToPayment} />

@@ -8,6 +8,7 @@ import ROICalculator from './roi/ROICalculator';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CapabilityGroup from './capabilities/CapabilityGroup';
 import TipsWidget from './roi/TipsWidget';
+import { getCommunicationCapabilities } from './capabilities/CommunicationCards';
 
 interface CapabilitiesSelectionProps {
   selectedCapabilities: string[];
@@ -32,16 +33,22 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
     }
   };
 
-  // Agrupar capacidades por categoría
+  // Get the communication capabilities including our new one
+  const communicationCapabilities = getCommunicationCapabilities();
+  
+  // Agrupar el resto de capacidades por categoría
   const getCapabilitiesByCategory = (category: string) => {
     return CAPABILITIES
-      .filter(cap => cap.category === category)
+      .filter(cap => cap.category === category && category !== 'communication')
       .map(cap => ({
         id: cap.id,
         name: cap.name,
         description: cap.description,
         icon: getIconForCapability(cap.id),
-        price: cap.price
+        price: cap.price,
+        hasConnection: cap.hasConnection,
+        connectionType: cap.connectionType,
+        integrationOptions: cap.integrationOptions
       }));
   };
 
@@ -64,7 +71,6 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
     }
   };
 
-  const communicationCapabilities = getCapabilitiesByCategory('communication');
   const automationCapabilities = getCapabilitiesByCategory('automation');
   const intelligenceCapabilities = getCapabilitiesByCategory('intelligence');
   const integrationCapabilities = getCapabilitiesByCategory('integration');
@@ -89,6 +95,7 @@ const CapabilitiesSelection: React.FC<CapabilitiesSelectionProps> = ({
               selectedIntegrations={[]}
               onToggleCapability={toggleCapability}
               onToggleIntegration={() => {}}
+              isDefault={true}
             />
             
             <CapabilityGroup

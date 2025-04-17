@@ -21,7 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/configure" element={<Configure />} />
           <Route path="/demo" element={<Demo />} />
-          <Route path="/dashboard" element={<Navigate to="/demo" replace />} /> {/* Temporary redirect until Dashboard page is created */}
+          <Route path="/dashboard" element={<Navigate to="/demo" replace />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

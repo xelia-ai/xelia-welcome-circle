@@ -50,7 +50,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
         className="rounded-xl overflow-hidden bg-gray-800/40 backdrop-blur-sm border border-gray-700 hover:border-gray-600 transition-all duration-300"
       >
         <AccordionTrigger 
-          className="p-4 flex items-center justify-between hover:bg-gray-700/30 transition-colors"
+          className="p-5 flex items-center justify-between hover:bg-gray-700/30 transition-colors no-underline"
         >
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-md bg-gray-700/50 text-gray-300 border border-gray-600">
@@ -67,7 +67,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
         </AccordionTrigger>
         
         <AccordionContent className="transition-all duration-300 ease-in-out">
-          <div className="p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             {capabilities.map((capability) => (
               <CapabilityCard
                 key={capability.id}

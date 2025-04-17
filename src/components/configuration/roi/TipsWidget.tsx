@@ -1,98 +1,71 @@
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, ArrowLeft, ArrowRight } from 'lucide-react';
-import { AnimatePresence } from 'framer-motion';
-import { useTipsData } from './hooks/useTipsData';
+import React, { useState, useEffect } from 'react';
+import { Sparkles } from 'lucide-react';
 import TipContent from './components/TipContent';
 import EmptyTipState from './components/EmptyTipState';
-import TipIcon from './components/TipIcon';
+import { Tip } from './types';
+import { useTipsData } from './hooks/useTipsData';
+import { cn } from '@/lib/utils';
 
 interface TipsWidgetProps {
   selectedCapabilities: string[];
 }
 
 const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
-  const {
-    currentTipIndex,
-    setCurrentTipIndex,
-    filteredTips,
-    currentTip
-  } = useTipsData(selectedCapabilities);
+  const { tips } = useTipsData(selectedCapabilities);
+  const [activeTipIndex, setActiveTipIndex] = useState(0);
+  const [lastChange, setLastChange] = useState(Date.now());
+  const [iconColor, setIconColor] = useState('#3EF3B0');
 
-  const handlePreviousTip = () => {
-    setCurrentTipIndex((prev) => (prev === 0 ? filteredTips.length - 1 : prev - 1));
-  };
-
-  const handleNextTip = () => {
-    setCurrentTipIndex((prev) => (prev + 1) % filteredTips.length);
-  };
-
-  const showNavigation = filteredTips.length > 1;
+  useEffect(() => {
+    if (tips.length === 0) return;
+    
+    const interval = setInterval(() => {
+      setActiveTipIndex((prev) => (prev + 1) % tips.length);
+      setLastChange(Date.now());
+      
+      // Change icon color with each tip change
+      const colors = ['#3EF3B0', '#FFD644', '#FF7A50', '#61A6F9'];
+      setIconColor(colors[Math.floor(Math.random() * colors.length)]);
+    }, 8000);
+    
+    return () => clearInterval(interval);
+  }, [tips.length]);
 
   return (
-    <Card className="bg-gray-800/80 border border-gray-700 h-full w-full max-w-full m-0 p-0 box-border relative overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.2)]">
-      <CardHeader className="pb-0 pt-3 px-3 md:px-5">
-        <CardTitle className="text-base font-medium text-white flex items-center">
-          <Sparkles className="w-5 h-5 mr-1.5 text-yellow-400" />
-          Consejos y estrategias
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="pt-2 px-3 md:px-5 pb-4">
-        <div className="relative min-h-[100px] flex flex-col">
-          {filteredTips.length > 0 ? (
-            <>
-              <div className="flex items-center mb-1">
-                <TipIcon currentTip={currentTip} />
-                <div className="flex-1"></div>
-                {showNavigation && (
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={handlePreviousTip}
-                      className="p-1 rounded-full hover:bg-gray-700/50 text-gray-400 hover:text-white transition-colors"
-                      aria-label="Consejo anterior"
-                    >
-                      <ArrowLeft className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={handleNextTip}
-                      className="p-1 rounded-full hover:bg-gray-700/50 text-gray-400 hover:text-white transition-colors"
-                      aria-label="Siguiente consejo"
-                    >
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              <AnimatePresence mode="wait">
-                <TipContent key={currentTip.id} tip={currentTip} />
-              </AnimatePresence>
-
-              {/* Pagination dots */}
-              {showNavigation && (
-                <div className="flex justify-center space-x-1 mt-2">
-                  {filteredTips.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentTipIndex(index)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        index === currentTipIndex
-                          ? "w-4 bg-yellow-400"
-                          : "w-1.5 bg-gray-600 hover:bg-gray-500"
-                      }`}
-                      aria-label={`Ir al consejo ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              )}
-            </>
-          ) : (
-            <EmptyTipState />
+    <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 h-full backdrop-blur-sm">
+      <div className="flex items-center mb-4">
+        <div 
+          className={cn(
+            "p-2 rounded-md mr-3 transition-colors duration-500",
+            "bg-opacity-20 border border-opacity-30"
           )}
+          style={{ 
+            backgroundColor: `${iconColor}20`, 
+            borderColor: `${iconColor}50`,
+            color: iconColor
+          }}
+        >
+          <Sparkles className="w-5 h-5" />
         </div>
-      </CardContent>
-    </Card>
+        <h3 className="text-lg font-medium text-white">Consejos y estrategias</h3>
+      </div>
+      
+      {tips.length > 0 ? (
+        <div className="min-h-[160px] flex items-center">
+          {tips.map((tip: Tip, index: number) => (
+            <TipContent 
+              key={tip.id}
+              tip={tip}
+              isActive={index === activeTipIndex} 
+              lastChange={lastChange}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyTipState />
+      )}
+    </div>
   );
 };
 

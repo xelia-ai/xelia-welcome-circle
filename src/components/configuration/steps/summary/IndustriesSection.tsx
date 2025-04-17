@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { Check } from 'lucide-react';
+import { Building2, Briefcase, Store } from 'lucide-react';
 import SectionContainer from './SectionContainer';
+import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
 
 interface IndustriesSectionProps {
   industryNames: string[];
@@ -12,18 +14,45 @@ const IndustriesSection: React.FC<IndustriesSectionProps> = ({
   industryNames,
   onEdit
 }) => {
+  const navigate = useNavigate();
+  
+  const getIndustryIcon = (industryName: string) => {
+    if (industryName.toLowerCase().includes('comercio') || 
+        industryName.toLowerCase().includes('retail') ||
+        industryName.toLowerCase().includes('tienda')) {
+      return <Store className="w-4 h-4" />;
+    } else if (industryName.toLowerCase().includes('finanza') || 
+               industryName.toLowerCase().includes('banco') ||
+               industryName.toLowerCase().includes('seguro')) {
+      return <Briefcase className="w-4 h-4" />;
+    }
+    return <Building2 className="w-4 h-4" />;
+  };
+  
+  const handleEditClick = () => {
+    navigate('/configure?step=industry');
+  };
+  
   return (
-    <SectionContainer title="Industria" onEdit={onEdit}>
-      <ul className="space-y-2">
+    <SectionContainer 
+      title="Industria" 
+      onEdit={handleEditClick}
+    >
+      <div className="space-y-3">
         {industryNames.map((name, index) => (
-          <li key={index} className="flex items-center text-gray-300 group hover:text-white transition-colors duration-300">
-            <div className="w-5 h-5 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 flex items-center justify-center mr-2 flex-shrink-0 group-hover:from-indigo-500/30 group-hover:to-purple-500/30 transition-all duration-300">
-              <Check className="w-3 h-3 text-purple-400 group-hover:text-purple-300" />
+          <div key={index} className="flex items-center p-3 rounded-lg bg-gray-700/30 border border-gray-700 hover:border-gray-600 transition-all duration-300">
+            <div className="p-2 rounded-md bg-gray-700/70 border border-gray-600 mr-3 text-white">
+              {getIndustryIcon(name)}
             </div>
-            {name}
-          </li>
+            <div>
+              <span className="text-gray-300">{name}</span>
+              {index === 0 && (
+                <Badge className="ml-2 text-xs bg-gray-700 text-gray-300">Principal</Badge>
+              )}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </SectionContainer>
   );
 };
