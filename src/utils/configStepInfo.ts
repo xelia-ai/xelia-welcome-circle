@@ -12,7 +12,7 @@ export interface StepInfo {
 
 export const stepInfo: Record<ConfigStep, StepInfo> = {
   'agent-type': {
-    title: 'Elige el tipo de Xelia',
+    title: 'Agente',
     description: 'Selecciona el tipo de Xelia que mejor se adapte a las necesidades de tu empresa.',
     icon: React.createElement(Sparkles, { className: "w-5 h-5" })
   },
@@ -32,7 +32,7 @@ export const stepInfo: Record<ConfigStep, StepInfo> = {
     icon: React.createElement(Zap, { className: "w-5 h-5" })
   },
   'summary': {
-    title: 'Resumen de configuración',
+    title: 'Demo',
     description: 'Revisa tu configuración antes de finalizar.',
     icon: React.createElement(Settings, { className: "w-5 h-5" })
   }
