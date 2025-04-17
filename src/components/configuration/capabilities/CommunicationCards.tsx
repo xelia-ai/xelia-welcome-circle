@@ -22,7 +22,7 @@ export const getCommunicationCapabilities = (): Capability[] => {
       price: 75,
       hasConnection: true,
       connectionType: 'whatsapp',
-      integrationOptions: ['whatsapp']
+      integrationOptions: [{ id: 'whatsapp', name: 'WhatsApp' }]
     },
     {
       id: 'omnichannel',

@@ -12,16 +12,15 @@ interface TipsWidgetProps {
 }
 
 const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
-  const { tips } = useTipsData(selectedCapabilities);
-  const [activeTipIndex, setActiveTipIndex] = useState(0);
+  const { filteredTips, currentTipIndex, setCurrentTipIndex } = useTipsData(selectedCapabilities);
   const [lastChange, setLastChange] = useState(Date.now());
   const [iconColor, setIconColor] = useState('#3EF3B0');
 
   useEffect(() => {
-    if (tips.length === 0) return;
+    if (filteredTips.length === 0) return;
     
     const interval = setInterval(() => {
-      setActiveTipIndex((prev) => (prev + 1) % tips.length);
+      setCurrentTipIndex((prev) => (prev + 1) % filteredTips.length);
       setLastChange(Date.now());
       
       // Change icon color with each tip change
@@ -30,7 +29,7 @@ const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
     }, 8000);
     
     return () => clearInterval(interval);
-  }, [tips.length]);
+  }, [filteredTips.length, setCurrentTipIndex]);
 
   return (
     <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 h-full backdrop-blur-sm">
@@ -51,14 +50,12 @@ const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
         <h3 className="text-lg font-medium text-white">Consejos y estrategias</h3>
       </div>
       
-      {tips.length > 0 ? (
+      {filteredTips.length > 0 ? (
         <div className="min-h-[160px] flex items-center">
-          {tips.map((tip: Tip, index: number) => (
+          {filteredTips.map((tip: Tip, index: number) => (
             <TipContent 
               key={tip.id}
               tip={tip}
-              isActive={index === activeTipIndex} 
-              lastChange={lastChange}
             />
           ))}
         </div>

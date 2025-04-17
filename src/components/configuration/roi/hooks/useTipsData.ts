@@ -67,7 +67,7 @@ export const useTipsData = (selectedCapabilities: string[]) => {
 
   return {
     currentTipIndex,
-    setCurrentTipIndex, // Explicitly return the setter function
+    setCurrentTipIndex,
     filteredTips,
     currentTip: filteredTips[currentTipIndex] || allTips[0] // Add fallback for empty state
   };
