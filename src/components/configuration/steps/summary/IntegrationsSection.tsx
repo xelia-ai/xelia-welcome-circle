@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface IntegrationsSectionProps {
   integrations: string[];
-  integrationNames: string[];
+  integrationNames: Record<string, string>;
   onEdit: () => void;
 }
 

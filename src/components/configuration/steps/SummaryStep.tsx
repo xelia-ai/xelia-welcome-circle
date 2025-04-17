@@ -44,6 +44,10 @@ const SummaryStep: React.FC<SummaryStepProps> = ({ config, onEdit, updateConfig 
   const integrationNames = getIntegrationNames(config.integrations);
   const priceInfo = calculateIndustriesPrice(config.industries.length);
   
+  // Extract the values from the Record objects to create arrays of names
+  const capabilityNamesArray = Object.values(capabilityNames);
+  const integrationNamesArray = Object.values(integrationNames);
+  
   // Updated base price to $75
   const basePrice = 75;
   const capabilitiesPrice = config.capabilities.length * 25;
