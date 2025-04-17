@@ -42,7 +42,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
     <Accordion 
       type="single" 
       collapsible 
-      className="mb-4"
+      className="mb-6"
       defaultValue={isDefault ? "item-1" : undefined}
     >
       <AccordionItem 
@@ -67,7 +67,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
         </AccordionTrigger>
         
         <AccordionContent className="transition-all duration-300 ease-in-out">
-          <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {capabilities.map((capability) => (
               <CapabilityCard
                 key={capability.id}
