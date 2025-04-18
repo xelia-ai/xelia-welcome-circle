@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Check, PhoneCall } from 'lucide-react';
+import { PhoneCall } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { VOLUME_PRICING } from '@/data/industries/common';
 
@@ -42,7 +43,7 @@ const CallsVolumeSelector: React.FC<CallsVolumeSelectorProps> = ({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center gap-2 mb-4">
         <PhoneCall className="w-5 h-5 text-[#3EF3B0]" />
         <h3 className="text-lg font-medium text-white">Volumen de llamadas mensuales</h3>
       </div>
@@ -55,20 +56,20 @@ const CallsVolumeSelector: React.FC<CallsVolumeSelectorProps> = ({
               key={option.id}
               onClick={() => onChange(option.id)}
               className={cn(
-                "group relative flex flex-col items-center justify-center p-6 rounded-xl border transition-all duration-300",
-                "min-h-[140px]",
+                "relative flex flex-col items-center justify-center p-8 rounded-xl border transition-all duration-300",
+                "min-h-[180px] w-full",
                 isSelected 
-                  ? "bg-[#3EF3B0]/10 border-[#3EF3B0]/30 text-white" 
-                  : "bg-gray-800/40 backdrop-blur-sm border-gray-700 hover:border-gray-600 text-gray-300"
+                  ? "bg-[#3EF3B0]/10 border-[#3EF3B0]/30" 
+                  : "bg-gray-800/40 border-gray-700 hover:border-gray-600"
               )}
             >
-              <div className="text-center">
-                <div className="text-xl font-semibold mb-2">{option.label}</div>
-                <div className="text-base">{option.description}</div>
+              <div className="text-center flex flex-col items-center justify-center gap-2">
+                <div className="text-2xl font-semibold text-white mb-1">{option.label}</div>
+                <div className="text-lg text-gray-300">{option.description}</div>
                 
                 {option.isDefault && (
                   <div className={cn(
-                    "mt-3 text-xs font-medium py-1 px-3 rounded-full inline-block",
+                    "mt-4 text-sm font-medium py-1.5 px-4 rounded-full",
                     isSelected ? "bg-[#3EF3B0]/20 text-[#3EF3B0]" : "bg-gray-700/70 text-gray-400"
                   )}>
                     Incluido
