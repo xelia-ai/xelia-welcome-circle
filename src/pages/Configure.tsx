@@ -66,7 +66,7 @@ const Configure = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light p-4 md:py-8 md:px-6">
-      <div className="max-w-5xl w-full mx-auto flex flex-col flex-grow">
+      <div className="max-w-7xl w-full mx-auto flex flex-col flex-grow">
         <StepHeader 
           stepInfo={stepInfo[currentStep]} 
           currentStep={currentStep} 
@@ -79,14 +79,16 @@ const Configure = () => {
 
         <div className="frosted-glass rounded-xl p-4 md:p-6 flex-grow mb-6 overflow-hidden">
           <div className="h-full overflow-y-auto pb-20 md:pb-4 pr-1 -mr-1">
-            <AnimatedStepContent currentStep={currentStep} direction={direction}>
-              <StepContent
-                currentStep={currentStep}
-                config={config}
-                updateConfig={updateConfig}
-                onEdit={handleEditInSummary}
-              />
-            </AnimatedStepContent>
+            <div className="min-w-[320px] max-w-full mx-auto">
+              <AnimatedStepContent currentStep={currentStep} direction={direction}>
+                <StepContent
+                  currentStep={currentStep}
+                  config={config}
+                  updateConfig={updateConfig}
+                  onEdit={handleEditInSummary}
+                />
+              </AnimatedStepContent>
+            </div>
           </div>
         </div>
 
