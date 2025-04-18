@@ -1,9 +1,13 @@
+
 export interface Capability {
   id: string;
   name: string;
   description: string;
   price: number;
-  icon: string;
+  icon: React.ReactNode;
+  hasConnection?: boolean;
+  connectionType?: 'other' | 'whatsapp' | 'calendar';
+  integrationOptions?: { id: string; name: string }[];
 }
 
 export type CapabilityType = 'communication' | 'automation' | 'intelligence' | 'integrations';

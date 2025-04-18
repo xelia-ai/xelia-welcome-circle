@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import TipContent from './components/TipContent';
 import EmptyTipState from './components/EmptyTipState';
 import { Tip } from './types';

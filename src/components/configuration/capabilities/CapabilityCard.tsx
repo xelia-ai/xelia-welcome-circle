@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -9,19 +10,19 @@ interface CapabilityCardProps {
     price: number;
     icon: React.ReactNode;
   };
-  isActive: boolean;
+  isSelected: boolean;
   onToggle: () => void;
 }
 
 const CapabilityCard: React.FC<CapabilityCardProps> = ({
   capability,
-  isActive,
+  isSelected,
   onToggle,
 }) => {
   return (
     <div 
       className={`relative p-6 rounded-lg border transition-all duration-200 ${
-        isActive 
+        isSelected 
           ? 'bg-[#3EF3B0]/10 border-[#3EF3B0]/30' 
           : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
       }`}
@@ -43,13 +44,13 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({
           variant="outline"
           size="sm"
           className={`transition-all duration-200 ${
-            isActive
+            isSelected
               ? 'bg-[#3EF3B0]/20 text-[#3EF3B0] hover:bg-[#3EF3B0]/30 border-[#3EF3B0]/30'
               : 'bg-transparent text-gray-400 hover:text-white hover:bg-gray-700'
           }`}
           onClick={onToggle}
         >
-          {isActive ? 'Desactivar' : 'Activar'}
+          {isSelected ? 'Desactivar' : 'Activar'}
         </Button>
       </div>
     </div>
