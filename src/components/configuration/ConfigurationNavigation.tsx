@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { ArrowLeft, ArrowRight, Check, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { useIsMobile, useNavigate } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useNavigate } from 'react-router-dom';
 
 type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'summary';
 

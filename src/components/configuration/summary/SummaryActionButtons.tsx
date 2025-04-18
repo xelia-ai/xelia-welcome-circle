@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircle, MessageSquare, PhoneCall } from 'lucide-react';
@@ -5,10 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { CalendarDays } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+
 interface SummaryActionButtonsProps {
   isCallDialogOpen: boolean;
   setIsCallDialogOpen: (isOpen: boolean) => void;
 }
+
 const SummaryActionButtons: React.FC<SummaryActionButtonsProps> = ({
   isCallDialogOpen,
   setIsCallDialogOpen
@@ -81,7 +84,8 @@ const SummaryActionButtons: React.FC<SummaryActionButtonsProps> = ({
           Probar Demo
         </Button>
       </div>
-    </>;
+    </>
+  );
 };
 
 export default SummaryActionButtons;
