@@ -43,6 +43,18 @@ const SummaryStep: React.FC<SummaryStepProps> = ({
     }
   };
 
+  // Create a mapping for capability names
+  const capabilityNames: Record<string, string> = {};
+  config.capabilities.forEach(cap => {
+    capabilityNames[cap] = cap; // Using the ID as the name for now
+  });
+
+  // Create a mapping for integration names
+  const integrationNames: Record<string, string> = {};
+  config.integrations.forEach(int => {
+    integrationNames[int] = int; // Using the ID as the name for now
+  });
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="md:col-span-2">
@@ -59,14 +71,14 @@ const SummaryStep: React.FC<SummaryStepProps> = ({
           
           <CapabilitiesSection 
             capabilities={config.capabilities}
-            capabilityNames={config.capabilities}
+            capabilityNames={capabilityNames}
             callsVolume={config.callsVolume}
             onEdit={() => handleEditInSummary('capabilities')} 
           />
           
           <IntegrationsSection 
             integrations={config.integrations}
-            integrationNames={config.integrations}
+            integrationNames={integrationNames}
             onEdit={() => handleEditInSummary('capabilities')} 
           />
           

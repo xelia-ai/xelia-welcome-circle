@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { 
@@ -73,9 +72,7 @@ const CapabilityGroup: React.FC<CapabilityGroupProps> = ({
                 key={capability.id}
                 capability={capability}
                 isSelected={selectedCapabilities.includes(capability.id)}
-                onToggle={onToggleCapability}
-                onIntegrationSelect={onToggleIntegration}
-                selectedIntegrations={selectedIntegrations}
+                onToggle={() => onToggleCapability(capability.id)}
               />
             ))}
           </div>
