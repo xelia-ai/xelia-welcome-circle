@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { ArrowLeft, ArrowRight, Check, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile, useNavigate } from '@/hooks/use-mobile';
 
 type ConfigStep = 'agent-type' | 'industry' | 'website' | 'capabilities' | 'summary';
 
@@ -23,7 +22,8 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
   onPrevious
 }) => {
   const isMobile = useIsMobile();
-  
+  const navigate = useNavigate();
+
   const getStepNumber = () => {
     const steps: ConfigStep[] = ['agent-type', 'industry', 'website', 'capabilities', 'summary'];
     return steps.indexOf(currentStep) + 1;
@@ -33,7 +33,10 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
   const isCapabilitiesStep = currentStep === 'capabilities';
   const isFinalStep = currentStep === 'summary';
 
-  // Get the appropriate button text based on step and canProceed state
+  const handlePrevious = () => {
+    onPrevious();
+  };
+
   const getNextButtonText = () => {
     if (isCapabilitiesStep && !canProceed) {
       return "Selecciona capacidades";
@@ -48,7 +51,7 @@ const ConfigurationNavigation: React.FC<ConfigurationNavigationProps> = ({
     <div className={`flex justify-between items-center w-full ${isMobile ? 'fixed bottom-0 left-0 right-0 z-50 bg-xelia-dark/95 border-t border-gray-700 p-3 backdrop-blur-md' : ''}`}>
       <Button 
         variant="outline" 
-        onClick={onPrevious}
+        onClick={handlePrevious}
         disabled={false} // Always enabled, even on first step
         className="flex items-center gap-1 md:gap-2 bg-[#444] border-[#444] text-white hover:bg-[#555] hover:text-white transition-all duration-200 h-10 md:h-auto px-3 md:px-4 text-sm md:text-base"
       >

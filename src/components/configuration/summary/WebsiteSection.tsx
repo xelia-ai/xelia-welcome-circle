@@ -1,7 +1,7 @@
 
 import React from 'react';
 import SectionHeader from './SectionHeader';
-import TrainingTabs from './TrainingTabs';
+import WebsiteInput from '../training/WebsiteInput';
 import TrainingStatusDisplay from './TrainingStatusDisplay';
 
 interface WebsiteSectionProps {
@@ -35,10 +35,15 @@ const WebsiteSection: React.FC<WebsiteSectionProps> = ({
       />
       
       {editingSection === 'website' ? (
-        <div className="p-3 bg-gray-700/40 rounded-lg mt-4 animate-in slide-in-from-top duration-300">
-          <TrainingTabs 
-            tempWebsite={tempWebsite}
-            setTempWebsite={setTempWebsite}
+        <div className="p-3 bg-gray-700/40 rounded-lg mt-4">
+          <WebsiteInput 
+            websiteUrl={tempWebsite} 
+            onChange={setTempWebsite}
+            onValidated={(url, isValid) => {
+              if (isValid) {
+                setTempWebsite(url);
+              }
+            }}
           />
         </div>
       ) : (

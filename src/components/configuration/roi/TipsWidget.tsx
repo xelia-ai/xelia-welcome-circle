@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import TipContent from './components/TipContent';
 import EmptyTipState from './components/EmptyTipState';
 import { Tip } from './types';
@@ -12,51 +11,51 @@ interface TipsWidgetProps {
 }
 
 const TipsWidget: React.FC<TipsWidgetProps> = ({ selectedCapabilities }) => {
-  const { filteredTips, currentTipIndex, setCurrentTipIndex } = useTipsData(selectedCapabilities);
-  const [lastChange, setLastChange] = useState(Date.now());
-  const [iconColor, setIconColor] = useState('#3EF3B0');
+  const { filteredTips } = useTipsData(selectedCapabilities);
+  const [currentTipIndex, setCurrentTipIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (filteredTips.length > 0) {
-        setCurrentTipIndex((prev) => (prev + 1) % filteredTips.length);
-        setLastChange(Date.now());
-        
-        // Change icon color with each tip change
-        const colors = ['#3EF3B0', '#FFD644', '#FF7A50', '#61A6F9'];
-        setIconColor(colors[Math.floor(Math.random() * colors.length)]);
-      }
-    }, 8000);
-    
-    return () => clearInterval(interval);
-  }, [filteredTips.length, setCurrentTipIndex]);
+  const handlePrevTip = () => {
+    setCurrentTipIndex((prev) => (prev - 1 + filteredTips.length) % filteredTips.length);
+  };
+
+  const handleNextTip = () => {
+    setCurrentTipIndex((prev) => (prev + 1) % filteredTips.length);
+  };
 
   return (
-    <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 h-full backdrop-blur-sm">
-      <div className="flex items-center mb-4">
-        <div 
-          className={cn(
-            "p-2 rounded-md mr-3 transition-colors duration-500",
-            "bg-opacity-20 border border-opacity-30"
-          )}
-          style={{ 
-            backgroundColor: `${iconColor}20`, 
-            borderColor: `${iconColor}50`,
-            color: iconColor
-          }}
-        >
-          <Sparkles className="w-5 h-5" />
+    <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 h-auto backdrop-blur-sm">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center">
+          <div className="p-2 rounded-md mr-3 bg-[#3EF3B0]/20 border border-[#3EF3B0]/30 text-[#3EF3B0]">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <h3 className="text-lg font-medium text-white">Consejos y estrategias</h3>
         </div>
-        <h3 className="text-lg font-medium text-white">Consejos y estrategias</h3>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="p-2 h-8 w-8"
+            onClick={handlePrevTip}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant="outline"
+            size="sm"
+            className="p-2 h-8 w-8"
+            onClick={handleNextTip}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
       
       {filteredTips.length > 0 ? (
-        <div className="min-h-[160px] flex items-center">
-          <TipContent 
-            key={filteredTips[currentTipIndex].id} 
-            tip={filteredTips[currentTipIndex]}
-          />
-        </div>
+        <TipContent 
+          key={filteredTips[currentTipIndex].id} 
+          tip={filteredTips[currentTipIndex]} 
+        />
       ) : (
         <EmptyTipState />
       )}
