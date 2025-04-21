@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { VOLUME_PRICING } from '@/data/industries/common';
 import CapabilitiesOptions from './capabilities/CapabilitiesOptions';
 import CalculatorsPanel from './capabilities/CalculatorsPanel';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CapabilitiesCalculator from './CapabilitiesCalculator';
+import { useCapabilitiesState } from '@/hooks/useCapabilitiesState';
 
 interface UnifiedCapabilitiesSelectionProps {
   selectedCapabilities: string[];
@@ -27,6 +29,11 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
   industryCount = 1
 }) => {
   const isMobile = useIsMobile();
+  const { 
+    automationCapabilities,
+    intelligenceCapabilities,
+    integrationCapabilities 
+  } = useCapabilitiesState();
   
   const toggleCapability = (capabilityId: string) => {
     if (selectedCapabilities.includes(capabilityId)) {
@@ -48,43 +55,6 @@ const UnifiedCapabilitiesSelection: React.FC<UnifiedCapabilitiesSelectionProps> 
   const getVolumePrice = () => {
     return VOLUME_PRICING[selectedCallsVolume as keyof typeof VOLUME_PRICING] || 0;
   };
-
-  const getCapabilitiesByCategory = (category: string) => {
-    return CAPABILITIES
-      .filter(cap => cap.category === category && category !== 'communication')
-      .map(cap => ({
-        id: cap.id,
-        name: cap.name,
-        description: cap.description,
-        icon: getIconForCapability(cap.id),
-        price: cap.price,
-        hasConnection: cap.hasConnection,
-        connectionType: cap.connectionType,
-        integrationOptions: cap.integrationOptions
-      }));
-  };
-
-  const getIconForCapability = (id: string): React.ReactNode => {
-    switch (id) {
-      case 'multi-language':
-        return <MessageSquare className="w-5 h-5" />;
-      case 'whatsapp-integration':
-      case 'confirmation-whatsapp':
-        return <IconBrandWhatsapp size={20} />;
-      case 'elite-memory':
-      case 'conversation-memory':
-      case 'database-search':
-      case 'voice-assistant':
-      case 'real-time-data':
-        return <Brain className="w-5 h-5" />;
-      default:
-        return <Bot className="w-5 h-5" />;
-    }
-  };
-
-  const automationCapabilities = getCapabilitiesByCategory('automation');
-  const intelligenceCapabilities = getCapabilitiesByCategory('intelligence');
-  const integrationCapabilities = getCapabilitiesByCategory('integration');
 
   return (
     <div className="w-full mx-auto px-2 md:px-4">

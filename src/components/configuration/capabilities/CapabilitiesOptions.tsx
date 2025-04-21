@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { useCapabilitiesState } from '@/hooks/useCapabilitiesState';
 import CapabilitiesHeader from './CapabilitiesHeader';
 import CapabilitiesGroups from './CapabilitiesGroups';
 import CallsVolumeSelector from './CallsVolumeSelector';
+import { Capability } from './types';
 
 interface CapabilitiesOptionsProps {
   selectedCapabilities: string[];
@@ -12,6 +12,9 @@ interface CapabilitiesOptionsProps {
   onToggleCapability: (capabilityId: string) => void;
   onToggleIntegration: (integrationId: string) => void;
   onChangeCallsVolume: (volume: string) => void;
+  automationCapabilities?: Capability[];
+  intelligenceCapabilities?: Capability[];
+  integrationCapabilities?: Capability[];
 }
 
 const CapabilitiesOptions: React.FC<CapabilitiesOptionsProps> = ({
@@ -21,13 +24,10 @@ const CapabilitiesOptions: React.FC<CapabilitiesOptionsProps> = ({
   onToggleCapability,
   onToggleIntegration,
   onChangeCallsVolume,
+  automationCapabilities = [],
+  intelligenceCapabilities = [],
+  integrationCapabilities = []
 }) => {
-  const { 
-    automationCapabilities,
-    intelligenceCapabilities,
-    integrationCapabilities 
-  } = useCapabilitiesState();
-
   return (
     <div className="w-full lg:flex-1 space-y-6 md:space-y-8">
       <CapabilitiesHeader />
