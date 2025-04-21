@@ -26,7 +26,7 @@ export const useCapabilitiesState = () => {
 
   const getCapabilitiesByCategory = (category: string): Capability[] => {
     return CAPABILITIES
-      .filter(cap => cap.category === category && category !== 'communication')
+      .filter(cap => cap.category === category)
       .map(cap => ({
         id: cap.id,
         name: cap.name,
