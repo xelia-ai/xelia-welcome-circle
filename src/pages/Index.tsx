@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Star, Shield, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
-import WelcomeExperience from '@/components/WelcomeExperience';
+
 
 const Index = () => {
   const navigate = useNavigate();
-  const [showWelcomeExperience, setShowWelcomeExperience] = useState(false);
+  
   
   const handleConfigureClick = () => {
     navigate('/configure');
   };
 
-  const handleSkipWelcome = () => {
-    setShowWelcomeExperience(false);
-  };
 
   const features = [
     {
@@ -58,13 +55,6 @@ const Index = () => {
     }
   };
 
-  if (showWelcomeExperience) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light relative overflow-hidden">
-        <WelcomeExperience onSkip={handleSkipWelcome} />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-xelia-dark via-xelia-dark to-xelia-light relative overflow-hidden">
