@@ -7,7 +7,7 @@ import WelcomeExperience from '@/components/WelcomeExperience';
 
 const Index = () => {
   const navigate = useNavigate();
-  const [showWelcomeExperience, setShowWelcomeExperience] = useState(true);
+  const [showWelcomeExperience, setShowWelcomeExperience] = useState(false);
   
   const handleConfigureClick = () => {
     navigate('/configure');
